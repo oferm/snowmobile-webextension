@@ -1,0 +1,34 @@
+/* CSS for ski-forum/index.php */
+/* regex: http:\/\/(www\.)?snowheads.com\/ski-forum\/(index.php(\?.*)?)? */
+body > div:nth-last-of-type(3) table table tr:first-child {
+	display: none;
+}
+
+body > div:nth-last-of-type(3) table table tr td:nth-child(n+3) {
+	display: none;
+}
+
+body > div:nth-last-of-type(3) table table tr td {
+    border-radius: 0 !important;
+}
+
+body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > div:nth-child(1) {
+    /* The top login box */
+    margin: inherit !important;
+}
+
+.ycattitle {
+    display: flex;
+    justify-content: center;
+}
+
+table .forum_block {
+    border: 0;
+}
+
+table .forum_block:hover {
+    background-color: inherit;
+    color: inherit;
+    border: 0;
+    padding: 3px 3px 3px 10px;
+}

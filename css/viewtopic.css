@@ -1,0 +1,115 @@
+/* CSS for viewtopic.php */
+/* regex: http:\/\/(www\.)?snowheads.com\/ski-forum\/(viewtopic.php(\?.*)?); */
+body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > div:nth-child(1) {
+    /* The top login box */
+    margin: inherit !important;
+}
+
+body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > div:nth-child(1) {
+ 
+    margin: inherit !important;
+}
+
+#table3 .message_cell {
+    max-width: 90vw;
+}
+
+.forumline td {
+    display: block;
+    width: 100%;
+}
+.forumline .row1,
+.forumline .row2 {
+    height: 100%;
+}
+.forumline .poster_info {
+    display: flex !important;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    margin-left: 10px;
+}
+.forumline .poster_info .plusclick {
+    margin-right: 5px;
+}
+.forumline .poster_info span {
+    display: flex;
+}
+.forumline .poster_info font {
+    display: flex;
+}
+.forumline .poster_info .report_conditions:not(.post_date_portrait) {
+    display: none;
+}
+.forumline .poster_info .report_conditionsRed {
+    /* e.g. freerider, user, super-snowhead */
+    
+    display: none;
+}
+.forumline .poster_info .report_conditions.post_date_portrait {
+    display: flex;
+    
+    /* remove bold HH:MM */
+    font-weight: normal !important;
+    padding-right: 5px;
+}
+.forumline .poster_info .report_conditions.post_date_portrait br {
+    display: none;
+}
+
+.forumline .post_row #table3 tbody tr td:not(.quote) {
+    border-left: none !important;
+    position: inherit !important;
+    display: block;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.forumline td.row1,
+.forumline td.row2 {
+    background-color: #F5F5FF;
+}
+.forumline tbody tr:nth-child(2n+2) {
+    height: 5px;
+}
+#table2 .forumline .row1,
+#table2 .forumline .row2 {
+    /* Aligns the poster_info and the post */
+    
+    border: none !important;
+}
+.post_info .plusclick {
+    display: flex;
+}
+.post_date_portrait {
+    background-color: inherit;
+}
+.postbody {
+    font-size: 0.8em;
+}
+.post_info {
+    position: inherit !important;
+    display: flex !important;
+    flex-direction: row-reverse;
+    vertical-align: inherit !important;
+    margin-right: 65px !important;
+}
+.post_info div {
+    float: inherit !important;
+    position: inherit !important;
+    margin-top: 9px;
+}
+.forumline #post_row.post_row table#table3 tbody tr td a img {
+    width: 21px !important;
+    padding: inherit !important;
+}
+.forumline tbody tr td.row1 form {
+    background: none !important;
+    width: auto !important;
+}
+
+table {
+    table-layout: fixed;
+}
+.quote {
+    overflow: hidden;
+}

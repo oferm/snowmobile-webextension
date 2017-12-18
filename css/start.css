@@ -1,0 +1,83 @@
+/* CSS for index.php and mx/index.php */
+/* regex: http:\/\/(www\.)?snowheads.com\/(mx\/index.php)?((\?.*)?)?; */
+body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > div:nth-child(1) {
+    /* The top login box */
+    margin: inherit !important;
+}
+
+body > div:nth-child(4) > div:nth-child(1) {
+    padding: 0 !important;
+}
+
+body > div:nth-child(4) table tbody tr td {
+    display: flex;
+    flex-direction: column;
+    width: inherit !important;
+}
+
+.forumline {
+    width: 100%;
+    padding-top: 10px;
+    background-color: inherit;
+}
+
+body > div:nth-child(4) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(2) {
+    /* Ski Club 2.0 */
+    border: none;
+}
+
+body > div:nth-child(4) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(2) td {
+    /* Ski Club 2.0 */
+    border: none;
+}
+
+table.forumline:nth-child(3) {
+    /* Who is Online */
+    order: 3;
+}
+
+table.forumline:nth-child(6) {
+    /* 2nd Hand */
+    order: 2;
+}
+table.forumline:nth-child(6) > tbody:nth-child(1) > tr:nth-child(n+11),
+body > div:nth-child(4) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2) > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(n+16),
+body > div:nth-child(4) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(n+16){
+    /* only show 10 2nd hand links, hide the rest */
+    /* only show 15 Recent posts, hide the rest */
+    display: none;
+}
+.forumline .row1,
+.forumline .row2 {
+    background-color: #F5F5FF;
+    margin-top: 5px;
+}
+
+.forumline .genmed {
+    border: none !important;
+}
+
+.forumline .btnhov,
+.forumline .btnunhov {
+    background-color: #F5F5FF;
+    color: inherit;
+    margin-top: 5px;
+}
+
+.genmed img {
+    margin-right: 5px;
+}
+
+.thHead .cattitle {
+    color: #EEDD00;
+    font-weight: bold;
+}
+body > div:nth-child(4) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2) {
+    /* Recent posts */
+    order: 1;
+}
+
+body > div:nth-child(4) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(3) {
+    /* About... */
+    margin-top: 10px;
+}

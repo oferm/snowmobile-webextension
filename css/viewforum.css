@@ -1,0 +1,105 @@
+/* CSS for viewforum.php and snow_reports.php */
+/* regex:Ö http:\/\/(www\.)?snowheads.com\/ski-forum\/((viewforum.php|snow_reports.php)(\?.*)?)?; */
+body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > div:nth-child(1) {
+    /* The top login box */
+    margin: inherit !important;
+}
+
+body > div:nth-last-of-type(3) .forumline {
+    display: flex;
+    flex-direction: column;
+    padding: 0 5px;
+}
+
+body > div:nth-last-of-type(3) .forumline tr {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 5px;
+}
+
+body > div:nth-last-of-type(3) .forumline .gensmall {
+    display: none;
+}
+
+body > div:nth-last-of-type(3) .forumline tr .row1,
+body > div:nth-last-of-type(3) .forumline tr .row2,
+body > div:nth-last-of-type(3) .forumline tr .row3Right {
+    background-color: #F5F5FF;
+    display: flex;
+    flex-grow: 1;
+}
+
+body > div:nth-last-of-type(3) .forumline tr .row2 {
+    display: flex;
+    justify-content: flex-end;
+    order: 4;
+    flex-grow: 1;
+}
+
+body > div:nth-last-of-type(3) .forumline tr:first-child th:nth-child(n + 2) {
+    display: none;
+}
+
+body > div:nth-last-of-type(3) .forumline th.thCornerL {
+    border-width: 0;
+}
+
+body > div:nth-last-of-type(3) .forumline .row2 .postdetails {
+    /* View count should not be visible */
+    color: #F5F5FF;
+    font-size: 0;
+}
+
+body > div:nth-last-of-type(3) .forumline .row2 .postdetails b {
+    /* But post count should be visible! */
+    color: #7777AA;
+    display: flex;
+    font-size: 9px;
+}
+
+body > div:nth-last-of-type(3) .forumline .row3Right .postdetails {
+    color: #F5F5FF;
+    font-size: 0;
+}
+body > div:nth-last-of-type(3) .forumline .row3Right .postdetails div:first-child {
+	/* Post Creator */
+    display: none !important;
+}
+body > div:nth-last-of-type(3) .forumline .row3Right .postdetails div {
+    color: #7777AA;
+    font-size: 9px;
+}
+
+body > div:nth-last-of-type(3) .forumline .row3Right .postdetails div:nth-child(2)::after {
+	/* Last poster */
+    font-size: 9px;
+    color: #7777AA;
+    content: ",";
+}   
+
+body > div:nth-last-of-type(3) .forumline .row2 .postdetails b::after {
+    display: flex;
+    margin-left: 5px;
+    width: 15px;
+    height: 15px;
+    content: "";
+	background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8'?%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' width='15' height='15' viewBox='0 0 24 24'%3E%3Cpath d='M20,2H4A2,2 0 0,0 2,4V22L6,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M6,9H18V11H6M14,14H6V12H14M18,8H6V6H18' /%3E%3C/svg%3E");
+
+}
+
+body > div:nth-last-of-type(3) .nav {
+    display: flex;
+    flex-direction: column;
+}
+
+body > div:nth-last-of-type(3) > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2) > div:nth-child(2) > span:nth-child(1) {
+    /* Page 1, 2, 3 at the bottom */
+    flex-direction: row;
+}
+
+body > div:nth-last-of-type(3) .forumline tr:nth-child(n + 2) td:first-child {
+    display: none;
+}
+body > div:nth-last-of-type(3) table:nth-child(3) tr:nth-child(2) td:first-child {
+    display: none;
+}
