@@ -28,7 +28,9 @@
 		},
 		{
 			"matches": [
-				"*://snowheads.com/ski-forum/"
+				"*://snowheads.com/ski-forum/",
+				"*://snowheads.com/ski-forum/index.php*",
+				"*://snowheads.com/ski-forum/?*"
 			],
 			"css": ["css/forumlist.css"]
 		},
