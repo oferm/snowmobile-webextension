@@ -1,0 +1,20 @@
+{
+  "devDependencies": {
+    "web-ext": "^2.2.2"
+  },
+  "name": "snowmobile",
+  "description": "Make the snowheads.com forum mobile friendly.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oferm/snowmobile-webextension.git"
+  },
+  "author": "scr",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/oferm/snowmobile-webextension/issues"
+  },
+  "homepage": "https://github.com/oferm/snowmobile-webextension#readme"
+}

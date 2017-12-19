@@ -6,8 +6,8 @@
 	"description": "Make the Snowheads.com forum mobile-friendly",
 
 	"icons": {
-		"48": "icons/ski-goggles.svg",
-		"96": "icons/ski-goggles.svg"
+		"48": "/icons/ski-goggles.svg",
+		"96": "/icons/ski-goggles.svg"
 	},
 
 	"content_scripts": [
