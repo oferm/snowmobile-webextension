@@ -1,2 +1,5 @@
 node_modules
 web-ext-artifacts
+.playwright-profile
+screenshots
+.playwright-mcp

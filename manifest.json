@@ -1,13 +1,16 @@
 {
-	"manifest_version": 2,
+	"manifest_version": 3,
 	"name": "SnowMobile",
 	"version": "1.1",
 
 	"description": "Make the Snowheads.com forum mobile-friendly",
+	"host_permissions": [
+		"*://snowheads.com/*"
+	],
 
 	"icons": {
-		"48": "/icons/ski-goggles.svg",
-		"96": "/icons/ski-goggles.svg"
+		"48": "icons/ski-goggles-48.png",
+		"96": "icons/ski-goggles-96.png"
 	},
 
 	"content_scripts": [

@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "playwright": "^1.55.0",
     "web-ext": "^2.2.2"
   },
   "name": "snowmobile",
@@ -7,6 +8,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {},
+  "scripts": {
+    "screenshot": "node scripts/capture-screenshot.js",
+    "screenshot:iphone17e": "VIEWPORT_WIDTH=390 VIEWPORT_HEIGHT=844 node scripts/capture-screenshot.js",
+    "release": "web-ext build --ignore-files AGENTS.md --ignore-files README.md --ignore-files package.json --ignore-files yarn.lock --ignore-files playwright.config.js --ignore-files 'scripts/**' --ignore-files 'screenshots/**'"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oferm/snowmobile-webextension.git"

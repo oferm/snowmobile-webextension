@@ -87,20 +87,48 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     font-size: 0.8em;
 }
 .post_info {
-    position: inherit !important;
-    display: flex !important;
-    flex-direction: row-reverse;
-    vertical-align: inherit !important;
-    margin-right: 65px !important;
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    margin: 4px 0 0 !important;
+    padding-right: 8px;
+    box-sizing: border-box;
+    text-align: right;
+    /* Keep the expand icon on the same visual row as post-link and quote. */
+    transform: translateY(14px);
 }
 .post_info div {
     float: inherit !important;
     position: inherit !important;
-    margin-top: 9px;
+    margin-top: 0;
 }
 .forumline #post_row.post_row table#table3 tbody tr td a img {
-    width: 21px !important;
-    padding: inherit !important;
+    width: 18px !important;
+    height: 14px !important;
+    padding: 0 !important;
+    vertical-align: middle;
+}
+.forumline #post_row.post_row table#table3 tbody tr td:has(.post_link_landscape) {
+    white-space: nowrap;
+}
+.forumline #post_row.post_row .post_link_landscape,
+.forumline #post_row.post_row .post_quote_landscape {
+    display: inline-flex !important;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 0 0 4px !important;
+    padding: 0 !important;
+    white-space: nowrap;
+}
+.forumline #post_row.post_row .post_quote_landscape {
+    margin-right: 12px !important;
+    transform: translateY(-3px);
+}
+.forumline #post_row.post_row .post_quote_landscape img {
+    transform: translateY(-2px);
+}
+.forumline #post_row.post_row .post_link_landscape {
+    transform: translateY(-3px);
 }
 .forumline tbody tr td.row1 form {
     background: none !important;
