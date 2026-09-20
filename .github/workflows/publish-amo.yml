@@ -1,0 +1,55 @@
+name: Publish to AMO
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the release
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Lint extension
+        run: yarn lint
+
+      - name: Build extension
+        run: yarn release
+
+      - name: Sign extension on AMO
+        run: >-
+          yarn web-ext sign
+          --source-dir .
+          --artifacts-dir web-ext-artifacts
+          --channel listed
+          --api-key "$AMO_JWT_ISSUER"
+          --api-secret "$AMO_JWT_SECRET"
+          --ignore-files AGENTS.md
+          --ignore-files README.md
+          --ignore-files package.json
+          --ignore-files yarn.lock
+          --ignore-files playwright.config.js
+          --ignore-files 'scripts/**'
+          --ignore-files 'screenshots/**'
+        env:
+          AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+          AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+
+      - name: Attach signed extension to the GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ github.event.release.tag_name }}" web-ext-artifacts/*.xpi --clobber

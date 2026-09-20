@@ -46,5 +46,13 @@ Create a release with:
 yarn release
 ```
 
-Playwright files and project metadata are excluded from the release. Screenshots are saved outside the project in `/tmp/opencode/snowmobile-screenshots/`.
-The screenshot command reuses the local Playwright profile, so its login session is preserved.
+## Publish releases to AMO
+
+Publishing a GitHub Release automatically runs linting, builds the extension,
+and submits it to Mozilla Add-ons (AMO). Configure these repository secrets
+before publishing:
+
+- `AMO_JWT_ISSUER`: the AMO API key/issuer
+- `AMO_JWT_SECRET`: the AMO API secret
+
+The signed XPI is also attached to the GitHub Release.
