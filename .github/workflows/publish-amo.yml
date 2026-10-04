@@ -24,6 +24,30 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Validate release versions
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          MANIFEST_VERSION=$(node -p "require('./manifest.json').version")
+
+          if [[ "$RELEASE_TAG" != v* ]]; then
+            echo "Release tag must use the v<version> format (got $RELEASE_TAG)"
+            exit 1
+          fi
+
+          TAG_VERSION="${RELEASE_TAG#v}"
+
+          if [ "$PACKAGE_VERSION" != "$MANIFEST_VERSION" ]; then
+            echo "package.json ($PACKAGE_VERSION) and manifest.json ($MANIFEST_VERSION) differ"
+            exit 1
+          fi
+
+          if [ "$PACKAGE_VERSION" != "$TAG_VERSION" ]; then
+            echo "package.json ($PACKAGE_VERSION) and release tag ($RELEASE_TAG) differ"
+            exit 1
+          fi
+
       - name: Lint extension
         run: yarn lint
 

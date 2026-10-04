@@ -46,6 +46,29 @@ Create a release with:
 yarn release
 ```
 
+To publish a new GitHub and AMO release in one step, make sure you are
+authenticated with GitHub CLI (`gh auth status`), then run:
+
+```bash
+yarn publish-release 1.4.0
+```
+
+This updates both version files, runs linting, commits and tags the release,
+pushes it to GitHub, and publishes the GitHub Release. The AMO workflow then
+runs automatically.
+
+Alternatively, Yarn can choose the next semantic version and create the Git
+tag for you:
+
+```bash
+yarn version --minor   # or --patch / --major
+git push --follow-tags
+VERSION=$(node -p "require('./package.json').version")
+gh release create "v$VERSION" --generate-notes
+```
+
+The `version` hook keeps `manifest.json` synchronized with `package.json`.
+
 ## Publish releases to AMO
 
 Publishing a GitHub Release automatically runs linting, builds the extension,

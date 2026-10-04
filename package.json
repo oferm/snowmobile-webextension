@@ -12,7 +12,9 @@
     "screenshot": "node scripts/capture-screenshot.js",
     "screenshot:iphone17e": "VIEWPORT_WIDTH=390 VIEWPORT_HEIGHT=844 node scripts/capture-screenshot.js",
     "lint": "web-ext lint --ignore-files AGENTS.md --ignore-files README.md --ignore-files package.json --ignore-files yarn.lock --ignore-files playwright.config.js --ignore-files 'scripts/**' --ignore-files 'screenshots/**'",
-    "release": "web-ext build --overwrite-dest --ignore-files AGENTS.md --ignore-files README.md --ignore-files package.json --ignore-files yarn.lock --ignore-files playwright.config.js --ignore-files 'scripts/**' --ignore-files 'screenshots/**'"
+    "release": "web-ext build --overwrite-dest --ignore-files AGENTS.md --ignore-files README.md --ignore-files package.json --ignore-files yarn.lock --ignore-files playwright.config.js --ignore-files 'scripts/**' --ignore-files 'screenshots/**'",
+    "publish-release": "node scripts/publish-release.js",
+    "version": "node scripts/sync-manifest-version.js"
   },
   "repository": {
     "type": "git",
