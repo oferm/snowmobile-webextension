@@ -1,20 +1,14 @@
 {
   "devDependencies": {
-    "playwright": "^1.55.0",
-    "web-ext": "^10.6.0"
+    "playwright": "^1.55.0"
   },
   "name": "snowmobile",
-  "description": "Make the snowheads.com forum mobile friendly.",
+  "description": "Custom mobile-friendly CSS for Snowheads.com",
   "version": "1.3.0",
-  "main": "index.js",
-  "dependencies": {},
   "scripts": {
+    "build:userscript": "node scripts/build-userscript.js",
     "screenshot": "node scripts/capture-screenshot.js",
-    "screenshot:iphone17e": "VIEWPORT_WIDTH=390 VIEWPORT_HEIGHT=844 node scripts/capture-screenshot.js",
-    "lint": "web-ext lint --ignore-files AGENTS.md --ignore-files README.md --ignore-files package.json --ignore-files yarn.lock --ignore-files playwright.config.js --ignore-files 'scripts/**' --ignore-files 'screenshots/**'",
-    "release": "web-ext build --overwrite-dest --ignore-files AGENTS.md --ignore-files README.md --ignore-files package.json --ignore-files yarn.lock --ignore-files playwright.config.js --ignore-files 'scripts/**' --ignore-files 'screenshots/**'",
-    "publish-release": "node scripts/publish-release.js",
-    "version": "node scripts/sync-manifest-version.js"
+    "screenshot:iphone17e": "VIEWPORT_WIDTH=390 VIEWPORT_HEIGHT=844 node scripts/capture-screenshot.js"
   },
   "repository": {
     "type": "git",

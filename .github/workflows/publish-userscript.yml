@@ -1,0 +1,36 @@
+name: Publish userscript
+
+on:
+  push:
+    branches: [master]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build userscript
+        run: node scripts/build-userscript.js
+
+      - name: Publish userscript branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan userscript
+          git rm -rf --ignore-unmatch .
+          cp dist/snowmobile.user.js dist/snowmobile.meta.js .
+          git add snowmobile.user.js snowmobile.meta.js
+          git commit -m "Publish SnowMobile userscript"
+          git push --force origin userscript

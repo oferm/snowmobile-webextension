@@ -2,8 +2,8 @@ const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
 const { chromium } = require("playwright");
+const { getStylesheetForUrl } = require("./userscript-config");
 
-const extensionPath = path.resolve(__dirname, "..");
 const url = process.argv[2] ||
   "https://snowheads.com/ski-forum/viewtopic.php?t=177296#5602301";
 const width = Number(process.env.VIEWPORT_WIDTH || 390);
@@ -21,15 +21,13 @@ const context = await chromium.launchPersistentContext(
       executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium-browser",
       headless: false,
       viewport: { width, height },
-      args: [
-        `--disable-extensions-except=${extensionPath}`,
-        `--load-extension=${extensionPath}`,
-      ],
     },
   );
 
   const page = context.pages()[0] || await context.newPage();
   await page.goto(url, { waitUntil: "domcontentloaded" });
+  const stylesheet = getStylesheetForUrl(page.url());
+  if (stylesheet) await page.addStyleTag({ path: stylesheet });
   await page.waitForTimeout(1000);
   await page.screenshot({ path: output, fullPage: true });
   console.log(`Saved ${output}`);

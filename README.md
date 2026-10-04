@@ -1,81 +1,49 @@
-# snowmobile-webextension
-Make the snowheads.com forum mobile friendly.
+# SnowMobile
 
-## About
-This is a Firefox WebExtensions add-on that adds custom CSS to the snowheads.com forum,
-in order to make it prettier for mobile users.
+Custom CSS that makes the Snowheads.com forum easier to use on mobile devices.
+The `css/` files are the source of truth. The project builds them into a userscript
+for iPhone; `manifest.json` is only a quick local development loader for desktop.
 
-## Test in Chromium
+## Test and develop locally (Linux)
 
-1. Open `chromium://extensions`.
-2. Enable **Developer mode**.
-3. Click **Load unpacked** and select this project directory.
-4. Open `https://snowheads.com`.
+Load this project as an unpacked extension once:
 
-Reload the extension from `chromium://extensions` after changing files.
+- **Chrome:** open `chrome://extensions`, enable **Developer mode**, click
+  **Load unpacked**, and select the project folder.
+- **Firefox:** open `about:debugging#/runtime/this-firefox`, click **Load Temporary
+  Add-on…**, and select this folder's `manifest.json`.
 
-## Automated screenshots
+Open Snowheads. Edit the relevant file in `css/`, then reload the Snowheads tab to
+see your changes. If the browser still shows the old CSS, reload the extension from
+its extensions page and refresh the tab again.
 
-Install dependencies with Yarn:
+For an iPhone-sized screenshot, install dependencies and run:
 
 ```bash
 yarn install
-```
-
-Capture the default page at 390×844:
-
-```bash
-yarn screenshot
-```
-
-The default matches the iPhone 17e CSS viewport (390×844):
-
-```bash
 yarn screenshot:iphone17e
 ```
 
-Use another viewport or URL:
+The screenshot tool injects the source CSS directly into Chromium at 390×844. Set
+`CHROMIUM_PATH` if Chromium is installed at a different path on your Linux system.
+
+## iPhone (Safari)
+
+Install [Userscripts](https://apps.apple.com/app/userscripts/id1463298887), enable it
+in **Settings → Safari → Extensions**, then open this link in Safari:
+
+[Install SnowMobile](https://raw.githubusercontent.com/oferm/snowmobile-webextension/userscript/snowmobile.user.js)
+
+Accept the install prompt. The userscript is published automatically when changes
+are pushed to `master`, and Userscripts checks the published metadata for updates.
+
+## Build the userscript
+
+Node.js is required. Build locally with:
 
 ```bash
-VIEWPORT_WIDTH=768 VIEWPORT_HEIGHT=1024 yarn screenshot https://snowheads.com/
+yarn build:userscript
 ```
 
-Create a release with:
-
-```bash
-yarn release
-```
-
-To publish a new GitHub and AMO release in one step, make sure you are
-authenticated with GitHub CLI (`gh auth status`), then run:
-
-```bash
-yarn publish-release 1.4.0
-```
-
-This updates both version files, runs linting, commits and tags the release,
-pushes it to GitHub, and publishes the GitHub Release. The AMO workflow then
-runs automatically.
-
-Alternatively, Yarn can choose the next semantic version and create the Git
-tag for you:
-
-```bash
-yarn version --minor   # or --patch / --major
-git push --follow-tags
-VERSION=$(node -p "require('./package.json').version")
-gh release create "v$VERSION" --generate-notes
-```
-
-The `version` hook keeps `manifest.json` synchronized with `package.json`.
-
-## Publish releases to AMO
-
-Publishing a GitHub Release automatically runs linting, builds the extension,
-and submits it to Mozilla Add-ons (AMO). Configure these repository secrets
-before publishing:
-
-- `AMO_JWT_ISSUER`: the AMO API key/issuer
-- `AMO_JWT_SECRET`: the AMO API secret
-
-The signed XPI is also attached to the GitHub Release.
+The generated files are written to the ignored `dist/` directory. Push changes to
+`master` to publish the installable files on the `userscript` branch.
