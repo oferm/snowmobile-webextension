@@ -68,9 +68,6 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
 .forumline td.row2 {
     background-color: #F5F5FF;
 }
-.forumline tbody tr:nth-child(2n+2) {
-    height: 5px;
-}
 #table2 .forumline .row1,
 #table2 .forumline .row2 {
     /* Aligns the poster_info and the post */
