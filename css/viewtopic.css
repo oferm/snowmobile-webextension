@@ -14,7 +14,7 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     max-width: 90vw;
 }
 
-.forumline td {
+.forumline > tbody > tr > td {
     display: block;
     width: 100%;
 }
@@ -56,7 +56,7 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     display: none;
 }
 
-.forumline .post_row #table3 tbody tr td:not(.quote) {
+.forumline .post_row #table3 > tbody > tr > td:not(.quote) {
     border-left: none !important;
     position: inherit !important;
     display: block;
@@ -135,9 +135,6 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     width: auto !important;
 }
 
-table {
-    table-layout: fixed;
-}
 .quote {
     overflow: hidden;
 }
