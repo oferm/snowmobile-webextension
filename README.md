@@ -21,11 +21,33 @@ For an iPhone-sized screenshot, install dependencies and run:
 
 ```bash
 yarn install
-yarn screenshot:iphone17e
+yarn screenshot:iphone16e
 ```
 
-The screenshot tool injects the source CSS directly into Chromium at 390×844. Set
-`CHROMIUM_PATH` if Chromium is installed at a different path on your Linux system.
+The screenshot tool drives Playwright **WebKit** (the Safari engine) with an
+iPhone device profile, so the result matches a real iPhone rather than a desktop
+Chromium window squeezed to phone width. It injects the source CSS directly and
+defaults to 390×844 (iPhone 16e) at DPR 3 with touch enabled.
+
+On Linux, Playwright's WebKit is an Ubuntu build, so it needs a few Ubuntu
+libraries that Fedora does not ship. Fetch and install them once (no root
+required):
+
+```bash
+yarn webkit:install-deps
+```
+
+Useful overrides:
+
+- `DEVICE="iPhone 16 Pro Max"` (or any Playwright device name) to change phone.
+- `ENGINE=chromium` to capture with Chromium instead of WebKit.
+- `VIEWPORT_WIDTH` / `VIEWPORT_HEIGHT` to override just the viewport size.
+- `HEADLESS=false` to watch the run. The tool reuses a persistent Playwright
+  profile per engine, so the login session is preserved.
+- `CHROMIUM_PATH` if Chromium is installed at a different path on your system.
+
+The tool prints the layout `innerWidth`, DPR, touch support and page
+`scrollWidth`, and warns about horizontal overflow.
 
 ## iPhone (Safari)
 
