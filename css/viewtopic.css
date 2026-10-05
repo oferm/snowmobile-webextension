@@ -18,6 +18,7 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     display: block;
     width: 100%;
 }
+
 /* The post cells have a legacy height="3" attribute. With the block-cell
    mobile layout, height:100% collapses each table row to its poster height,
    letting later posts overlap the previous post's content. */
@@ -141,4 +142,77 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
 
 .quote {
     overflow: hidden;
+}
+
+@media (max-width: 600px) {
+    /* The legacy header's right-hand link table forces the page wider than a phone. */
+    body > table:first-of-type > tbody > tr:first-child > td:nth-child(2) {
+        display: none !important;
+    }
+
+    #page_head_Xport img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    /* Account for cell padding in the post table's 100% widths. */
+    #pagebody .forumline {
+        width: calc(100vw - 28px) !important;
+        max-width: calc(100vw - 28px) !important;
+        table-layout: fixed !important;
+    }
+
+    .forumline > tbody > tr > td {
+        box-sizing: border-box;
+    }
+
+    #pagebody .forumline #table3 .message_cell {
+        box-sizing: border-box !important;
+        width: 90vw !important;
+        max-width: 90vw !important;
+    }
+
+    /* Make the author/date strip read as a full-width post header. */
+    #pagebody .forumline > tbody > tr > td.name {
+        box-sizing: border-box;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+
+    #pagebody .forumline .poster_info {
+        align-items: center;
+        background-color: #ECECFF;
+        border-bottom: 1px solid #D2D2EE;
+        box-sizing: border-box;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 0;
+        padding: 6px 10px;
+        width: 100%;
+    }
+
+    #pagebody .forumline .poster_info > span:not(.plusclick):not(.report_conditions) {
+        flex: 1 1 auto;
+    }
+
+    #pagebody .forumline .poster_info .post_date_portrait {
+        background: transparent !important;
+        color: #7777AA !important;
+        font-size: 10px !important;
+        padding: 0 !important;
+    }
+
+    .postbody,
+    .postbody * {
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+    }
+
+    /* Long quoted URLs otherwise get clipped by the existing .quote overflow rule. */
+    .quote,
+    .quote * {
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+    }
 }

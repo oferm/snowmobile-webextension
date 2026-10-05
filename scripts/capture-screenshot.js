@@ -49,7 +49,7 @@ if (process.env.VIEWPORT_WIDTH || process.env.VIEWPORT_HEIGHT) {
 const label = `${engine}-${deviceName.replace(/[^a-z0-9]+/gi, "-").toLowerCase()}`;
 const output =
   process.env.SCREENSHOT ||
-  path.join(os.tmpdir(), "opencode", "snowmobile-screenshots", `${label}.png`);
+  path.join("/tmp", "opencode", "snowmobile-screenshots", `${label}.png`);
 
 fs.mkdirSync(path.dirname(output), { recursive: true });
 

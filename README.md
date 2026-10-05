@@ -4,7 +4,7 @@ Custom CSS that makes the Snowheads.com forum easier to use on mobile devices.
 The `css/` files are the source of truth. The project builds them into a userscript
 for iPhone; `manifest.json` is only a quick local development loader for desktop.
 
-## Test and develop locally (Linux)
+## Test and develop locally
 
 Load this project as an unpacked extension once:
 
@@ -16,6 +16,37 @@ Load this project as an unpacked extension once:
 Open Snowheads. Edit the relevant file in `css/`, then reload the Snowheads tab to
 see your changes. If the browser still shows the old CSS, reload the extension from
 its extensions page and refresh the tab again.
+
+### Live feedback in Safari on macOS
+
+For testing the userscript in Safari itself, install the local development
+userscript once:
+
+```bash
+yarn install
+yarn dev:safari
+```
+
+While that command is running, add
+`http://127.0.0.1:4173/snowmobile.local.user.js` in Userscripts' **New Remote**
+option and accept the install prompt. Enable Userscripts for Snowheads, disable
+the published SnowMobile script to avoid overlapping styles, then open or refresh
+a Snowheads page. Keep the command running and edit files in `css/`: the matching
+stylesheet is fetched from your working tree. Within about a second, Safari reloads
+the page once for each saved CSS revision and reinjects it using the same
+`GM_addStyle`/`GM.addStyle` API as the production userscript; the current scroll
+position is restored. The Safari Web Inspector console logs applied revisions.
+The generated local script is in the ignored `dist/` directory. It does not use
+`@updateURL`; CSS live reload works independently of Userscripts' update checker.
+Reinstall it from **New Remote** only when the loader code changes. Set `PORT` if
+4173 is already in use, for example `PORT=4174 yarn dev:safari` (use that port in
+the Userscripts install URL too).
+
+The dev server listens only on this Mac's loopback interface. If it is stopped,
+the local userscript reports a connection warning in the Web Inspector console;
+it reconnects automatically when the server starts again.
+
+Run the fast route-mapping checks with `yarn test`.
 
 For an iPhone-sized screenshot, install dependencies and run:
 

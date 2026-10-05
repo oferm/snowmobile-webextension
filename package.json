@@ -7,10 +7,12 @@
   "version": "1.3.0",
   "scripts": {
     "build:userscript": "node scripts/build-userscript.js",
+    "dev:safari": "node scripts/dev-userscript.js",
     "webkit:install-deps": "node scripts/install-webkit-deps.js",
     "screenshot": "node scripts/capture-screenshot.js",
     "screenshot:iphone16e": "DEVICE=\"iPhone 16e\" node scripts/capture-screenshot.js",
-    "screenshot:chromium": "ENGINE=chromium node scripts/capture-screenshot.js"
+    "screenshot:chromium": "ENGINE=chromium node scripts/capture-screenshot.js",
+    "test": "node --test"
   },
   "repository": {
     "type": "git",
