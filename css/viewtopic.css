@@ -144,6 +144,44 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     overflow: hidden;
 }
 
+@media (max-width: 1200px) {
+    /* Keep the post date beside its author instead of in the distant landscape action column. */
+    #pagebody .forumline > tbody > tr > td.name {
+        box-sizing: border-box;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+
+    #pagebody .forumline .poster_info {
+        align-items: center;
+        background-color: #ECECFF;
+        border-bottom: 1px solid #D2D2EE;
+        box-sizing: border-box;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 0;
+        padding: 6px 10px;
+        width: 100%;
+    }
+
+    #pagebody .forumline .poster_info > span:not(.plusclick):not(.report_conditions) {
+        flex: 0 1 auto;
+    }
+
+    #pagebody .forumline .poster_info .post_date_portrait {
+        background: transparent !important;
+        color: #7777AA !important;
+        display: flex !important;
+        font-size: 10px !important;
+        padding: 0 !important;
+    }
+
+    #pagebody .forumline .post_date_landscape {
+        display: none !important;
+    }
+}
+
 @media (max-width: 600px) {
     /* The legacy header's right-hand link table forces the page wider than a phone. */
     body > table:first-of-type > tbody > tr:first-child > td:nth-child(2) {
@@ -170,37 +208,6 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
         box-sizing: border-box !important;
         width: 90vw !important;
         max-width: 90vw !important;
-    }
-
-    /* Make the author/date strip read as a full-width post header. */
-    #pagebody .forumline > tbody > tr > td.name {
-        box-sizing: border-box;
-        width: 100% !important;
-        min-width: 0 !important;
-        max-width: 100% !important;
-    }
-
-    #pagebody .forumline .poster_info {
-        align-items: center;
-        background-color: #ECECFF;
-        border-bottom: 1px solid #D2D2EE;
-        box-sizing: border-box;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin: 0;
-        padding: 6px 10px;
-        width: 100%;
-    }
-
-    #pagebody .forumline .poster_info > span:not(.plusclick):not(.report_conditions) {
-        flex: 1 1 auto;
-    }
-
-    #pagebody .forumline .poster_info .post_date_portrait {
-        background: transparent !important;
-        color: #7777AA !important;
-        font-size: 10px !important;
-        padding: 0 !important;
     }
 
     .postbody,
