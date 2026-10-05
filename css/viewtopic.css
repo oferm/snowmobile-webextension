@@ -18,6 +18,13 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     display: block;
     width: 100%;
 }
+/* The post cells have a legacy height="3" attribute. With the block-cell
+   mobile layout, height:100% collapses each table row to its poster height,
+   letting later posts overlap the previous post's content. */
+.forumline > tbody > tr > td:not(.name) {
+    height: auto !important;
+}
+
 .forumline .row1,
 .forumline .row2 {
     height: 100%;
