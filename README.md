@@ -80,6 +80,46 @@ Useful overrides:
 The tool prints the layout `innerWidth`, DPR, touch support and page
 `scrollWidth`, and warns about horizontal overflow.
 
+### look → change → verify loop
+
+`scripts/visual-review.js` drives Chromium with the unpacked extension actually
+loaded (via `--load-extension`), so a capture reflects what the browser's
+manifest content scripts really apply — not an injected copy of the CSS. It
+captures a 390×844 phone viewport at DPR 3 and can diff two captures.
+
+```bash
+yarn review --route viewtopic            # LOOK: capture the page
+# edit a file in css/
+yarn review --route viewtopic            # CHANGE: capture again
+yarn review:verify --route viewtopic     # VERIFY: diff against the baseline
+```
+
+Save a clean baseline first (one per route), then diff later captures against it:
+
+```bash
+yarn review:baseline --route viewtopic
+```
+
+Routes match the manifest content scripts: `viewtopic`, `forumlist`, `start`,
+`viewforum`. Pass `--url <url>` for anything else.
+
+Useful flags:
+
+- `--route <name>` / `--url <url>` choose the page.
+- `--full` captures the whole page instead of the phone viewport.
+- `--no-ext` launches without the extension, to prove its effect by diffing.
+- `--baseline <png>` diffs against an explicit image; `--json` is scriptable.
+- `DIFF_TOLERANCE` (default 16, per 0–255 channel) absorbs capture noise.
+
+The run prints the CSS route and content hash it captured against, warns if the
+page has horizontal overflow, and reports the number and percentage of changed
+pixels plus a red-highlighted diff image. Captures and diffs live under
+`/tmp/opencode/snowmobile-screenshots/loop/`.
+
+The tool reuses the login session in `~/.local/share/snowmobile-playwright`
+(override with `SNOWMOBILE_PROFILE`), and expects Fedora's Chromium at
+`/usr/bin/chromium-browser` (override with `CHROMIUM_PATH`).
+
 ## iPhone (Safari)
 
 Install [Userscripts](https://apps.apple.com/app/userscripts/id1463298887), enable it

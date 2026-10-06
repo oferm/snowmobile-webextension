@@ -12,6 +12,9 @@
     "screenshot": "node scripts/capture-screenshot.js",
     "screenshot:iphone16e": "DEVICE=\"iPhone 16e\" node scripts/capture-screenshot.js",
     "screenshot:chromium": "ENGINE=chromium node scripts/capture-screenshot.js",
+    "review": "node scripts/visual-review.js",
+    "review:baseline": "node scripts/visual-review.js --save-baseline",
+    "review:verify": "node scripts/visual-review.js --use-baseline",
     "test": "node --test"
   },
   "repository": {
