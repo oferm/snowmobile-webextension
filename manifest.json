@@ -34,7 +34,8 @@
       "matches": [
         "*://snowheads.com/ski-forum/viewtopic.php*"
       ],
-      "css": ["css/viewtopic.css"]
+      "css": ["css/viewtopic.css"],
+      "js": ["js/viewtopic.js"]
     }
   ]
 }
