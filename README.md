@@ -80,7 +80,7 @@ Useful overrides:
 The tool prints the layout `innerWidth`, DPR, touch support and page
 `scrollWidth`, and warns about horizontal overflow.
 
-### look → change → verify loop
+### Screenshot-driven CSS iteration
 
 `scripts/visual-review.js` drives Chromium with the unpacked extension actually
 loaded (via `--load-extension`), so a capture reflects what the browser's

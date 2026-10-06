@@ -2,7 +2,7 @@
 "use strict";
 
 /*
- * look-change-verify loop for the SnowMobile extension.
+ * Screenshot-driven CSS iteration loop for the SnowMobile extension.
  *
  *   node scripts/visual-review.js --route viewtopic          # LOOK  (capture)
  *   <edit css/>
@@ -77,7 +77,7 @@ function parseArgs(argv) {
 }
 
 function usage() {
-  console.log(`SnowMobile look-change-verify loop
+  console.log(`SnowMobile screenshot-driven CSS iteration
 
   node scripts/visual-review.js --route <route> [options]
 
