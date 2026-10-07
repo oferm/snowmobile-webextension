@@ -1,7 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { execFileSync } = require("node:child_process");
-const { routes, stylesheets } = require("./userscript-config");
+const { routes, scripts: scriptFiles, stylesheets } = require("./userscript-config");
 
 const root = path.resolve(__dirname, "..");
 const packageJson = require(path.join(root, "package.json"));
@@ -35,6 +35,16 @@ const css = Object.fromEntries(
   ]),
 );
 
+const scripts = Object.fromEntries(
+  Object.entries(scriptFiles).map(([name, filename]) => [
+    name,
+    fs.readFileSync(filename, "utf8"),
+  ]),
+);
+const scriptCases = Object.entries(scripts)
+  .map(([name, script]) => `if (route.script === ${JSON.stringify(name)}) {\n${script}\n}`)
+  .join("\n");
+
 const source = `${metadata}
 (() => {
   const routes = ${JSON.stringify(routes)};
@@ -55,6 +65,8 @@ const source = `${metadata}
     style.textContent = css;
     (document.head || document.documentElement).appendChild(style);
   }
+
+  ${scriptCases}
 })();
 `;
 

@@ -1,6 +1,12 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { getStylesheetForPathname, getStylesheetForUrl } = require("../scripts/userscript-config");
+const path = require("node:path");
+const {
+  getStylesheetForPathname,
+  getStylesheetForUrl,
+  routes,
+  scripts,
+} = require("../scripts/userscript-config");
 
 test("routes Snowheads pages to their intended stylesheet", () => {
   const cases = [
@@ -17,6 +23,13 @@ test("routes Snowheads pages to their intended stylesheet", () => {
   for (const [pathname, stylesheet] of cases) {
     assert.match(getStylesheetForPathname(pathname), new RegExp(`${stylesheet}\\.css$`));
   }
+});
+
+test("routes viewtopic pages to the post-enhancement script", () => {
+  const route = routes.find(({ style }) => style === "viewtopic");
+
+  assert.equal(route.script, "viewtopic");
+  assert.equal(path.basename(scripts[route.script]), "viewtopic.js");
 });
 
 test("does not style unknown paths or other hosts", () => {

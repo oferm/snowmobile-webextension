@@ -138,5 +138,6 @@ Node.js is required. Build locally with:
 yarn build:userscript
 ```
 
-The generated files are written to the ignored `dist/` directory. Push changes to
+The generated userscript bundles each route's CSS and any associated page script.
+Generated files are written to the ignored `dist/` directory. Push changes to
 `master` to publish the installable files on the `userscript` branch.

@@ -7,11 +7,15 @@ const stylesheets = {
   viewtopic: path.join(__dirname, "..", "css", "viewtopic.css"),
 };
 
+const scripts = {
+  viewtopic: path.join(__dirname, "..", "js", "viewtopic.js"),
+};
+
 const routes = [
   { style: "start", exact: ["/", "/index.php", "/mx/index.php"] },
   { style: "viewforum", pattern: "^/ski-forum/(?:viewforum|snow_reports)\\.php$" },
   { style: "forumlist", exact: ["/ski-forum/", "/ski-forum/index.php"] },
-  { style: "viewtopic", exact: ["/ski-forum/viewtopic.php"] },
+  { style: "viewtopic", exact: ["/ski-forum/viewtopic.php"], script: "viewtopic" },
 ];
 
 function getStylesheetForPathname(pathname) {
@@ -27,4 +31,4 @@ function getStylesheetForUrl(url) {
   return getStylesheetForPathname(parsedUrl.pathname);
 }
 
-module.exports = { getStylesheetForPathname, getStylesheetForUrl, routes, stylesheets };
+module.exports = { getStylesheetForPathname, getStylesheetForUrl, routes, scripts, stylesheets };
