@@ -128,7 +128,7 @@ in **Settings → Safari → Extensions**, then open this link in Safari:
 [Install SnowMobile](https://raw.githubusercontent.com/oferm/snowmobile-webextension/userscript/snowmobile.user.js)
 
 Accept the install prompt. The userscript is published automatically when changes
-are pushed to `master`, and Userscripts checks the published metadata for updates.
+are pushed to `main`, and Userscripts checks the published metadata for updates.
 
 ## Build the userscript
 
@@ -140,4 +140,4 @@ yarn build:userscript
 
 The generated userscript bundles each route's CSS and any associated page script.
 Generated files are written to the ignored `dist/` directory. Push changes to
-`master` to publish the installable files on the `userscript` branch.
+`main` to publish the installable files on the `userscript` branch.
