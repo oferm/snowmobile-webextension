@@ -21,8 +21,17 @@ jobs:
         with:
           node-version: 22
 
+      - name: Run tests
+        run: node --test
+
       - name: Build userscript
         run: node scripts/build-userscript.js
+
+      - name: Verify built userscript
+        run: |
+          node --check dist/snowmobile.user.js
+          grep -Fq 'if (route.script === "viewtopic")' dist/snowmobile.user.js
+          grep -Fq 'function getRelativeDate(posterInfo)' dist/snowmobile.user.js
 
       - name: Publish userscript branch
         run: |
