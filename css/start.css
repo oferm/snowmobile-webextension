@@ -5,90 +5,295 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     margin: inherit !important;
 }
 
-body > div:nth-child(4) > div:nth-child(1) {
-    padding: 0 !important;
+@media (max-width: 600px) {
+    #menu_container {
+        max-width: 100vw !important;
+        right: 0 !important;
+    }
+
+    #menu_container > table {
+        height: 84px !important;
+        margin: 0 !important;
+        max-width: 100vw !important;
+    }
+
+    #menu_container > table > tbody > tr > td:last-child {
+        box-sizing: border-box;
+        padding: 4px 6px !important;
+    }
+
+    #menu_container > table > tbody > tr > td:last-child > div[style*="width:200px"] {
+        display: block !important;
+        left: auto !important;
+        width: 200px !important;
+    }
+
+    #menu_container > table > tbody > tr > td:last-child > div[style*="width:200px"] > a {
+        box-sizing: border-box;
+        display: block !important;
+        line-height: 1.2;
+        margin: 1px 0;
+        min-height: 26px;
+        overflow-wrap: anywhere;
+        padding: 2px 4px;
+        white-space: normal !important;
+    }
+
+    #menu_container > table > tbody > tr > td:last-child > div:first-child > a {
+        display: block;
+        min-height: 24px;
+    }
+
+    #menu_container .menuitem {
+        font-size: 12px !important;
+        line-height: 1.2;
+        padding: 3px 4px;
+    }
 }
 
-body > div:nth-child(4) table tbody tr td {
-    display: flex;
-    flex-direction: column;
-    width: inherit !important;
-}
-
-.forumline {
+body > div:last-of-type {
+    box-sizing: border-box;
+    max-width: 100%;
     width: 100%;
-    padding-top: 10px;
-    background-color: inherit;
 }
 
-body > div:nth-child(4) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) {
-    display: flex;
+body > div:last-of-type > div {
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+body > div:last-of-type .forumline {
+    background-color: #F5F5FF;
+    box-sizing: border-box;
+    max-width: 100%;
+    padding-top: 8px;
+    width: 100% !important;
+}
+
+.snowmobile-home-layout {
+    border-spacing: 0 !important;
+    display: block;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+    width: 100% !important;
+}
+
+.snowmobile-home-layout > tbody {
+    display: block;
+    width: 100%;
+}
+
+.snowmobile-home-layout > tbody > tr {
+    display: flex !important;
     flex-direction: column;
+    width: 100%;
 }
 
-body > div:nth-child(4) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) {
-    /* Ski Club 2.0 and left-side sections */
+.snowmobile-home-layout > tbody > tr > td {
+    box-sizing: border-box;
+    display: flex !important;
+    flex-direction: column;
+    max-width: 100% !important;
+    min-width: 0;
+    padding: 0 8px;
+    width: 100% !important;
+}
+
+.snowmobile-home-layout > tbody > tr > td:first-child {
     order: 2;
 }
 
-body > div:nth-child(4) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(2) {
-    /* Ski Club 2.0 */
-    border: none;
-}
-
-body > div:nth-child(4) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(2) td {
-    /* Ski Club 2.0 */
-    border: none;
-}
-
-table.forumline:nth-child(3) {
-    /* Who is Online */
-    order: 3;
-}
-
-table.forumline:nth-child(6) {
-    /* 2nd Hand */
-    order: 2;
-}
-table.forumline:nth-child(6) > tbody:nth-child(1) > tr:nth-child(n+11),
-body > div:nth-child(4) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2) > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(n+16),
-body > div:nth-child(4) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(n+16){
-    /* only show 10 2nd hand links, hide the rest */
-    /* only show 15 Recent posts, hide the rest */
-    display: none;
-}
-.forumline .row1,
-.forumline .row2 {
-    background-color: #F5F5FF;
-    margin-top: 5px;
-}
-
-.forumline .genmed {
-    border: none !important;
-}
-
-.forumline .btnhov,
-.forumline .btnunhov {
-    background-color: #F5F5FF;
-    color: inherit;
-    margin-top: 5px;
-}
-
-.genmed img {
-    margin-right: 5px;
-}
-
-.thHead .cattitle {
-    color: #EEDD00;
-    font-weight: bold;
-}
-body > div:nth-child(4) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2) {
-    /* Recent posts */
+.snowmobile-home-layout > tbody > tr > td:nth-child(2) {
     order: 1;
 }
 
-body > div:nth-child(4) > div:nth-child(2) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(3) {
-    /* About... */
+.snowmobile-home-layout > tbody > tr > td:nth-child(3) {
     order: 3;
-    margin-top: 10px;
+}
+
+.snowmobile-home-layout .forumline .row1,
+.snowmobile-home-layout .forumline .row2 {
+    background-color: #F5F5FF;
+    margin-top: 4px;
+}
+
+.snowmobile-home-layout .forumline .genmed {
+    border: none !important;
+}
+
+.snowmobile-home-layout .forumline .btnhov,
+.snowmobile-home-layout .forumline .btnunhov {
+    background-color: #F5F5FF;
+    color: inherit;
+    margin-top: 4px;
+}
+
+.snowmobile-home-layout .genmed img {
+    margin-right: 5px;
+}
+
+.snowmobile-home-layout .thHead .cattitle {
+    color: #EEDD00;
+    font-weight: bold;
+}
+
+.snowmobile-home-layout .snowmobile-recent-posts {
+    order: 1;
+}
+
+.snowmobile-home-layout .snowmobile-welcome {
+    order: 2;
+}
+
+.snowmobile-home-layout .snowmobile-online {
+    order: 3;
+}
+
+.snowmobile-home-layout .snowmobile-market-posts {
+    order: 2;
+}
+
+.snowmobile-home-layout .snowmobile-recent-posts tr:nth-child(n + 17),
+.snowmobile-home-layout .snowmobile-market-posts tr:nth-child(n + 12) {
+    display: none !important;
+}
+
+.snowmobile-home-layout .snowmobile-online .gensmall {
+    color: #44445A;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.snowmobile-home-layout .snowmobile-online .gensmall a {
+    font-size: 12px;
+}
+
+.snowmobile-home-layout .snowmobile-recent-posts td.row1,
+.snowmobile-home-layout .snowmobile-recent-posts td.row2 {
+    padding: 8px 10px !important;
+}
+
+.snowmobile-home-layout .snowmobile-recent-posts td.row1 > div,
+.snowmobile-home-layout .snowmobile-recent-posts td.row2 > div {
+    display: flex !important;
+    flex-direction: column;
+    gap: 4px;
+    width: 100% !important;
+}
+
+.snowmobile-home-layout .snowmobile-recent-posts td.row1 > div > div:first-child,
+.snowmobile-home-layout .snowmobile-recent-posts td.row2 > div > div:first-child {
+    display: flex !important;
+    flex-direction: column;
+    float: none !important;
+    width: 100%;
+}
+
+.snowmobile-home-layout .snowmobile-recent-posts td.row1 > div > div:first-child b,
+.snowmobile-home-layout .snowmobile-recent-posts td.row2 > div > div:first-child b {
+    display: block;
+    line-height: 1.3;
+}
+
+.snowmobile-home-layout .snowmobile-recent-posts td.row1 > div > div:first-child b a,
+.snowmobile-home-layout .snowmobile-recent-posts td.row2 > div > div:first-child b a {
+    color: #006699 !important;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.snowmobile-home-layout .snowmobile-recent-posts td.row1 > div > div:first-child > span,
+.snowmobile-home-layout .snowmobile-recent-posts td.row2 > div > div:first-child > span {
+    display: none;
+}
+
+.snowmobile-home-layout .snowmobile-recent-meta {
+    align-items: center;
+    color: #686878;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 12px;
+    gap: 6px;
+    line-height: 1.4;
+}
+
+.snowmobile-home-layout .snowmobile-recent-meta a {
+    color: #7777AA;
+    font-size: 12px;
+}
+
+.snowmobile-home-layout .snowmobile-recent-meta time {
+    color: #686878;
+    white-space: nowrap;
+}
+
+.snowmobile-home-layout .snowmobile-recent-meta.has-forum time::before {
+    color: #A2A2B3;
+    content: "·";
+    margin-right: 6px;
+}
+
+.snowmobile-home-layout .snowmobile-aside-column > table {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+.snowmobile-home-layout .snowmobile-aside-column img {
+    display: block;
+    height: auto !important;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: min(100%, 220px) !important;
+}
+
+.snowmobile-home-layout .snowmobile-aside-column td {
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+    body > table:first-of-type {
+        margin-left: -8px !important;
+        max-width: 100vw !important;
+        table-layout: fixed !important;
+        width: 100vw !important;
+    }
+
+    body > table:first-of-type > tbody > tr:first-child > td {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow: hidden;
+        vertical-align: middle;
+    }
+
+    body > table:first-of-type > tbody > tr:first-child > td:first-child {
+        width: 70% !important;
+    }
+
+    body > table:first-of-type > tbody > tr:first-child > td:nth-child(2) {
+        text-align: right;
+        white-space: normal;
+        width: 30% !important;
+    }
+
+    body > table:first-of-type > tbody > tr:first-child > td:nth-child(2) a {
+        align-items: center;
+        display: inline-flex;
+        font-size: 12px;
+        line-height: 1.2;
+        margin-left: 3px;
+        min-height: 30px;
+        padding: 2px;
+        white-space: normal;
+    }
+
+    body > table:first-of-type > tbody > tr:first-child > td:first-child img {
+        height: auto !important;
+        max-width: 100% !important;
+    }
 }

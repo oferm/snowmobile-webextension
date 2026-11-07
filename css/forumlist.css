@@ -24,11 +24,156 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
 
 table .forum_block {
     border: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 12px;
+}
+
+@media (max-width: 600px) {
+    #menu_container {
+        max-width: 100vw !important;
+        right: 0 !important;
+    }
+
+    #menu_container > table {
+        height: 84px !important;
+        margin: 0 !important;
+        max-width: 100vw !important;
+    }
+
+    #menu_container > table > tbody > tr > td:last-child {
+        box-sizing: border-box;
+        padding: 4px 6px !important;
+    }
+
+    #menu_container > table > tbody > tr > td:last-child > div[style*="width:200px"] {
+        display: block !important;
+        left: auto !important;
+        width: 200px !important;
+    }
+
+    #menu_container > table > tbody > tr > td:last-child > div[style*="width:200px"] > a {
+        box-sizing: border-box;
+        display: block !important;
+        line-height: 1.2;
+        margin: 1px 0;
+        min-height: 26px;
+        overflow-wrap: anywhere;
+        padding: 2px 4px;
+        white-space: normal !important;
+    }
+
+    #menu_container > table > tbody > tr > td:last-child > div:first-child > a {
+        display: block;
+        min-height: 24px;
+    }
+
+    #menu_container .menuitem {
+        font-size: 12px !important;
+        line-height: 1.2;
+        padding: 3px 4px;
+    }
 }
 
 table .forum_block:hover {
     background-color: inherit;
     color: inherit;
     border: 0;
-    padding: 3px 3px 3px 10px;
+    padding: 10px 12px;
+}
+
+table .forum_block h1 {
+    align-items: center;
+    display: flex !important;
+    line-height: 1.3;
+    margin: 0 !important;
+    min-width: 0;
+    padding: 0 !important;
+}
+
+table .forum_block h1 img {
+    height: 16px !important;
+    margin-right: 8px;
+    position: static !important;
+    width: 16px;
+}
+
+table .forum_block h1 a {
+    min-width: 0;
+}
+
+table .forum_block .forumlink {
+    font-size: 18px !important;
+    font-weight: 600;
+}
+
+table .forum_block h2 {
+    display: block !important;
+    line-height: 1.35;
+    margin: 0 !important;
+    min-width: 0;
+}
+
+table .forum_block .fdesc {
+    color: #66667A !important;
+    display: -webkit-box;
+    font-size: 14px;
+    line-height: 1.35;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+table .forum_block h2 marquee {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    body > table:first-of-type {
+        margin-left: -8px !important;
+        max-width: 100vw !important;
+        table-layout: fixed !important;
+        width: 100vw !important;
+    }
+
+    body > table:first-of-type > tbody > tr:first-child > td {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow: hidden;
+        vertical-align: middle;
+    }
+
+    body > table:first-of-type > tbody > tr:first-child > td:first-child {
+        width: 70% !important;
+    }
+
+    body > table:first-of-type > tbody > tr:first-child > td:nth-child(2) {
+        text-align: right;
+        white-space: normal;
+        width: 30% !important;
+    }
+
+    body > table:first-of-type > tbody > tr:first-child > td:nth-child(2) a {
+        align-items: center;
+        display: inline-flex;
+        font-size: 12px;
+        line-height: 1.2;
+        margin-left: 3px;
+        min-height: 30px;
+        padding: 2px;
+        white-space: normal;
+    }
+
+    body > table:first-of-type > tbody > tr:first-child > td:first-child img {
+        height: auto !important;
+        max-width: 100% !important;
+    }
+
+    table .forum_block {
+        background: #F5F5FF;
+        border-bottom: 3px solid #fff;
+        min-height: 64px;
+    }
 }

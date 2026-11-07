@@ -4,6 +4,8 @@ const path = require("node:path");
 const {
   getStylesheetForPathname,
   getStylesheetForUrl,
+  getScriptForPathname,
+  getScriptForUrl,
   routes,
   scripts,
 } = require("../scripts/userscript-config");
@@ -25,16 +27,40 @@ test("routes Snowheads pages to their intended stylesheet", () => {
   }
 });
 
-test("routes viewtopic pages to the post-enhancement script", () => {
-  const route = routes.find(({ style }) => style === "viewtopic");
+test("routes forum pages to their enhancement scripts", () => {
+  const viewforum = routes.find(({ style }) => style === "viewforum");
+  const viewtopic = routes.find(({ style }) => style === "viewtopic");
 
-  assert.equal(route.script, "viewtopic");
-  assert.equal(path.basename(scripts[route.script]), "viewtopic.js");
+  assert.equal(viewforum.script, "viewforum");
+  assert.equal(path.basename(scripts[viewforum.script]), "viewforum.js");
+  assert.equal(getScriptForPathname("/ski-forum/viewforum.php"), scripts.viewforum);
+  assert.equal(
+    getScriptForUrl("https://snowheads.com/ski-forum/viewforum.php?f=2"),
+    scripts.viewforum,
+  );
+  assert.equal(viewtopic.script, "viewtopic");
+  assert.equal(path.basename(scripts[viewtopic.script]), "viewtopic.js");
+  assert.equal(getScriptForPathname("/ski-forum/viewtopic.php"), scripts.viewtopic);
+  assert.equal(
+    getScriptForUrl("https://snowheads.com/ski-forum/viewtopic.php?t=123"),
+    scripts.viewtopic,
+  );
+  assert.equal(getScriptForPathname("/ski-forum/"), null);
+});
+
+test("routes home pages to the home-page enhancement script", () => {
+  const route = routes.find(({ style }) => style === "start");
+
+  assert.equal(route.script, "start");
+  assert.equal(path.basename(scripts.start), "start.js");
+  assert.equal(getScriptForPathname("/"), scripts.start);
+  assert.equal(getScriptForUrl("https://snowheads.com/"), scripts.start);
 });
 
 test("does not style unknown paths or other hosts", () => {
   assert.equal(getStylesheetForPathname("/not-a-forum-page"), null);
   assert.equal(getStylesheetForUrl("https://example.com/ski-forum/viewtopic.php"), null);
+  assert.equal(getScriptForUrl("https://example.com/ski-forum/viewtopic.php"), null);
   assert.match(
     getStylesheetForUrl("https://snowheads.com/ski-forum/viewtopic.php?t=123"),
     /viewtopic\.css$/,

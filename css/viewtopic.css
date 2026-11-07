@@ -19,6 +19,52 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     width: 100%;
 }
 
+@media (max-width: 600px) {
+    #menu_container {
+        max-width: 100vw !important;
+        right: 0 !important;
+    }
+
+    #menu_container > table {
+        height: 84px !important;
+        margin: 0 !important;
+        max-width: 100vw !important;
+    }
+
+    #menu_container > table > tbody > tr > td:last-child {
+        box-sizing: border-box;
+        padding: 4px 6px !important;
+    }
+
+    #menu_container > table > tbody > tr > td:last-child > div[style*="width:200px"] {
+        display: block !important;
+        left: auto !important;
+        width: 200px !important;
+    }
+
+    #menu_container > table > tbody > tr > td:last-child > div[style*="width:200px"] > a {
+        box-sizing: border-box;
+        display: block !important;
+        line-height: 1.2;
+        margin: 1px 0;
+        min-height: 26px;
+        overflow-wrap: anywhere;
+        padding: 2px 4px;
+        white-space: normal !important;
+    }
+
+    #menu_container > table > tbody > tr > td:last-child > div:first-child > a {
+        display: block;
+        min-height: 24px;
+    }
+
+    #menu_container .menuitem {
+        font-size: 12px !important;
+        line-height: 1.2;
+        padding: 3px 4px;
+    }
+}
+
 /* The post cells have a legacy height="3" attribute. With the block-cell
    mobile layout, height:100% collapses each table row to its poster height,
    letting later posts overlap the previous post's content. */
@@ -89,7 +135,8 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     background-color: inherit;
 }
 .postbody {
-    font-size: 0.8em;
+    font-size: 1em;
+    line-height: 1.5;
 }
 .post_info {
     position: static !important;
@@ -141,7 +188,12 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
 }
 
 .quote {
+    background: #F1F1FA;
+    border-left: 3px solid #7777AA;
+    border-radius: 0 8px 8px 0;
+    box-sizing: border-box;
     overflow: hidden;
+    padding: 10px 12px;
 }
 
 @media (max-width: 1200px) {
@@ -261,12 +313,164 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     #pagebody .forumline .poster_info.snowmobile-enhanced .post_date_landscape {
         display: none !important;
     }
+
+    #pagebody .forumline .poster_info.snowmobile-enhanced .expand_poster_data {
+        align-items: center;
+        background: #F1F1FA;
+        border-radius: 50%;
+        display: flex;
+        height: 40px;
+        justify-content: center;
+        margin: 0;
+        width: 40px;
+    }
+
+    #pagebody .forumline .poster_info.snowmobile-enhanced .expand_poster_data img {
+        height: 16px;
+        width: 16px;
+    }
+
+    #pagebody .forumline #post_row.post_row table#table3 tbody tr td:has(.post_link_landscape) {
+        align-items: center;
+        border-left: 0 !important;
+        display: flex !important;
+        gap: 4px;
+        justify-content: flex-end;
+        min-height: 48px;
+        padding: 2px 8px;
+        width: 100% !important;
+    }
+
+    #pagebody .forumline #post_row.post_row table#table3 tbody tr td > a:has(> .post_link_landscape),
+    #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_quote_landscape > a {
+        align-items: center;
+        background: #F1F1FA;
+        border-radius: 20px;
+        display: inline-flex !important;
+        height: 40px;
+        justify-content: center;
+        margin: 0 !important;
+        transform: none !important;
+        width: 40px;
+    }
+
+    #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_link_landscape,
+    #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_quote_landscape {
+        margin: 0 !important;
+        transform: none !important;
+    }
+
+    #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_quote_landscape {
+        display: inline-flex !important;
+    }
+
+    #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_link_landscape img,
+    #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_quote_landscape img {
+        height: 18px !important;
+        width: 18px !important;
+    }
+
+    #pagebody .forumline #post_row.post_row table#table3 .post_info.snowmobile-post-menu {
+        box-sizing: border-box;
+        display: flex !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        position: relative !important;
+        transform: none !important;
+        width: auto !important;
+    }
+
+    #pagebody .forumline #post_row.post_row table#table3 .snowmobile-post-menu > div:first-child {
+        display: flex !important;
+        float: none !important;
+        position: relative !important;
+        top: auto !important;
+    }
+
+    #pagebody .forumline #post_row.post_row table#table3 .snowmobile-post-menu .expand_post_data {
+        align-items: center;
+        background: #F1F1FA;
+        border-radius: 50%;
+        display: flex;
+        height: 40px;
+        justify-content: center;
+        margin: 0 !important;
+        width: 40px;
+    }
+
+    #pagebody .forumline #post_row.post_row table#table3 .snowmobile-post-menu .expand_post_data img {
+        height: 16px;
+        width: 16px;
+    }
+
+    #pagebody .forumline .message_cell .postbody {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    #qr_form #quick_reply_text {
+        box-sizing: border-box !important;
+        height: 96px !important;
+        min-height: 96px !important;
+        width: 100% !important;
+    }
+
+    #qr_form .snowmobile-smilies-toggle {
+        background: #ECECFF;
+        border: 1px solid #C6C6E4;
+        border-radius: 7px;
+        color: #33336B;
+        font: inherit;
+        margin: 6px 0;
+        min-height: 40px;
+        padding: 7px 12px;
+    }
+
+    #qr_form .snowmobile-smilies:not(.is-expanded) {
+        display: none !important;
+    }
 }
 
 @media (max-width: 600px) {
-    /* The legacy header's right-hand link table forces the page wider than a phone. */
+    /* Keep the branded header and account links inside the phone viewport. */
+    body > table:first-of-type {
+        margin-left: -8px !important;
+        max-width: 100vw !important;
+        table-layout: fixed !important;
+        width: 100vw !important;
+    }
+
+    body > table:first-of-type > tbody > tr:first-child > td {
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow: hidden;
+        vertical-align: middle;
+    }
+
+    body > table:first-of-type > tbody > tr:first-child > td:first-child {
+        width: 70% !important;
+    }
+
     body > table:first-of-type > tbody > tr:first-child > td:nth-child(2) {
-        display: none !important;
+        text-align: right;
+        white-space: normal;
+        width: 30% !important;
+    }
+
+    body > table:first-of-type > tbody > tr:first-child > td:nth-child(2) a {
+        align-items: center;
+        display: inline-flex;
+        font-size: 12px;
+        line-height: 1.2;
+        margin-left: 3px;
+        min-height: 30px;
+        padding: 2px;
+        white-space: normal;
+    }
+
+    body > table:first-of-type > tbody > tr:first-child > td:first-child img {
+        height: auto !important;
+        max-width: 100% !important;
     }
 
     #page_head_Xport img {
@@ -279,6 +483,11 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
         width: calc(100vw - 28px) !important;
         max-width: calc(100vw - 28px) !important;
         table-layout: fixed !important;
+    }
+
+    /* Keep Prev/Next topic on the same right edge as the 90vw post card. */
+    #navzone {
+        width: calc(90vw + 14px) !important;
     }
 
     .forumline > tbody > tr > td {
@@ -302,5 +511,12 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     .quote * {
         overflow-wrap: anywhere !important;
         word-break: break-word !important;
+    }
+}
+
+@media (min-width: 1201px) {
+    /* Smileys stay visible on wide layouts, so their mobile toggle is redundant. */
+    #qr_form .snowmobile-smilies-toggle {
+        display: none !important;
     }
 }

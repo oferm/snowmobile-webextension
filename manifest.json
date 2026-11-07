@@ -13,14 +13,16 @@
         "*://snowheads.com/index.php*",
         "*://snowheads.com/mx/index.php*"
       ],
-      "css": ["css/start.css"]
+      "css": ["css/start.css"],
+      "js": ["js/start.js"]
     },
     {
       "matches": [
         "*://snowheads.com/ski-forum/viewforum.php*",
         "*://snowheads.com/ski-forum/snow_reports.php*"
       ],
-      "css": ["css/viewforum.css"]
+      "css": ["css/viewforum.css"],
+      "js": ["js/viewforum.js"]
     },
     {
       "matches": [

@@ -43,6 +43,13 @@
       const posterInfo = postRow.closest("tr")?.querySelector(".poster_info");
       if (!posterInfo || posterInfo.classList.contains("snowmobile-enhanced")) return;
 
+      const postInfo = postRow.querySelector(".post_info");
+      const actionCell = postRow.querySelector("#table3 td:has(.post_link_landscape)");
+      if (postInfo && actionCell && !actionCell.contains(postInfo)) {
+        postInfo.classList.add("snowmobile-post-menu");
+        actionCell.append(postInfo);
+      }
+
       const authorLink = posterInfo.querySelector('.menushell a[href*="profile.php?mode=viewprofile"]');
       const authorName = [...posterInfo.children].find((child) =>
         child.matches("span") &&
@@ -107,9 +114,33 @@
     });
   }
 
+  function enhanceQuickReply() {
+    const form = document.querySelector("#qr_form");
+    const smileys = form?.querySelector('#wide_box > div:has(img[onclick*="insertAtCaret"])');
+    if (!form || !smileys || form.querySelector(".snowmobile-smilies-toggle")) return;
+
+    smileys.classList.add("snowmobile-smilies");
+    const toggle = document.createElement("button");
+    toggle.className = "snowmobile-smilies-toggle";
+    toggle.type = "button";
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.textContent = "Show smileys";
+    smileys.before(toggle);
+
+    toggle.addEventListener("click", () => {
+      const expanded = smileys.classList.toggle("is-expanded");
+      toggle.setAttribute("aria-expanded", String(expanded));
+      toggle.textContent = expanded ? "Hide smileys" : "Show smileys";
+    });
+  }
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", enhancePosts, { once: true });
+    document.addEventListener("DOMContentLoaded", () => {
+      enhancePosts();
+      enhanceQuickReply();
+    }, { once: true });
   } else {
     enhancePosts();
+    enhanceQuickReply();
   }
 })();

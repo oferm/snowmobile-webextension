@@ -29,7 +29,7 @@ const ROUTES = {
   viewtopic: "https://snowheads.com/ski-forum/viewtopic.php?t=177296",
   forumlist: "https://snowheads.com/ski-forum/",
   start: "https://snowheads.com/",
-  viewforum: "https://snowheads.com/ski-forum/viewforum.php?f=1",
+  viewforum: "https://snowheads.com/ski-forum/viewforum.php?f=2",
 };
 
 const outRoot =
