@@ -502,16 +502,18 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
         height: auto !important;
     }
 
-    /* Account for cell padding in the post table's 100% widths. */
+    /* Keep the post table centred; its cells should fill the same 12px gutters. */
     #pagebody .forumline {
-        width: calc(100vw - 28px) !important;
-        max-width: calc(100vw - 28px) !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: calc(100vw - 24px) !important;
+        max-width: calc(100vw - 24px) !important;
         table-layout: fixed !important;
     }
 
-    /* Keep Prev/Next topic on the same right edge as the 90vw post card. */
     #navzone {
-        width: calc(90vw + 14px) !important;
+        box-sizing: border-box;
+        width: 100% !important;
     }
 
     .forumline > tbody > tr > td {
@@ -520,8 +522,8 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
 
     #pagebody .forumline #table3 .message_cell {
         box-sizing: border-box !important;
-        width: 90vw !important;
-        max-width: 90vw !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 
     .postbody,
@@ -535,6 +537,198 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     .quote * {
         overflow-wrap: anywhere !important;
         word-break: break-word !important;
+    }
+
+    body {
+        background: #f2f4f7 !important;
+        color: #263442;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+    }
+
+    /* The forum repeats #pagebody on an inner div with an inline lavender fill. */
+    #pagebody {
+        background: #f2f4f7 !important;
+    }
+
+    #pagebody h1 {
+        box-sizing: border-box;
+        color: #263442;
+        display: block !important;
+        font-size: 25px;
+        line-height: 1.2;
+        margin: 4px 12px 8px !important;
+        padding: 0 !important;
+    }
+
+    #navzone {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 0 12px 8px;
+    }
+
+    #topic_header {
+        float: none !important;
+        font-size: 13px;
+        line-height: 1.35;
+        margin: 0 !important;
+        width: 100%;
+    }
+
+    #topic_header h3 {
+        font-size: inherit;
+        line-height: inherit;
+        margin: 0;
+    }
+
+    #navzone > div:last-child {
+        float: none !important;
+        text-align: right;
+        width: 100%;
+    }
+
+    #navzone .nav {
+        align-items: center;
+        display: inline-flex;
+        gap: 6px;
+        line-height: 1.2;
+    }
+
+    #navzone .nav a {
+        align-items: center;
+        background: #fff;
+        border: 1px solid #d8e0e7;
+        border-radius: 9px;
+        box-sizing: border-box;
+        color: #173b59 !important;
+        display: inline-flex;
+        font-size: 14px;
+        justify-content: center;
+        min-height: 40px;
+        padding: 0 11px;
+        text-decoration: none;
+    }
+
+    #pagebody .forumline {
+        background: transparent !important;
+        border: 0 !important;
+        border-collapse: separate;
+        border-spacing: 0 5px;
+        overflow: visible;
+    }
+
+    #pagebody .forumline > tbody > tr:has(.post_row) {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 2px 12px rgba(28, 44, 60, 0.08);
+        display: block;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    #pagebody .forumline > tbody > tr:has(.post_row) > td {
+        background: #fff !important;
+        border: 0 !important;
+        box-sizing: border-box;
+        width: 100% !important;
+    }
+
+    #pagebody .forumline > tbody > tr:has(.post_row) > td.name {
+        border-radius: 14px 14px 0 0;
+    }
+
+    #pagebody .forumline .poster_info.snowmobile-enhanced {
+        padding: 10px 12px 8px;
+    }
+
+    #pagebody .forumline .post_row {
+        background: #fff;
+        box-sizing: border-box;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 12px;
+        width: 100% !important;
+    }
+
+    #pagebody .forumline #post_row.post_row table#table3 {
+        background: #fff;
+        border-collapse: separate;
+        border-spacing: 0;
+        box-sizing: border-box;
+        width: 100% !important;
+    }
+
+    #pagebody .forumline .message_cell {
+        background: #fff !important;
+        border-right: 0 !important;
+        padding: 8px 0 12px !important;
+    }
+
+    #pagebody .forumline .message_cell .postbody {
+        color: #263442;
+        font-size: 16px;
+        line-height: 1.55;
+    }
+
+    #pagebody .forumline #post_row.post_row table#table3 tbody tr td:has(.post_link_landscape) {
+        background: #fff !important;
+        border-radius: 0 0 14px 14px;
+        border-top: 1px solid #edf0f3 !important;
+        min-height: 48px;
+        padding: 4px 0;
+    }
+
+    #pagebody .forumline #post_row.post_row table#table3 tbody tr td > a:has(> .post_link_landscape),
+    #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_quote_landscape > a,
+    #pagebody .forumline #post_row.post_row table#table3 .snowmobile-post-menu .expand_post_data {
+        background: #f2f4f7;
+        border: 1px solid #e3e8ed;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+    }
+
+    #qr_form {
+        background: #fff !important;
+        border: 1px solid #e3e8ed !important;
+        border-radius: 14px !important;
+        box-shadow: 0 2px 12px rgba(28, 44, 60, 0.08);
+        box-sizing: border-box !important;
+        margin: 10px auto 16px !important;
+        padding: 12px !important;
+        text-align: left !important;
+        width: calc(100vw - 24px) !important;
+    }
+
+    #qr_form #quick_reply_text {
+        background: #fff !important;
+        border: 1px solid #d8e0e7 !important;
+        border-radius: 10px !important;
+        box-sizing: border-box !important;
+        color: #263442;
+        font: inherit;
+        padding: 10px !important;
+        width: 100% !important;
+    }
+
+    #qr_form input[type="button"],
+    #qr_form input[type="submit"] {
+        appearance: none;
+        background: #173b59 !important;
+        border: 1px solid #173b59 !important;
+        border-radius: 9px !important;
+        color: #fff !important;
+        font: inherit;
+        font-size: 14px;
+        margin: 5px 4px 5px 0 !important;
+        min-height: 40px;
+        padding: 0 12px !important;
+    }
+
+    #qr_form .snowmobile-smilies-toggle {
+        background: #f2f4f7;
+        border: 1px solid #d8e0e7;
+        color: #173b59;
     }
 }
 
