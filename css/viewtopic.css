@@ -118,6 +118,30 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     max-width: 100% !important;
 }
 
+#pagebody .forumline {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.forumline .postbody {
+    overflow-wrap: anywhere;
+}
+
+.forumline .postbody .imagepadleft,
+.forumline .postbody .imagepadright {
+    box-sizing: border-box;
+    float: none;
+    margin: 8px 0;
+    max-width: 100%;
+    width: fit-content;
+}
+
+.forumline .postbody img {
+    box-sizing: border-box;
+    height: auto;
+    max-width: 100% !important;
+}
+
 .forumline td.row1,
 .forumline td.row2 {
     background-color: #F5F5FF;
