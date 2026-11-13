@@ -22,8 +22,7 @@ const metadata = `// ==UserScript==
 // @match        *://snowheads.com/*
 // @updateURL    ${rawBase}/snowmobile.meta.js
 // @downloadURL  ${rawBase}/snowmobile.user.js
-// @grant        GM.addStyle
-// @grant        GM_addStyle
+// @grant        none
 // @run-at       document-idle
 // ==/UserScript==
 `;
@@ -56,15 +55,11 @@ const source = `${metadata}
   const css = route ? styles[route.style] : null;
 
   if (!css) return;
-  if (typeof GM_addStyle === "function") {
-    GM_addStyle(css);
-  } else if (typeof GM !== "undefined" && typeof GM.addStyle === "function") {
-    GM.addStyle(css);
-  } else {
-    const style = document.createElement("style");
-    style.textContent = css;
-    (document.head || document.documentElement).appendChild(style);
-  }
+  // GM.addStyle injects a user-origin stylesheet in Safari, which the site's own
+  // (author) CSS beats regardless of specificity. A <style> element is author-origin.
+  const style = document.createElement("style");
+  style.textContent = css;
+  (document.head || document.documentElement).appendChild(style);
 
   ${scriptCases}
 })();
