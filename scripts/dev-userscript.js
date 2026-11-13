@@ -39,6 +39,7 @@ function localMetadata() {
 // @version      1.3.0
 // @description  Live-load SnowMobile CSS from this Mac during development
 // @match        *://snowheads.com/*
+// @match        *://www.snowheads.com/*
 // @grant        GM.xmlHttpRequest
 // @connect      127.0.0.1
 // @connect      localhost

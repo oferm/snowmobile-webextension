@@ -42,13 +42,13 @@ function getScriptForPathname(pathname) {
 
 function getStylesheetForUrl(url) {
   const parsedUrl = url instanceof URL ? url : new URL(url);
-  if (parsedUrl.hostname !== "snowheads.com") return null;
+  if (!["snowheads.com", "www.snowheads.com"].includes(parsedUrl.hostname)) return null;
   return getStylesheetForPathname(parsedUrl.pathname);
 }
 
 function getScriptForUrl(url) {
   const parsedUrl = url instanceof URL ? url : new URL(url);
-  if (parsedUrl.hostname !== "snowheads.com") return null;
+  if (!["snowheads.com", "www.snowheads.com"].includes(parsedUrl.hostname)) return null;
   return getScriptForPathname(parsedUrl.pathname);
 }
 

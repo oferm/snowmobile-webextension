@@ -20,6 +20,7 @@ const metadata = `// ==UserScript==
 // @version      ${version}
 // @description  Make the Snowheads.com forum mobile-friendly
 // @match        *://snowheads.com/*
+// @match        *://www.snowheads.com/*
 // @updateURL    ${rawBase}/snowmobile.meta.js
 // @downloadURL  ${rawBase}/snowmobile.user.js
 // @grant        none
