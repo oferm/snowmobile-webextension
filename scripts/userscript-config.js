@@ -13,6 +13,11 @@ const scripts = {
   viewtopic: path.join(__dirname, "..", "js", "viewtopic.js"),
 };
 
+const shared = {
+  stylesheet: path.join(__dirname, "..", "css", "header.css"),
+  script: path.join(__dirname, "..", "js", "header.js"),
+};
+
 const routes = [
   { style: "start", exact: ["/", "/index.php", "/mx/index.php"], script: "start" },
   {
@@ -59,5 +64,6 @@ module.exports = {
   getStylesheetForUrl,
   routes,
   scripts,
+  shared,
   stylesheets,
 };

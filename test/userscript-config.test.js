@@ -66,3 +66,9 @@ test("does not style unknown paths or other hosts", () => {
     /viewtopic\.css$/,
   );
 });
+
+test("shared header files load on every snowheads page", () => {
+  const { shared } = require("../scripts/userscript-config");
+  assert.match(shared.stylesheet, /css[\\/]header\.css$/);
+  assert.match(shared.script, /js[\\/]header\.js$/);
+});

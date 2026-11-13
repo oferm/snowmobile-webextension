@@ -1,7 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { execFileSync } = require("node:child_process");
-const { routes, scripts: scriptFiles, stylesheets } = require("./userscript-config");
+const { routes, scripts: scriptFiles, shared, stylesheets } = require("./userscript-config");
 
 const root = path.resolve(__dirname, "..");
 const packageJson = require(path.join(root, "package.json"));
@@ -41,6 +41,8 @@ const scripts = Object.fromEntries(
     fs.readFileSync(filename, "utf8"),
   ]),
 );
+const sharedCss = fs.readFileSync(shared.stylesheet, "utf8");
+const sharedScript = fs.readFileSync(shared.script, "utf8");
 const scriptCases = Object.entries(scripts)
   .map(([name, script]) => `if (route.script === ${JSON.stringify(name)}) {\n${script}\n}`)
   .join("\n");
@@ -53,15 +55,15 @@ const source = `${metadata}
   const route = routes.find(({ exact, pattern }) =>
     exact ? exact.includes(pathname) : new RegExp(pattern).test(pathname),
   );
-  const css = route ? styles[route.style] : null;
-
-  if (!css) return;
   // GM.addStyle injects a user-origin stylesheet in Safari, which the site's own
   // (author) CSS beats regardless of specificity. A <style> element is author-origin.
   const style = document.createElement("style");
-  style.textContent = css;
+  style.textContent = ${JSON.stringify(sharedCss)} + (route ? styles[route.style] : "");
   (document.head || document.documentElement).appendChild(style);
 
+  {
+    ${sharedScript}
+  }
   ${scriptCases}
 })();
 `;

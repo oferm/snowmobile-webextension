@@ -2,7 +2,7 @@ const crypto = require("node:crypto");
 const fs = require("node:fs");
 const http = require("node:http");
 const path = require("node:path");
-const { routes, scripts, stylesheets } = require("./userscript-config");
+const { routes, scripts, shared, stylesheets } = require("./userscript-config");
 
 const host = process.env.HOST || "127.0.0.1";
 const publicHost = process.env.PUBLIC_HOST || host;
@@ -24,12 +24,12 @@ function getStyleForPathname(pathname) {
     exact ? exact.includes(pathname) : new RegExp(pattern).test(pathname),
   );
 
-  if (!route) return { route: null, css: "", script: "", revision: "none" };
-
-  const css = fs.readFileSync(stylesheets[route.style], "utf8");
-  const script = route.script ? fs.readFileSync(scripts[route.script], "utf8") : "";
+  const sharedCss = fs.readFileSync(shared.stylesheet, "utf8");
+  const sharedScript = fs.readFileSync(shared.script, "utf8");
+  const css = sharedCss + (route ? fs.readFileSync(stylesheets[route.style], "utf8") : "");
+  const script = sharedScript + (route?.script ? fs.readFileSync(scripts[route.script], "utf8") : "");
   const revision = crypto.createHash("sha256").update(css).update("\0").update(script).digest("hex");
-  return { route: route.style, css, script, revision };
+  return { route: route?.style ?? null, css, script, revision };
 }
 
 function localMetadata() {
