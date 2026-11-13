@@ -2,11 +2,15 @@ const crypto = require("node:crypto");
 const fs = require("node:fs");
 const http = require("node:http");
 const path = require("node:path");
-const { routes, stylesheets } = require("./userscript-config");
+const { routes, scripts, stylesheets } = require("./userscript-config");
 
-const host = "127.0.0.1";
+const host = process.env.HOST || "127.0.0.1";
+const publicHost = process.env.PUBLIC_HOST || host;
 const port = Number(process.env.PORT || 4173);
-const baseUrl = `http://${host}:${port}`;
+const baseUrl = `http://${publicHost}:${port}`;
+const reportsDir = path.join(__dirname, "..", "dist", "reports");
+const reportPath = path.join(__dirname, "..", "dist", "report.json");
+const diagnosticsPath = path.join(__dirname, "diagnostics-client.js");
 const loggedRevisions = new Map();
 const localScriptPath = path.join(__dirname, "..", "dist", "snowmobile.local.user.js");
 
@@ -20,25 +24,25 @@ function getStyleForPathname(pathname) {
     exact ? exact.includes(pathname) : new RegExp(pattern).test(pathname),
   );
 
-  if (!route) return null;
+  if (!route) return { route: null, css: "", script: "", revision: "none" };
 
   const css = fs.readFileSync(stylesheets[route.style], "utf8");
-  const revision = crypto.createHash("sha256").update(css).digest("hex");
-  return { route: route.style, css, revision };
+  const script = route.script ? fs.readFileSync(scripts[route.script], "utf8") : "";
+  const revision = crypto.createHash("sha256").update(css).update("\0").update(script).digest("hex");
+  return { route: route.style, css, script, revision };
 }
 
 function localMetadata() {
   return `// ==UserScript==
 // @name         SnowMobile local development
 // @namespace    https://github.com/oferm/snowmobile-webextension
-// @version      1.1.1
+// @version      1.3.0
 // @description  Live-load SnowMobile CSS from this Mac during development
 // @match        *://snowheads.com/*
-// @grant        GM.addStyle
-// @grant        GM_addStyle
 // @grant        GM.xmlHttpRequest
 // @connect      127.0.0.1
 // @connect      localhost
+// @connect      ${publicHost}
 // @run-at       document-idle
 // ==/UserScript==
 `;
@@ -47,28 +51,41 @@ function localMetadata() {
 function localUserscript() {
   return `${localMetadata()}
 (() => {
-  const routes = ${JSON.stringify(routes)};
-  const route = routes.find(({ exact, pattern }) =>
-    exact ? exact.includes(location.pathname) : new RegExp(pattern).test(location.pathname),
-  );
-  if (!route) return;
-
   const server = ${JSON.stringify(baseUrl)};
-  const revisionKey = "snowmobile-local-revision:" + route.style + ":" + location.pathname;
+  const pageKey = location.pathname;
+  const revisionKey = "snowmobile-local-revision:" + pageKey;
   const scrollKey = revisionKey + ":scroll";
   let pageRevision = null;
   let requestInFlight = false;
   let connectionWarningShown = false;
 
-  async function addStyles(css) {
-    if (typeof GM_addStyle === "function") {
-      GM_addStyle(css);
-    } else if (typeof GM !== "undefined" && typeof GM.addStyle === "function") {
-      await GM.addStyle(css);
-    } else {
-      const style = document.createElement("style");
-      style.textContent = css;
-      (document.head || document.documentElement).appendChild(style);
+  function addStyles(css) {
+    // A <style> element is author-origin, like the production userscript.
+    const style = document.createElement("style");
+    style.id = "snowmobile-local-style";
+    style.textContent = css;
+    (document.head || document.documentElement).appendChild(style);
+  }
+
+  async function send(payload) {
+    try {
+      await GM.xmlHttpRequest({
+        method: "POST",
+        url: server + "/report",
+        headers: { "Content-Type": "application/json" },
+        data: JSON.stringify(payload),
+        timeout: 5000,
+      });
+    } catch (error) {
+      console.warn("[SnowMobile local] Could not send diagnostic report", error);
+    }
+  }
+
+  function run(source) {
+    try {
+      new Function("send", source)(send);
+    } catch (error) {
+      console.warn("[SnowMobile local] Script failed", error);
     }
   }
 
@@ -90,15 +107,16 @@ function localUserscript() {
         if (previouslyApplied && previouslyApplied !== result.revision) {
           sessionStorage.setItem(revisionKey, result.revision);
           sessionStorage.setItem(scrollKey, String(window.scrollY));
-          console.info("[SnowMobile local] CSS changed; refreshing to reinject through GM.addStyle");
           location.reload();
           return;
         }
 
-        await addStyles(result.css);
+        if (result.css) addStyles(result.css);
+        if (result.script) run(result.script);
+        if (result.diagnostics) run(result.diagnostics);
         pageRevision = result.revision;
         sessionStorage.setItem(revisionKey, result.revision);
-        console.info("[SnowMobile local] Applied " + result.route + " CSS (" + pageRevision.slice(0, 8) + ")");
+        console.info("[SnowMobile local] Applied " + result.route + " (" + pageRevision.slice(0, 8) + ")");
 
         const savedScroll = sessionStorage.getItem(scrollKey);
         if (savedScroll !== null) {
@@ -108,7 +126,6 @@ function localUserscript() {
       } else if (result.revision !== pageRevision) {
         sessionStorage.setItem(revisionKey, result.revision);
         sessionStorage.setItem(scrollKey, String(window.scrollY));
-        console.info("[SnowMobile local] CSS changed; refreshing to reinject through GM.addStyle");
         location.reload();
       }
       connectionWarningShown = false;
@@ -124,7 +141,7 @@ function localUserscript() {
 
   refreshStyles();
   setInterval(refreshStyles, 1000);
-  })();
+})();
 `;
 }
 
@@ -138,8 +155,30 @@ const server = http.createServer((request, response) => {
   response.setHeader("Cache-Control", "no-store");
   response.setHeader("X-Content-Type-Options", "nosniff");
 
+  if (request.method === "POST" && new URL(request.url, baseUrl).pathname === "/report") {
+    let body = "";
+    request.on("data", (chunk) => { body += chunk; if (body.length > 2e6) request.destroy(); });
+    request.on("end", () => {
+      try {
+        const report = JSON.parse(body);
+        const u = new URL(report.url);
+        const slug = (u.pathname + u.search).replace(/[^a-zA-Z0-9]+/g, "_").replace(/^_+|_+$/g, "") || "root";
+        fs.mkdirSync(reportsDir, { recursive: true });
+        fs.writeFileSync(path.join(reportsDir, `${slug}.json`), body);
+        fs.writeFileSync(reportPath, body);
+        const family = /iPhone/.test(report.ua) ? "iPhone" : /Mac/.test(report.ua) ? "Mac" : "other";
+        console.log(`Report ${report.url} [${family}] scrollWidth ${report.scrollWidth} vs innerWidth ${report.innerWidth}${report.problem ? " PROBLEM" : ""}`);
+        response.writeHead(204).end();
+      } catch (error) {
+        console.warn("Bad report:", error.message);
+        response.writeHead(400).end("Bad report");
+      }
+    });
+    return;
+  }
+
   if (request.method !== "GET") {
-    response.writeHead(405, { Allow: "GET" }).end("Method not allowed");
+    response.writeHead(405, { Allow: "GET, POST" }).end("Method not allowed");
     return;
   }
 
@@ -152,13 +191,8 @@ const server = http.createServer((request, response) => {
 
   if (url.pathname === "/style") {
     const result = getStyleForPathname(url.searchParams.get("path") || "");
-    if (!result) {
-      response.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
-      response.end("No SnowMobile stylesheet is configured for this path");
-      return;
-    }
 
-    if (loggedRevisions.get(result.route) !== result.revision) {
+    if (result.route && loggedRevisions.get(result.route) !== result.revision) {
       loggedRevisions.set(result.route, result.revision);
       console.log(
         `Safari requested ${result.route} CSS revision ${result.revision.slice(0, 8)}`,
@@ -166,7 +200,7 @@ const server = http.createServer((request, response) => {
     }
 
     response.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
-    response.end(JSON.stringify(result));
+    response.end(JSON.stringify({ ...result, diagnostics: fs.readFileSync(diagnosticsPath, "utf8") }));
     return;
   }
 

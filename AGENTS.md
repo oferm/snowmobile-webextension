@@ -14,3 +14,6 @@
   go to `/tmp/opencode/snowmobile-screenshots/loop/`.
 - Do not trust ImageMagick's `AE` metric on this machine (7.1.2 beta reports
   error sums, not pixel counts); the loop counts changed pixels from raw RGBA.
+- Playwright tools inject the built userscript (`dist/snowmobile.user.js`),
+  the same `<style>` injection the phone uses. Run `yarn check:layout` before
+  publishing; real Safari reports land in `dist/reports/` via `yarn dev:safari`.

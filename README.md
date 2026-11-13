@@ -33,9 +33,9 @@ option and accept the install prompt. Enable Userscripts for Snowheads, disable
 the published SnowMobile script to avoid overlapping styles, then open or refresh
 a Snowheads page. Keep the command running and edit files in `css/`: the matching
 stylesheet is fetched from your working tree. Within about a second, Safari reloads
-the page once for each saved CSS revision and reinjects it using the same
-`GM_addStyle`/`GM.addStyle` API as the production userscript; the current scroll
-position is restored. The Safari Web Inspector console logs applied revisions.
+the page once for each saved CSS revision and reinjects it as a plain `<style>` element, as the production userscript does
+(`GM.addStyle` creates a user-origin stylesheet that the site's own CSS overrides,
+so it is not used); the current scroll position is restored. The Safari Web Inspector console logs applied revisions.
 The generated local script is in the ignored `dist/` directory. It does not use
 `@updateURL`; CSS live reload works independently of Userscripts' update checker.
 Reinstall it from **New Remote** only when the loader code changes. Set `PORT` if
@@ -45,6 +45,20 @@ the Userscripts install URL too).
 The dev server listens only on this Mac's loopback interface. If it is stopped,
 the local userscript reports a connection warning in the Web Inspector console;
 it reconnects automatically when the server starts again.
+
+Each page load also sends a diagnostics report (page width, overflowing
+elements, odd/even post differences) to the server, which writes
+`dist/reports/<page>.json` and logs a `PROBLEM` line when something is wrong. The
+diagnostics code (`scripts/diagnostics-client.js`) is served by the server, so
+changing it needs no reinstall. To test on an iPhone, run
+`HOST=0.0.0.0 PUBLIC_HOST=<Mac LAN IP> yarn dev:safari` and install from that
+address.
+
+### Layout check
+
+`yarn check:layout` loads known-awkward pages in WebKit at 390px and 620px with
+the built userscript injected, and fails on horizontal overflow, odd/even post
+mismatches or overflowing post content. Screenshots use the same built script.
 
 Run the fast route-mapping checks with `yarn test`.
 

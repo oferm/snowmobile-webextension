@@ -2,7 +2,7 @@ const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
 const { chromium, webkit, devices } = require("playwright");
-const { getScriptForUrl, getStylesheetForUrl } = require("./userscript-config");
+const { buildUserscriptSource } = require("./userscript-inject");
 
 // Playwright's WebKit build is an Ubuntu binary and its host validation only
 // knows Ubuntu package names, so it reports missing deps on Fedora even after
@@ -53,6 +53,8 @@ const output =
 
 fs.mkdirSync(path.dirname(output), { recursive: true });
 
+const userscriptSource = buildUserscriptSource();
+
 (async () => {
   const launcher = engine === "chromium" ? chromium : webkit;
   const userDataDir =
@@ -66,10 +68,7 @@ fs.mkdirSync(path.dirname(output), { recursive: true });
 
   const page = context.pages()[0] || (await context.newPage());
   await page.goto(url, { waitUntil: "domcontentloaded" });
-  const stylesheet = getStylesheetForUrl(page.url());
-  if (stylesheet) await page.addStyleTag({ path: stylesheet });
-  const script = getScriptForUrl(page.url());
-  if (script) await page.addScriptTag({ path: script });
+  await page.evaluate(userscriptSource);
   await page.waitForTimeout(1000);
   await page.screenshot({ path: output, fullPage: true });
 
