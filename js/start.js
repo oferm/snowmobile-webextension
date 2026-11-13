@@ -158,11 +158,18 @@
 
   function enhanceHome() {
     enhanceHomeHeader();
-    const layout = document.querySelector("body > div:last-of-type > div > table");
+    const recentTable = [...document.querySelectorAll("table.forumline")].find((table) =>
+      /recent posts/i.test(table.querySelector("th")?.textContent || ""),
+    );
+    const layout =
+      recentTable?.closest("td")?.closest("table") ||
+      document.querySelector("body > div:last-of-type > div > table");
     const columns = layout?.querySelector(":scope > tbody > tr");
     if (!layout || !columns || layout.classList.contains("snowmobile-home-layout")) return;
 
     layout.classList.add("snowmobile-home-layout");
+    layout.parentElement?.classList.add("snowmobile-home-inner");
+    layout.parentElement?.parentElement?.classList.add("snowmobile-home-root");
     const cells = [...columns.children];
     cells[2]?.classList.add("snowmobile-aside-column");
 

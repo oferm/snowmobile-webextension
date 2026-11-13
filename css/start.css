@@ -318,20 +318,20 @@ body {
     }
 }
 
-body > div:last-of-type {
+.snowmobile-home-root {
     box-sizing: border-box;
     max-width: 100%;
     width: 100%;
 }
 
-body > div:last-of-type > div {
+.snowmobile-home-root > .snowmobile-home-inner {
     box-sizing: border-box;
     max-width: 100%;
     padding: 0 !important;
     width: 100% !important;
 }
 
-body > div:last-of-type .forumline {
+.snowmobile-home-root .forumline {
     background-color: #fff;
     box-sizing: border-box;
     max-width: 100%;
