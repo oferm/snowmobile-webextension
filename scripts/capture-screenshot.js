@@ -66,6 +66,9 @@ const userscriptSource = buildUserscriptSource();
     ...contextOptions,
   });
 
+  if (process.env.SNOWHEADS_COOKIES) {
+    await context.addCookies(JSON.parse(fs.readFileSync(process.env.SNOWHEADS_COOKIES, "utf8")));
+  }
   const page = context.pages()[0] || (await context.newPage());
   await page.goto(url, { waitUntil: "domcontentloaded" });
   await page.evaluate(userscriptSource);

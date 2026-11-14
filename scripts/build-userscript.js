@@ -24,14 +24,25 @@ const metadata = `// ==UserScript==
 // @updateURL    ${rawBase}/snowmobile.meta.js
 // @downloadURL  ${rawBase}/snowmobile.user.js
 // @grant        none
-// @run-at       document-idle
+// @run-at       document-start
 // ==/UserScript==
 `;
 
+function minifyCss(source) {
+  return source
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/\s+/g, " ")
+    .replace(/\s*([{};])\s*/g, "$1")
+    .replace(/;}/g, "}")
+    .trim();
+}
+
+function buildSource() {
+const earlyScript = fs.readFileSync(path.join(root, "js", "perf.js"), "utf8");
 const css = Object.fromEntries(
   Object.entries(stylesheets).map(([name, filename]) => [
     name,
-    fs.readFileSync(filename, "utf8"),
+    minifyCss(fs.readFileSync(filename, "utf8")),
   ]),
 );
 
@@ -41,14 +52,15 @@ const scripts = Object.fromEntries(
     fs.readFileSync(filename, "utf8"),
   ]),
 );
-const sharedCss = fs.readFileSync(shared.stylesheet, "utf8");
+const sharedCss = minifyCss(fs.readFileSync(shared.stylesheet, "utf8"));
 const sharedScript = fs.readFileSync(shared.script, "utf8");
 const scriptCases = Object.entries(scripts)
-  .map(([name, script]) => `if (route.script === ${JSON.stringify(name)}) {\n${script}\n}`)
+  .map(([name, script]) => `if (route?.script === ${JSON.stringify(name)}) {\n${script}\n}`)
   .join("\n");
 
-const source = `${metadata}
+return `${metadata}
 (() => {
+  ${earlyScript}
   const routes = ${JSON.stringify(routes)};
   const styles = ${JSON.stringify(css)};
   const pathname = window.location.pathname;
@@ -57,9 +69,20 @@ const source = `${metadata}
   );
   // GM.addStyle injects a user-origin stylesheet in Safari, which the site's own
   // (author) CSS beats regardless of specificity. A <style> element is author-origin.
-  const style = document.createElement("style");
-  style.textContent = ${JSON.stringify(sharedCss)} + (route ? styles[route.style] : "");
-  (document.head || document.documentElement).appendChild(style);
+  const addStyles = () => {
+    const target = document.head || document.documentElement;
+    if (!target) return false;
+    const style = document.createElement("style");
+    style.textContent = ${JSON.stringify(sharedCss)} + (route ? styles[route.style] : "");
+    target.appendChild(style);
+    return true;
+  };
+  if (!addStyles()) {
+    const rootObserver = new MutationObserver(() => {
+      if (addStyles()) rootObserver.disconnect();
+    });
+    rootObserver.observe(document, { childList: true });
+  }
 
   {
     ${sharedScript}
@@ -67,9 +90,15 @@ const source = `${metadata}
   ${scriptCases}
 })();
 `;
+}
 
+module.exports = { buildSource, metadata, minifyCss };
+
+if (require.main === module) {
+const source = buildSource();
 const dist = path.join(root, "dist");
 fs.mkdirSync(dist, { recursive: true });
 fs.writeFileSync(path.join(dist, "snowmobile.user.js"), source);
 fs.writeFileSync(path.join(dist, "snowmobile.meta.js"), metadata);
 console.log(`Built SnowMobile userscript v${version}`);
+}

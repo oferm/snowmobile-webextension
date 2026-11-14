@@ -86,9 +86,13 @@ function inPage() {
 (async () => {
   const source = buildUserscriptSource();
   const context = await webkit.launchPersistentContext(
-    path.join(os.homedir(), ".local", "share", "snowmobile-webkit"),
+    process.env.PLAYWRIGHT_USER_DATA_DIR ||
+      path.join(os.homedir(), ".local", "share", "snowmobile-webkit"),
     { ignoreHTTPSErrors: true, headless: true, ...devices["iPhone 16e"] },
   );
+  if (process.env.SNOWHEADS_COOKIES) {
+    await context.addCookies(JSON.parse(require("node:fs").readFileSync(process.env.SNOWHEADS_COOKIES, "utf8")));
+  }
   const page = context.pages()[0] || (await context.newPage());
   const results = [];
   for (const url of urls) {

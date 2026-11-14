@@ -1,15 +1,8 @@
-const fs = require("node:fs");
-const path = require("node:path");
-const { execFileSync } = require("node:child_process");
+const { buildSource } = require("./build-userscript");
 
-const root = path.resolve(__dirname, "..");
-
+// Built in memory so parallel Playwright runs never read a half-written dist file.
 function buildUserscriptSource() {
-  execFileSync("node", [path.join(__dirname, "build-userscript.js")], {
-    cwd: root,
-    stdio: "ignore",
-  });
-  return fs.readFileSync(path.join(root, "dist", "snowmobile.user.js"), "utf8");
+  return buildSource();
 }
 
 module.exports = { buildUserscriptSource };

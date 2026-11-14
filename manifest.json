@@ -8,6 +8,11 @@
   ],
   "content_scripts": [
     {
+      "matches": ["*://*.snowheads.com/*"],
+      "js": ["js/perf.js"],
+      "run_at": "document_start"
+    },
+    {
       "matches": [
         "*://*.snowheads.com/",
         "*://*.snowheads.com/index.php*",
