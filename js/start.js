@@ -1,6 +1,29 @@
 (() => {
   "use strict";
 
+  const LAST_READ_KEY = "snowmobile:lastReadPosts";
+
+  function readLastReadStore() {
+    try {
+      const raw = window.localStorage.getItem(LAST_READ_KEY);
+      if (!raw) return {};
+      const parsed = JSON.parse(raw);
+      return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+    } catch {
+      return {};
+    }
+  }
+
+  function buildPostHref(baseHref, postId) {
+    const url = new URL(baseHref, window.location.href);
+    const sid = url.searchParams.get("sid");
+    url.search = "";
+    url.searchParams.set("p", postId);
+    if (sid) url.searchParams.set("sid", sid);
+    url.hash = postId;
+    return url.pathname + url.search + url.hash;
+  }
+
   function relativeTime(label) {
     const text = label.trim();
     const relative = text.match(/^(\d+)\s+(minute|hour|day|week|month|year)s? ago$/i);
@@ -82,16 +105,29 @@
   }
 
   function enhanceRecentPosts(table) {
+    const lastReadStore = readLastReadStore();
+
     table.querySelectorAll("tr").forEach((row) => {
       const cell = row.querySelector("td.row1, td.row2");
       if (!cell || cell.querySelector(".snowmobile-recent-meta")) return;
 
+      const topicLink = cell.querySelector(':scope > div > div:first-child a[href*="viewtopic.php"]');
       const forumLink = cell.querySelector('a.gensmall[href*="viewforum.php"], a.gensmall[href*="snow_reports.php"]');
       const timeLabel = [...cell.querySelectorAll("span.gensmall")].find((span) =>
         !span.querySelector("a") &&
         /(?:ago|^today\b|^yesterday\b|\d{1,2}-\d{1,2}-\d{2,4})/i.test(span.textContent.trim()),
       );
-      if (!forumLink && !timeLabel) return;
+      const latestLink = cell.querySelector('a[href*="viewtopic.php?p="]');
+      if (!forumLink && !timeLabel && !latestLink) return;
+
+      const topicId = topicLink?.getAttribute("href")?.match(/[?&]t=(\d+)/)?.[1] || null;
+      const latestPostId =
+        latestLink?.getAttribute("href")?.match(/[?&]p=(\d+)/)?.[1] ||
+        topicLink?.getAttribute("href")?.match(/#(\d+)/)?.[1] ||
+        null;
+      const savedPostId = topicId ? String(lastReadStore[topicId]?.p || "") : "";
+      const lastReadPostId = /^\d+$/.test(savedPostId) ? savedPostId : null;
+      const legacyRight = timeLabel?.parentElement || latestLink?.closest("div");
 
       const meta = document.createElement("div");
       meta.className = "snowmobile-recent-meta";
@@ -106,7 +142,34 @@
         time.title = timeLabel.textContent.trim();
         time.textContent = relativeTime(timeLabel.textContent);
         meta.append(time);
-        timeLabel.parentElement.remove();
+      }
+      if (lastReadPostId && topicLink) {
+        const lastReadLink = document.createElement("a");
+        lastReadLink.className = "snowmobile-recent-last-read";
+        const hasUnread = Boolean(latestPostId && Number(latestPostId) > Number(lastReadPostId));
+        if (hasUnread) lastReadLink.classList.add("has-unread");
+        lastReadLink.href = buildPostHref(topicLink.href, lastReadPostId);
+        const label = document.createElement("span");
+        label.textContent = "Last read";
+        lastReadLink.append(label);
+        const accessibleLabel = hasUnread
+          ? "Jump to last read message (newer replies available)"
+          : "Jump to last read message";
+        lastReadLink.setAttribute("aria-label", accessibleLabel);
+        lastReadLink.title = accessibleLabel;
+        meta.append(lastReadLink);
+      }
+      if (latestLink) {
+        const latestIcon = latestLink.querySelector("img")?.cloneNode(true);
+        if (latestIcon) latestLink.replaceChildren(latestIcon);
+        latestLink.classList.add("snowmobile-latest-post");
+        latestLink.setAttribute("aria-label", "Go to latest post");
+        latestLink.title = "Go to latest post";
+        meta.classList.add("has-latest");
+        meta.append(latestLink);
+      }
+      if (legacyRight && legacyRight !== cell.querySelector(":scope > div")) {
+        legacyRight.remove();
       }
 
       const title = cell.querySelector(":scope > div > div:first-child");

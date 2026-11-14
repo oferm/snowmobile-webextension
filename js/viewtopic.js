@@ -1,6 +1,113 @@
 (() => {
   "use strict";
 
+  const LAST_READ_KEY = "snowmobile:lastReadPosts";
+  const MAX_TRACKED_TOPICS = 200;
+
+  function readLastReadStore() {
+    try {
+      const raw = window.localStorage.getItem(LAST_READ_KEY);
+      if (!raw) return {};
+      const parsed = JSON.parse(raw);
+      return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+    } catch {
+      return {};
+    }
+  }
+
+  function saveLastReadPost(topicId, postId) {
+    if (!/^\d+$/.test(topicId) || !/^\d+$/.test(postId)) return;
+    try {
+      const store = readLastReadStore();
+      const prevId = Number(store[topicId]?.p || 0);
+      const nextId = Number(postId);
+      if (nextId <= prevId) return;
+
+      store[topicId] = { p: String(nextId), t: Date.now() };
+      const keys = Object.keys(store);
+      if (keys.length > MAX_TRACKED_TOPICS) {
+        keys
+          .sort((a, b) => Number(store[b]?.t || 0) - Number(store[a]?.t || 0))
+          .slice(MAX_TRACKED_TOPICS)
+          .forEach((key) => delete store[key]);
+      }
+      window.localStorage.setItem(LAST_READ_KEY, JSON.stringify(store));
+    } catch {
+      /* Ignore storage quota or private-browsing failures. */
+    }
+  }
+
+  function getTopicId() {
+    const queryTopic = new URLSearchParams(window.location.search).get("t");
+    if (queryTopic && /^\d+$/.test(queryTopic)) return queryTopic;
+
+    const input = document.querySelector('input[name="t"]');
+    if (input && /^\d+$/.test(input.value)) return input.value;
+
+    for (const link of document.querySelectorAll('a[href*="viewtopic.php?"]')) {
+      const match = link.getAttribute("href")?.match(/[?&]t=(\d+)/);
+      if (match) return match[1];
+    }
+    return null;
+  }
+
+  function getPostId(postRow) {
+    const row = postRow.closest("tr");
+    const name = row?.querySelector("a[name]")?.getAttribute("name")?.trim();
+    if (name && /^\d+$/.test(name)) return name;
+
+    const permalink = postRow.querySelector("a:has(> .post_link_landscape)");
+    if (permalink) {
+      const hash = new URL(permalink.href, window.location.href).hash.slice(1);
+      if (/^\d+$/.test(hash)) return hash;
+    }
+    return null;
+  }
+
+  function trackLastRead() {
+    const topicId = getTopicId();
+    if (!topicId) return;
+
+    const entries = [...document.querySelectorAll("#pagebody .forumline .post_row")]
+      .map((postRow) => ({
+        element: postRow.closest("tr") || postRow,
+        postId: getPostId(postRow),
+      }))
+      .filter((entry) => entry.postId);
+    if (!entries.length) return;
+
+    const recordVisible = () => {
+      const viewportBottom = window.innerHeight || document.documentElement.clientHeight;
+      let highestSeen = 0;
+      for (const { element, postId } of entries) {
+        const rect = element.getBoundingClientRect();
+        if (rect.height > 0 && rect.top < viewportBottom) {
+          const id = Number(postId);
+          if (id > highestSeen) highestSeen = id;
+        }
+      }
+      if (highestSeen) saveLastReadPost(topicId, String(highestSeen));
+    };
+
+    const hashId = window.location.hash.slice(1);
+    if (/^\d+$/.test(hashId) && entries.some((entry) => entry.postId === hashId)) {
+      saveLastReadPost(topicId, hashId);
+    }
+
+    let timer = 0;
+    const scheduleRecord = () => {
+      if (timer) return;
+      timer = window.setTimeout(() => {
+        timer = 0;
+        recordVisible();
+      }, 150);
+    };
+
+    recordVisible();
+    window.addEventListener("scroll", scheduleRecord, { passive: true });
+    window.addEventListener("pagehide", recordVisible);
+  }
+
   function getRelativeDate(posterInfo) {
     const portraitDates = posterInfo.querySelectorAll(".post_date_portrait");
     const dateSpans = portraitDates.length
@@ -271,10 +378,12 @@
       enhancePosts();
       enhanceQuickReply();
       enhanceTopicActions();
+      trackLastRead();
     }, { once: true });
   } else {
     enhancePosts();
     enhanceQuickReply();
     enhanceTopicActions();
+    trackLastRead();
   }
 })();

@@ -197,12 +197,20 @@ body {
 
 .snowmobile-home-layout .snowmobile-recent-meta {
     align-items: center;
+    box-sizing: border-box;
     color: #505d69;
     display: flex;
     flex-wrap: wrap;
     font-size: 12px;
-    gap: 7px;
+    gap: 2px 7px;
     line-height: 1.4;
+    width: 100%;
+}
+
+.snowmobile-home-layout .snowmobile-recent-meta.has-latest {
+    min-height: 44px;
+    padding-right: 52px;
+    position: relative;
 }
 
 .snowmobile-home-layout .snowmobile-recent-meta a {
@@ -219,6 +227,89 @@ body {
     color: #8a929b;
     content: "·";
     margin-right: 6px;
+}
+
+.snowmobile-home-layout .snowmobile-recent-meta .snowmobile-recent-last-read {
+    align-items: center;
+    box-sizing: border-box;
+    color: #176d99;
+    display: inline-flex;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    min-height: 44px;
+    padding: 0 10px;
+    position: relative;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.snowmobile-home-layout .snowmobile-recent-meta .snowmobile-recent-last-read::before {
+    background: #f1f5f7;
+    border: 1px solid #dce5e9;
+    border-radius: 999px;
+    content: "";
+    inset: 9px 0;
+    position: absolute;
+    z-index: 0;
+}
+
+.snowmobile-home-layout .snowmobile-recent-meta .snowmobile-recent-last-read.has-unread::before {
+    background: #eef5f9;
+    border-color: #c7dce7;
+}
+
+.snowmobile-home-layout .snowmobile-recent-meta .snowmobile-recent-last-read > span {
+    align-items: center;
+    display: inline-flex;
+    gap: 5px;
+    position: relative;
+    z-index: 1;
+}
+
+.snowmobile-home-layout .snowmobile-recent-meta .snowmobile-recent-last-read.has-unread > span::before {
+    background: #176d99;
+    border-radius: 50%;
+    content: "";
+    flex: 0 0 6px;
+    height: 6px;
+    width: 6px;
+}
+
+.snowmobile-home-layout .snowmobile-recent-meta .snowmobile-recent-last-read:active::before {
+    background: #e1edf4;
+}
+
+.snowmobile-home-layout .snowmobile-recent-meta .snowmobile-latest-post {
+    align-items: center;
+    background: #f1f5f7;
+    border: 1px solid #e0e8ec;
+    border-radius: 50%;
+    box-sizing: border-box;
+    display: flex;
+    height: 44px;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    text-decoration: none;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+}
+
+.snowmobile-home-layout .snowmobile-recent-meta .snowmobile-latest-post:active {
+    background: #e5eef4;
+}
+
+.snowmobile-home-layout .snowmobile-recent-meta .snowmobile-latest-post img {
+    display: none;
+}
+
+.snowmobile-home-layout .snowmobile-recent-meta .snowmobile-latest-post::before {
+    color: #176d99;
+    content: "↘";
+    font-size: 20px;
+    line-height: 1;
 }
 
 .snowmobile-home-layout .snowmobile-recent-posts td br,
