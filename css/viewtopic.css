@@ -220,6 +220,48 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     padding: 10px 12px;
 }
 
+.postbody .quote {
+    color: #465466;
+    font-size: 0.94em;
+    line-height: 1.5;
+    margin: 8px 0;
+}
+
+.postbody .quote > b:first-child,
+.postbody .quote > strong:first-child {
+    color: #354a60;
+}
+
+.postbody .quote .quote {
+    background: #fff;
+    border-left-color: #9ba9b7;
+    border-radius: 0 6px 6px 0;
+    margin: 8px 0;
+    padding: 8px 10px;
+}
+
+.postbody pre,
+.postbody .code {
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: pre;
+}
+
+.postbody code {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.postbody iframe,
+.postbody video,
+.postbody object,
+.postbody embed {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
 @media (max-width: 1200px) {
     /* Keep the post date beside its author instead of in the distant landscape action column. */
     #pagebody .forumline > tbody > tr > td.name {
@@ -258,19 +300,19 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     }
 
     #pagebody .forumline .poster_info.snowmobile-enhanced {
-        align-items: start;
+        align-items: center;
         background: #fff;
         border-bottom: 0;
         column-gap: 8px;
         display: grid !important;
-        grid-template-columns: auto minmax(0, 1fr);
-        padding: 10px 10px 0;
+        grid-template-columns: 44px minmax(0, 1fr);
+        padding: 10px 12px;
     }
 
     #pagebody .forumline .poster_info.snowmobile-enhanced .expand_poster_data {
         grid-column: 1;
-        grid-row: 1 / 3;
-        margin: 2px 0 0;
+        grid-row: 1;
+        margin: 0;
     }
 
     #pagebody .forumline .poster_info.snowmobile-enhanced .snowmobile-author {
@@ -292,8 +334,22 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     }
 
     #pagebody .forumline .poster_info.snowmobile-enhanced .snowmobile-author-name a {
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 600;
+        text-decoration: none;
+    }
+
+    #pagebody .forumline .poster_info.snowmobile-enhanced .snowmobile-author-name .snowmobile-plain-author {
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    #pagebody .forumline .poster_info.snowmobile-enhanced:not(:has(.expand_poster_data)) {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #pagebody .forumline .poster_info.snowmobile-enhanced:not(:has(.expand_poster_data)) .snowmobile-author {
+        grid-column: 1;
     }
 
     #pagebody .forumline .poster_info.snowmobile-enhanced .snowmobile-member-badge {
@@ -333,6 +389,10 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
         margin-top: 3px;
     }
 
+    #pagebody .forumline .poster_info.snowmobile-enhanced .snowmobile-author-details {
+        display: none !important;
+    }
+
     #pagebody .forumline .poster_info.snowmobile-enhanced .post_date_portrait,
     #pagebody .forumline .poster_info.snowmobile-enhanced .post_date_landscape {
         display: none !important;
@@ -340,18 +400,22 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
 
     #pagebody .forumline .poster_info.snowmobile-enhanced .expand_poster_data {
         align-items: center;
-        background: #F1F1FA;
+        background: #e9eff6;
         border-radius: 50%;
-        display: flex;
-        height: 40px;
+        color: #173b59;
+        cursor: pointer;
+        display: flex !important;
+        height: 44px;
         justify-content: center;
         margin: 0;
-        width: 40px;
+        outline-offset: 2px;
+        width: 44px;
     }
 
-    #pagebody .forumline .poster_info.snowmobile-enhanced .expand_poster_data img {
-        height: 16px;
-        width: 16px;
+    #pagebody .forumline .poster_info.snowmobile-enhanced .expand_poster_data.snowmobile-avatar {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
     }
 
     #pagebody .forumline #post_row.post_row table#table3 tbody tr td:has(.post_link_landscape) {
@@ -360,8 +424,8 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
         display: flex !important;
         gap: 4px;
         justify-content: flex-end;
-        min-height: 48px;
-        padding: 2px 8px;
+        min-height: 36px;
+        padding: 4px 8px;
         width: 100% !important;
     }
 
@@ -369,13 +433,37 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_quote_landscape > a {
         align-items: center;
         background: #F1F1FA;
-        border-radius: 20px;
+        border-radius: 14px;
+        box-sizing: border-box;
         display: inline-flex !important;
-        height: 40px;
+        height: 28px;
         justify-content: center;
         margin: 0 !important;
+        min-width: 28px;
+        padding: 0 10px;
+        position: relative;
         transform: none !important;
-        width: 40px;
+        width: auto;
+        white-space: nowrap;
+    }
+
+    #pagebody .forumline #post_row.post_row table#table3 tbody tr td > a:has(> .post_link_landscape)::after,
+    #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_quote_landscape > a::after {
+        content: "";
+        inset: -8px -3px;
+        position: absolute;
+    }
+
+    #pagebody .forumline .snowmobile-labeled-action {
+        color: #173b59 !important;
+        font-size: 12px;
+        font-weight: 600;
+        gap: 6px;
+        text-decoration: none;
+    }
+
+    #pagebody .forumline .snowmobile-labeled-action img {
+        display: none !important;
     }
 
     #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_link_landscape,
@@ -386,6 +474,10 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
 
     #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_quote_landscape {
         display: inline-flex !important;
+    }
+
+    #pagebody .forumline #post_row.post_row table#table3 tbody tr td .snowmobile-labeled-action img {
+        display: none !important;
     }
 
     #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_link_landscape img,
@@ -413,18 +505,50 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
 
     #pagebody .forumline #post_row.post_row table#table3 .snowmobile-post-menu .expand_post_data {
         align-items: center;
-        background: #F1F1FA;
-        border-radius: 50%;
-        display: flex;
-        height: 40px;
+        background: #f2f4f7;
+        border: 1px solid #e3e8ed;
+        border-radius: 14px;
+        box-sizing: border-box;
+        color: #173b59;
+        cursor: pointer;
+        display: inline-flex !important;
+        font-size: 12px;
+        font-weight: 600;
+        height: 28px;
         justify-content: center;
         margin: 0 !important;
-        width: 40px;
+        min-width: 28px;
+        outline-offset: 2px;
+        padding: 0 10px;
+        position: relative;
+        white-space: nowrap;
     }
 
-    #pagebody .forumline #post_row.post_row table#table3 .snowmobile-post-menu .expand_post_data img {
-        height: 16px;
-        width: 16px;
+    #pagebody .forumline #post_row.post_row table#table3 .snowmobile-post-menu .expand_post_data::after {
+        content: "";
+        inset: -8px -3px;
+        position: absolute;
+    }
+
+    body a.snowmobile-topic-action {
+        align-items: center;
+        appearance: none;
+        background: #173b59 !important;
+        border: 1px solid #173b59 !important;
+        border-radius: 9px;
+        box-sizing: border-box;
+        color: #fff !important;
+        display: inline-flex !important;
+        font-size: 14px;
+        font-weight: 600;
+        justify-content: center;
+        line-height: 1.2;
+        margin: 5px 8px 5px 0;
+        min-height: 44px;
+        min-width: 44px;
+        padding: 0 14px;
+        text-decoration: none;
+        vertical-align: middle;
     }
 
     #pagebody .forumline .message_cell .postbody {
@@ -434,8 +558,11 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
 
     #qr_form #quick_reply_text {
         box-sizing: border-box !important;
-        height: 96px !important;
-        min-height: 96px !important;
+        font-size: 16px !important;
+        height: 120px !important;
+        line-height: 1.5;
+        min-height: 120px !important;
+        resize: vertical;
         width: 100% !important;
     }
 
@@ -446,7 +573,7 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
         color: #33336B;
         font: inherit;
         margin: 6px 0;
-        min-height: 40px;
+        min-height: 44px;
         padding: 7px 12px;
     }
 
@@ -604,7 +731,7 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
         display: inline-flex;
         font-size: 14px;
         justify-content: center;
-        min-height: 40px;
+        min-height: 44px;
         padding: 0 11px;
         text-decoration: none;
     }
@@ -620,7 +747,7 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     #pagebody .forumline > tbody > tr:has(.post_row) {
         background: #fff;
         border-radius: 14px;
-        box-shadow: 0 2px 12px rgba(28, 44, 60, 0.08);
+        border: 1px solid #e1e7ec;
         display: block;
         margin: 0;
         overflow: hidden;
@@ -670,29 +797,51 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
         line-height: 1.55;
     }
 
+    #pagebody .forumline .message_cell .gensmallite {
+        color: #788491;
+        display: block;
+        font-size: 13px;
+        line-height: 1.4;
+        margin-top: 10px;
+    }
+
+    #pagebody .forumline .message_cell .gensmallite img {
+        max-width: 100%;
+    }
+
     #pagebody .forumline #post_row.post_row table#table3 tbody tr td:has(.post_link_landscape) {
         background: #fff !important;
         border-radius: 0 0 14px 14px;
         border-top: 1px solid #edf0f3 !important;
-        min-height: 48px;
+        min-height: 36px;
         padding: 4px 0;
     }
 
     #pagebody .forumline #post_row.post_row table#table3 tbody tr td > a:has(> .post_link_landscape),
-    #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_quote_landscape > a,
+    #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_quote_landscape > a {
+        background: #f2f4f7;
+        border: 1px solid #e3e8ed;
+        border-radius: 14px;
+        box-sizing: border-box;
+        height: 28px;
+        min-width: 28px;
+        padding: 0 10px;
+        width: auto;
+    }
+
     #pagebody .forumline #post_row.post_row table#table3 .snowmobile-post-menu .expand_post_data {
         background: #f2f4f7;
         border: 1px solid #e3e8ed;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
+        border-radius: 14px;
+        height: 28px;
+        min-width: 28px;
+        width: auto;
     }
 
     #qr_form {
         background: #fff !important;
         border: 1px solid #e3e8ed !important;
         border-radius: 14px !important;
-        box-shadow: 0 2px 12px rgba(28, 44, 60, 0.08);
         box-sizing: border-box !important;
         margin: 10px auto 16px !important;
         padding: 12px !important;
@@ -721,14 +870,48 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
         font: inherit;
         font-size: 14px;
         margin: 5px 4px 5px 0 !important;
-        min-height: 40px;
+        min-height: 44px;
         padding: 0 12px !important;
+    }
+
+    #qr_form .snowmobile-primary-submit {
+        font-weight: 700;
+        min-width: 104px;
+    }
+
+    #qr_form input.snowmobile-secondary-submit,
+    #qr_form input.snowmobile-quote-selected {
+        background: #f2f4f7 !important;
+        border-color: #d8e0e7 !important;
+        color: #173b59 !important;
+    }
+
+    #qr_form .snowmobile-secondary-submit {
+        min-width: 88px;
     }
 
     #qr_form .snowmobile-smilies-toggle {
         background: #f2f4f7;
         border: 1px solid #d8e0e7;
         color: #173b59;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 700px) {
+    /* The legacy post table exceeds the viewport by a few pixels just above
+       the card-layout breakpoint; keep logged-in post content within gutters. */
+    #pagebody .forumline {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        max-width: calc(100vw - 24px) !important;
+        table-layout: fixed !important;
+        width: calc(100vw - 24px) !important;
+    }
+
+    #pagebody .forumline #table3 .message_cell {
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+        width: 100% !important;
     }
 }
 

@@ -17,10 +17,26 @@
     return link;
   }
 
+  function homeLogo() {
+    const link = anchor("https://snowheads.com/", "");
+    link.className = "snowmobile-header-logo";
+    link.setAttribute("aria-label", "Snowheads home");
+    link.title = "Snowheads home";
+
+    const image = document.createElement("img");
+    image.src = "/ski-forum/designLab/s_for_snowHeads_dotcom.png";
+    image.alt = "";
+    link.append(image);
+    return link;
+  }
+
   function enhanceHeader() {
     if (document.querySelector(".snowmobile-toolbar")) return;
 
     const corner = document.querySelector("#topCorner");
+    if (corner && !corner.querySelector(".snowmobile-header-logo")) {
+      corner.append(homeLogo());
+    }
     const legacy = corner
       ? null
       : topLevel(document.querySelector("img[src*='ski-club']") || document.querySelector("input[name='username']"));
@@ -132,14 +148,13 @@
 
     if (corner) {
       corner.append(toolbar);
+      enhanceQuickNavigation();
       return;
     }
 
     const bar = document.createElement("div");
     bar.className = "snowmobile-bar";
-    const wordmark = anchor("/ski-forum/", "snowHeads");
-    wordmark.className = "snowmobile-wordmark";
-    bar.append(wordmark, toolbar);
+    bar.append(homeLogo(), toolbar);
 
     if (legacy) {
       legacy.classList.add("snowmobile-legacy-header");
@@ -147,6 +162,34 @@
     } else {
       document.body.prepend(bar);
     }
+    enhanceQuickNavigation();
+  }
+
+  function enhanceQuickNavigation() {
+    const label = [...document.querySelectorAll("#pagebody .gensmall")]
+      .find((element) => /^last visit\s*:/i.test(element.textContent.trim()));
+    const row = label?.closest("tr");
+    if (!label || !row) return;
+
+    const links = [...row.querySelectorAll("a.gensmall[href]")].filter((link) =>
+      /^(?:new posts|your posts|unanswered posts)$/i.test(link.textContent.trim()),
+    );
+    const navigation = row.closest("table");
+    const labelCell = label.closest("td");
+    const linksCell = links[0]?.closest("td");
+    if (links.length !== 3 || !navigation || !labelCell || !linksCell) return;
+
+    const quickLinks = document.createElement("div");
+    quickLinks.className = "snowmobile-quick-links";
+    links.forEach((link) => {
+      link.classList.add("snowmobile-quick-link");
+      quickLinks.append(link);
+    });
+
+    navigation.classList.add("snowmobile-quick-navigation");
+    label.classList.add("snowmobile-last-visit");
+    labelCell.replaceChildren(label);
+    linksCell.replaceChildren(quickLinks);
   }
 
   if (document.readyState === "loading") {

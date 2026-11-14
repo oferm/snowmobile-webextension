@@ -177,3 +177,502 @@ table .forum_block h2 marquee {
         min-height: 64px;
     }
 }
+
+/* Present the legacy forum table as a scannable list on narrow screens. */
+@media (max-width: 700px) {
+    body {
+        background: #f2f4f7 !important;
+        color: #263442;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+    }
+
+    body > div:nth-last-of-type(3) table table {
+        background: transparent !important;
+        border-collapse: separate;
+        border-spacing: 0;
+        box-sizing: border-box;
+        max-width: 100%;
+        width: 100% !important;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td[background*="MountainRange.jpg"]) > td {
+        background-color: #176d99 !important;
+        background-image: linear-gradient(110deg, rgba(18, 66, 96, .92), rgba(23, 109, 153, .76)), url("/ski-forum/templates/subSilver/images/MountainRange.jpg") !important;
+        background-position: center, center 48%;
+        background-size: cover;
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-sizing: border-box;
+        height: auto !important;
+        padding: 7px 12px !important;
+    }
+
+    .ycattitle {
+        color: #fff;
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        justify-content: flex-start;
+        letter-spacing: .055em;
+        line-height: 1.3;
+        text-align: left;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, .35);
+        text-transform: uppercase;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) {
+        background: #fff;
+        border-bottom: 1px solid #e3e8ed;
+        box-sizing: border-box;
+        display: grid;
+        grid-template-columns: 104px minmax(0, 1fr);
+        margin: 0;
+        width: 100%;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td {
+        background: #fff !important;
+        border: 0 !important;
+        box-sizing: border-box;
+        display: block;
+        height: auto !important;
+        min-width: 0;
+        width: auto !important;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:first-child {
+        display: none !important;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(2) {
+        grid-column: 1 / -1;
+        padding: 0 !important;
+    }
+
+    table .forum_block,
+    table .forum_block:hover {
+        background: #fff !important;
+        border: 0 !important;
+        border-radius: 0;
+        box-sizing: border-box;
+        gap: 4px;
+        min-height: 0;
+        padding: 8px 12px 6px;
+    }
+
+    table .forum_block h1 {
+        line-height: 1.3;
+        min-height: 44px;
+    }
+
+    table .forum_block h1 a {
+        align-items: center;
+        display: flex;
+        min-height: 44px;
+    }
+
+    table .forum_block .forumlink {
+        color: #006699 !important;
+        font-size: 17px !important;
+        font-weight: 650;
+        line-height: 1.3;
+    }
+
+    table .forum_block h1 img {
+        height: 15px !important;
+        margin-right: 8px;
+        opacity: .72;
+        width: 15px;
+    }
+
+    table .forum_block .fdesc {
+        color: #59636f !important;
+        font-size: 14px;
+        line-height: 1.4;
+        -webkit-line-clamp: 3;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(3),
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(4) {
+        align-items: center;
+        background: #f7f9fb !important;
+        border-top: 1px solid #edf0f3 !important;
+        color: #647181;
+        display: flex !important;
+        font-size: 10px;
+        line-height: 1.3;
+        min-height: 42px;
+        padding: 4px 10px !important;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(3) {
+        border-radius: 0 0 0 10px;
+        align-content: center;
+        align-items: center;
+        column-gap: 4px;
+        display: grid !important;
+        grid-template-columns: 42px minmax(0, 1fr);
+        grid-template-rows: repeat(2, 12px);
+        justify-content: start;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(3)::before {
+        color: #8995a2;
+        content: "Topics";
+        font-size: 9px;
+        letter-spacing: .015em;
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(3)::after {
+        color: #8995a2;
+        content: "Posts";
+        font-size: 9px;
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(3) .gensmall {
+        color: #59636f;
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        font-size: 10px;
+        line-height: 12px;
+        white-space: nowrap;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(3) br {
+        display: inline;
+        line-height: normal;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(4) {
+        border-radius: 0 0 10px 0;
+        justify-content: flex-end;
+        min-width: 0;
+        overflow: hidden;
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(4)::before {
+        color: #8995a2;
+        content: "Last post";
+        flex: 0 0 auto;
+        font-size: 9px;
+        margin-right: 6px;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(4) .gensmall {
+        align-items: center;
+        color: #59636f;
+        display: flex;
+        flex: 1 1 auto;
+        font-size: 10px;
+        gap: 4px;
+        min-width: 0;
+        white-space: nowrap;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(4) .gensmall > br {
+        display: none;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(4) .gensmall > a:has(> img[alt="View latest post"]) {
+        align-items: center;
+        background: #eaf3f8;
+        border-radius: 10px;
+        display: inline-flex;
+        flex: 0 0 44px;
+        height: 44px;
+        justify-content: center;
+        margin-left: auto;
+        order: 2;
+        width: 44px;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(4) .gensmall > a[href*="profile.php"] {
+        color: #006699 !important;
+        flex: 0 1 auto;
+        max-width: 76px;
+        min-width: 0;
+        order: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(4) img {
+        height: 13px;
+        margin: 0;
+        width: 13px;
+    }
+
+    /* Distinguish forums with new posts from the quiet-folder state. */
+    table .forum_block:has(h1 img[src*="folder_new"], h1 img[title^="New posts" i]) {
+        background: #f0f8fc !important;
+    }
+
+    table .forum_block:has(h1 img[src*="folder_new"], h1 img[title^="New posts" i]) h1 img {
+        background: #dceef7;
+        border-radius: 50%;
+        box-shadow: 0 0 0 3px #e9f4f9;
+        opacity: 1;
+    }
+
+    table .forum_block:has(h1 img[src*="folder_new"], h1 img[title^="New posts" i]) h1::after {
+        background: #e0f0f7;
+        border-radius: 999px;
+        color: #176d99;
+        content: "NEW";
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: .04em;
+        line-height: 1;
+        margin-left: auto;
+        padding: 5px 7px;
+    }
+
+    /* Keep the online count and forum login form within the same visual system. */
+    #pagebody > table > tbody > tr > td:last-child > span.gensmall {
+        background: #fff;
+        border-radius: 12px 12px 0 0;
+        box-sizing: border-box;
+        color: #59636f;
+        display: block;
+        font-size: 12px;
+        line-height: 1.45;
+        margin-top: 12px;
+        padding: 12px 14px 8px;
+    }
+
+    #pagebody > table > tbody > tr > td:last-child > span.gensmall::before {
+        color: #263442;
+        content: "Who's online";
+        display: block;
+        font-size: 15px;
+        font-weight: 650;
+        line-height: 1.3;
+        margin-bottom: 4px;
+    }
+
+    #pagebody > table > tbody > tr > td:last-child > span.gensmall:not(:has(+ form[action="login.php"])) {
+        border-radius: 12px;
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+    }
+
+    #pagebody > table > tbody > tr > td:last-child > span.gensmall a {
+        align-items: center;
+        color: #006699 !important;
+        display: inline-flex;
+        min-height: 28px;
+        overflow-wrap: anywhere;
+        padding-right: 4px;
+    }
+
+    #pagebody > table > tbody > tr > td:last-child > form[action="login.php"] > table.forumline {
+        background: #fff;
+        border: 0 !important;
+        border-radius: 0 0 12px 12px;
+        box-shadow: none;
+        margin: 0 0 12px !important;
+        overflow: hidden;
+        width: 100% !important;
+    }
+
+    #pagebody > table > tbody > tr > td:last-child > form[action="login.php"] > table.forumline > tbody > tr > td.catHead {
+        background: #fff !important;
+        border: 0 !important;
+        border-bottom: 1px solid #e3e8ed !important;
+        color: #263442 !important;
+        font-size: 16px;
+        padding: 10px 14px !important;
+        text-align: left;
+    }
+
+    #pagebody > table > tbody > tr > td:last-child > form[action="login.php"] > table.forumline > tbody > tr > td.catHead .cattitle {
+        color: #263442 !important;
+        font-size: 16px;
+        font-weight: 650;
+    }
+
+    #pagebody > table > tbody > tr > td:last-child > form[action="login.php"] > table.forumline > tbody > tr > td.row1 {
+        background: #fff !important;
+        box-sizing: border-box;
+        display: block;
+        height: auto !important;
+        padding: 12px 14px !important;
+        text-align: left !important;
+    }
+
+    #pagebody > table > tbody > tr > td:last-child > form[action="login.php"] .gensmall {
+        align-items: stretch;
+        color: #59636f;
+        display: flex;
+        flex-direction: column;
+        font-size: 13px;
+        gap: 4px;
+        line-height: 1.35;
+        text-align: left;
+    }
+
+    #pagebody > table > tbody > tr > td:last-child > form[action="login.php"] input[type="text"],
+    #pagebody > table > tbody > tr > td:last-child > form[action="login.php"] input[type="password"] {
+        appearance: none;
+        background: #fff;
+        border: 1px solid #cbd5df;
+        border-radius: 8px;
+        box-sizing: border-box;
+        display: block;
+        font: inherit;
+        height: 44px;
+        max-width: 100%;
+        padding: 0 11px;
+        width: 100%;
+    }
+
+    #pagebody > table > tbody > tr > td:last-child > form[action="login.php"] span[onclick*="showPass"] {
+        align-items: center;
+        background: #f2f4f7;
+        border-radius: 8px;
+        display: flex;
+        font-size: 20px;
+        justify-content: center;
+        min-height: 40px;
+    }
+
+    #pagebody > table > tbody > tr > td:last-child > form[action="login.php"] input[type="checkbox"] {
+        align-self: flex-start;
+        height: 20px;
+        margin: 2px 0 4px;
+        width: 20px;
+    }
+
+    #pagebody > table > tbody > tr > td:last-child > form[action="login.php"] input[type="submit"] {
+        background: #176d99;
+        border: 0;
+        border-radius: 8px;
+        box-sizing: border-box;
+        color: #fff;
+        font-size: 15px;
+        font-weight: 650;
+        height: 44px;
+        margin: 2px 0 0 !important;
+        width: 100%;
+    }
+
+    /* The logged-in index has a separate phpBB "Who is Online" table. */
+    #pagebody table.forumline {
+        background: #fff !important;
+        border: 0 !important;
+        border-collapse: separate;
+        border-radius: 12px;
+        border-spacing: 0;
+        box-sizing: border-box;
+        margin: 12px 0 !important;
+        overflow: hidden;
+        width: 100% !important;
+    }
+
+    #pagebody table.forumline > tbody > tr:first-child {
+        display: table-row !important;
+    }
+
+    #pagebody table.forumline > tbody > tr:first-child > td.catHead {
+        background: #fff !important;
+        border: 0 !important;
+        border-bottom: 1px solid #e3e8ed !important;
+        box-sizing: border-box;
+        color: #263442 !important;
+        height: auto !important;
+        padding: 11px 14px !important;
+        text-align: left !important;
+    }
+
+    #pagebody table.forumline > tbody > tr:first-child > td.catHead .cattitle,
+    #pagebody table.forumline > tbody > tr:first-child > td.catHead .cattitle a {
+        color: #263442 !important;
+        font-size: 16px;
+        font-weight: 650;
+        text-decoration: none;
+    }
+
+    #pagebody table.forumline > tbody > tr:nth-child(2) > td:first-child {
+        display: none !important;
+    }
+
+    #pagebody table.forumline > tbody > tr:nth-child(2) > td.row1,
+    #pagebody table.forumline > tbody > tr:nth-child(3) > td.row1 {
+        background: #fff !important;
+        border: 0 !important;
+        box-sizing: border-box;
+        display: block;
+        height: auto !important;
+        padding: 10px 14px !important;
+        text-align: left !important;
+        width: 100% !important;
+    }
+
+    #pagebody table.forumline > tbody > tr:nth-child(3) > td.row1 {
+        border-top: 1px solid #edf0f3 !important;
+        padding-bottom: 14px !important;
+    }
+
+    #pagebody table.forumline .gensmall {
+        color: #59636f;
+        display: block;
+        font-size: 12px;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+    }
+
+    #pagebody table.forumline .gensmall a {
+        color: #006699 !important;
+        font-size: inherit;
+        overflow-wrap: anywhere;
+    }
+
+    body > div:has(> span.copyright) {
+        background: #fff;
+        border-radius: 12px;
+        box-sizing: border-box;
+        margin: 12px 10px 20px;
+        padding: 12px 14px;
+    }
+
+    body > div:has(> span.copyright) > span.copyright {
+        align-items: center;
+        color: #59636f;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        font-size: 12px;
+        gap: 4px;
+        justify-content: center;
+        line-height: 1.4;
+    }
+
+    body > div:has(> span.copyright) > span.copyright > br {
+        display: none;
+    }
+
+    body > div:has(> span.copyright) > span.copyright > a {
+        align-items: center;
+        display: inline-flex;
+        justify-content: center;
+        min-height: 44px;
+        padding: 0 8px;
+    }
+
+    body > div:has(> span.copyright) > span.copyright > a:first-of-type img {
+        display: block;
+        height: auto;
+        max-width: 120px;
+    }
+
+    body > div:has(> span.copyright) > span.copyright > a:first-of-type {
+        flex: 0 0 100%;
+    }
+}

@@ -36,6 +36,85 @@
     return `${Math.floor(months / 12)}y ago`;
   }
 
+  function labelActionLink(link, label, accessibleLabel) {
+    if (link.querySelector(".snowmobile-action-label")) return;
+
+    const icon = link.querySelector("img");
+    if (icon) {
+      icon.alt = "";
+      icon.setAttribute("aria-hidden", "true");
+      icon.removeAttribute("title");
+    }
+
+    const text = document.createElement("span");
+    text.className = "snowmobile-action-label";
+    text.textContent = label;
+    link.append(text);
+    link.classList.add("snowmobile-labeled-action");
+    link.setAttribute("aria-label", accessibleLabel);
+    link.title = accessibleLabel;
+  }
+
+  function labelPostMenuButton(button) {
+    if (!button || button.querySelector(".snowmobile-action-label")) return;
+
+    const label = document.createElement("span");
+    label.className = "snowmobile-action-label";
+    label.textContent = "More";
+    button.replaceChildren(label);
+    button.classList.add("snowmobile-post-menu-toggle");
+    button.setAttribute("role", "button");
+    button.setAttribute("tabindex", "0");
+    button.setAttribute("aria-label", "More post options");
+    button.title = "More post options";
+    button.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      button.click();
+    });
+  }
+
+  function actionLabel(link) {
+    const target = `${link.href} ${link.title} ${link.querySelector("img")?.alt || ""}`.toLowerCase();
+    if (/mode=edit|editpost/.test(target)) return "Edit";
+    if (/mode=delete|deletepost/.test(target)) return "Delete";
+    if (/mode=report|report\.php/.test(target)) return "Report";
+    if (/mode=reply|posting\.php.*reply/.test(target)) return "Reply";
+    if (/mode=quote|posting\.php.*quote/.test(target)) return "Quote";
+    return "";
+  }
+
+  function enhancePostActions(actionCell, postInfo) {
+    if (!actionCell) return;
+
+    const permalink = actionCell.querySelector("a:has(> .post_link_landscape)");
+    if (permalink) {
+      const postId = new URL(permalink.href).hash.slice(1);
+      labelActionLink(permalink, "Permalink", postId ? `Permalink to post ${postId}` : "Permalink to this post");
+
+      const duplicateLink = postInfo?.querySelector("a[href]");
+      if (duplicateLink && duplicateLink.href === permalink.href) {
+        duplicateLink.remove();
+        if (!postInfo.textContent.trim() && !postInfo.querySelector("*")) postInfo.remove();
+      }
+    }
+
+    actionCell.querySelectorAll(".post_quote_landscape a").forEach((quoteLink) => {
+      labelActionLink(quoteLink, "Quote", "Quote this post");
+    });
+
+    actionCell.querySelectorAll("a[href]").forEach((link) => {
+      const label = actionLabel(link);
+      if (label) labelActionLink(link, label, `${label} this post`);
+    });
+
+    postInfo?.querySelectorAll("a[href]").forEach((link) => {
+      const label = actionLabel(link);
+      if (label) labelActionLink(link, label, `${label} this post`);
+    });
+    labelPostMenuButton(postInfo?.querySelector(".expand_post_data"));
+  }
+
   function enhancePosts() {
     const postRows = [...document.querySelectorAll("#pagebody .forumline .post_row")];
 
@@ -49,6 +128,7 @@
         postInfo.classList.add("snowmobile-post-menu");
         actionCell.append(postInfo);
       }
+      enhancePostActions(actionCell, postInfo);
 
       const authorLink = posterInfo.querySelector('.menushell a[href*="profile.php?mode=viewprofile"]');
       const authorName = [...posterInfo.children].find((child) =>
@@ -56,7 +136,40 @@
         !child.classList.contains("plusclick") &&
         !child.classList.contains("report_conditions"),
       );
-      if (!authorLink || !authorName) return;
+      if (!authorName) return;
+
+      // Guests sometimes get a plain "Poster: <b>name</b>" label instead of
+      // the linked profile markup. Keep those posts in the same clean header.
+      if (!authorLink) {
+        const boldNames = [...authorName.querySelectorAll("b")]
+          .map((element) => element.textContent.trim())
+          .filter(Boolean);
+        const plainName = boldNames.at(-1) || authorName.textContent.replace(/^\s*Poster:\s*/i, "").trim();
+        authorName.replaceChildren(document.createTextNode(plainName));
+        authorName.classList.add("snowmobile-plain-author");
+      }
+
+      const displayName = authorLink?.textContent.trim() || authorName.textContent.trim();
+      const avatarToggle = posterInfo.querySelector(":scope > .expand_poster_data");
+      if (avatarToggle && displayName) {
+        const initials = displayName
+          .split(/\s+/)
+          .filter(Boolean)
+          .slice(0, 2)
+          .map((part) => part[0].toLocaleUpperCase())
+          .join("");
+        avatarToggle.replaceChildren(document.createTextNode(initials));
+        avatarToggle.classList.add("snowmobile-avatar");
+        avatarToggle.setAttribute("role", "button");
+        avatarToggle.setAttribute("tabindex", "0");
+        avatarToggle.setAttribute("aria-label", `Show ${displayName}'s profile details`);
+        avatarToggle.title = `Show ${displayName}'s profile details`;
+        avatarToggle.addEventListener("keydown", (event) => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          avatarToggle.click();
+        });
+      }
 
       const countText = [...posterInfo.querySelectorAll(":scope > .report_conditions:not(.post_date_portrait)")]
         .map((element) => element.textContent)
@@ -101,7 +214,7 @@
         nameLine.append(relativeTimeLabel);
       }
 
-      if (memberBadge) details.append(memberBadge);
+      if (memberBadge) nameLine.append(memberBadge);
       if (postCount) details.append(document.createTextNode(postCount));
       if (details.hasChildNodes()) author.append(details);
 
@@ -117,7 +230,15 @@
   function enhanceQuickReply() {
     const form = document.querySelector("#qr_form");
     const smileys = form?.querySelector('#wide_box > div:has(img[onclick*="insertAtCaret"])');
-    if (!form || !smileys || form.querySelector(".snowmobile-smilies-toggle")) return;
+    if (!form) return;
+
+    const textarea = form.querySelector("#quick_reply_text");
+    if (textarea) textarea.setAttribute("aria-label", "Quick reply message");
+    form.querySelector('input[name="post"][type="submit"]')?.classList.add("snowmobile-primary-submit");
+    form.querySelector('input[name="preview"][type="submit"]')?.classList.add("snowmobile-secondary-submit");
+    form.querySelector('input[name="quoteselected"][type="button"]')?.classList.add("snowmobile-quote-selected");
+
+    if (!smileys || form.querySelector(".snowmobile-smilies-toggle")) return;
 
     smileys.classList.add("snowmobile-smilies");
     const toggle = document.createElement("button");
@@ -134,13 +255,26 @@
     });
   }
 
+  function enhanceTopicActions() {
+    document.querySelectorAll('a[href*="mode=newtopic"], a[href*="mode=reply"]').forEach((link) => {
+      if (link.classList.contains("snowmobile-topic-action")) return;
+      const label = link.href.includes("mode=newtopic") ? "New topic" : "Post reply";
+      link.replaceChildren(document.createTextNode(label));
+      link.classList.add("snowmobile-topic-action");
+      link.setAttribute("aria-label", label);
+      link.title = label;
+    });
+  }
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
       enhancePosts();
       enhanceQuickReply();
+      enhanceTopicActions();
     }, { once: true });
   } else {
     enhancePosts();
     enhanceQuickReply();
+    enhanceTopicActions();
   }
 })();
