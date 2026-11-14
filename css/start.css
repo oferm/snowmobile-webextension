@@ -1,10 +1,4 @@
 /* CSS for index.php and mx/index.php */
-/* regex: http:\/\/(www\.)?snowheads.com\/(mx\/index.php)?((\?.*)?)?; */
-body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > div:nth-child(1) {
-    /* The top login box */
-    margin: inherit !important;
-}
-
 body {
     background: #f2f4f7 !important;
     color: #263442;
@@ -107,10 +101,8 @@ body {
     font-weight: 650;
 }
 
-.snowmobile-home-layout .forumline > tbody > tr > th,
-.snowmobile-home-layout .forumline > tbody > tr:first-child > th {
+.snowmobile-home-layout .forumline > tbody > tr > th {
     background: #f8fafc !important;
-    background-image: none !important;
     border: 0 !important;
     border-bottom: 1px solid #e3e8ed !important;
     border-left: 3px solid #e2b43e !important;
@@ -132,14 +124,11 @@ body {
     order: 1;
 }
 
-.snowmobile-home-layout .snowmobile-welcome {
-    order: 2;
-}
-
 .snowmobile-home-layout .snowmobile-online {
     order: 3;
 }
 
+.snowmobile-home-layout .snowmobile-welcome,
 .snowmobile-home-layout .snowmobile-market-posts {
     order: 2;
 }
@@ -162,13 +151,11 @@ body {
 }
 
 .snowmobile-home-layout .snowmobile-recent-posts td.row1,
-.snowmobile-home-layout .snowmobile-recent-posts td.row2 {
+.snowmobile-home-layout .snowmobile-recent-posts td.row2,
+.snowmobile-home-layout .snowmobile-market-posts td.row1,
+.snowmobile-home-layout .snowmobile-market-posts td.row2 {
     border-bottom: 1px solid #e3e8ed !important;
     padding: 13px 12px !important;
-}
-
-.snowmobile-home-layout .snowmobile-recent-posts tr:last-child > td {
-    border-bottom: 0 !important;
 }
 
 .snowmobile-home-layout .snowmobile-recent-posts td.row1 > div,
@@ -195,7 +182,9 @@ body {
 }
 
 .snowmobile-home-layout .snowmobile-recent-posts td.row1 > div > div:first-child b a,
-.snowmobile-home-layout .snowmobile-recent-posts td.row2 > div > div:first-child b a {
+.snowmobile-home-layout .snowmobile-recent-posts td.row2 > div > div:first-child b a,
+.snowmobile-home-layout .snowmobile-market-posts td.row1 > div > div:first-child b a,
+.snowmobile-home-layout .snowmobile-market-posts td.row2 > div > div:first-child b a {
     color: #006699 !important;
     font-size: 15px;
     font-weight: 650;
@@ -237,12 +226,7 @@ body {
     display: none !important;
 }
 
-.snowmobile-home-layout .snowmobile-market-posts td.row1,
-.snowmobile-home-layout .snowmobile-market-posts td.row2 {
-    border-bottom: 1px solid #e3e8ed !important;
-    padding: 13px 12px !important;
-}
-
+.snowmobile-home-layout .snowmobile-recent-posts tr:last-child > td,
 .snowmobile-home-layout .snowmobile-market-posts tr:last-child > td {
     border-bottom: 0 !important;
 }

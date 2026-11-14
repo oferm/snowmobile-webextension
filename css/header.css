@@ -1,8 +1,5 @@
 /* Shared site header. Hidden on desktop widths. */
-.snowmobile-bar {
-    display: none;
-}
-
+.snowmobile-bar,
 .snowmobile-header-logo {
     display: none;
 }
@@ -48,13 +45,15 @@
         width: 40px;
     }
 
-    #snowimage_Port {
-        display: none !important;
-    }
-
+    #snowimage_Port,
     #snowimage_Land,
     #menu_dummy,
-    [id="fay kaydee"] > div[style*="background-color:#FFF"] {
+    #menu_container,
+    #left_menus_table,
+    #fay\ kaydee > table,
+    [id="fay kaydee"] > table,
+    [id="fay kaydee"] > div[style*="background-color:#FFF"],
+    .snowmobile-legacy-header {
         display: none !important;
     }
 
@@ -65,35 +64,6 @@
         top: 0 !important;
         width: 100% !important;
         z-index: 30 !important;
-    }
-
-    [id="fay kaydee"] > table {
-        border: 0 !important;
-        box-sizing: border-box;
-        display: block !important;
-        height: 52px !important;
-        left: 88px !important;
-        position: absolute !important;
-        top: 0 !important;
-        width: calc(100% - 92px) !important;
-    }
-
-    [id="fay kaydee"] > table > tbody,
-    [id="fay kaydee"] > table > tbody > tr,
-    [id="fay kaydee"] > table > tbody > tr > td {
-        display: block;
-        height: 52px !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        width: 100% !important;
-    }
-
-    #menu_container {
-        display: none !important;
-    }
-
-    .snowmobile-legacy-header {
-        display: none !important;
     }
 
     .snowmobile-bar {
@@ -117,11 +87,6 @@
     .snowmobile-bar .snowmobile-header-logo {
         flex: 0 0 44px;
         position: static;
-    }
-
-    #fay\ kaydee > table,
-    #left_menus_table {
-        display: none !important;
     }
 
     .snowmobile-toolbar {
@@ -167,16 +132,9 @@
 
     .snowmobile-toolbar .snowmobile-icon-control > .menuitem {
         background: none !important;
-        background-image: none !important;
-        clip: rect(0, 0, 0, 0);
-        clip-path: inset(50%);
-        height: 1px;
-        overflow: hidden;
-        position: absolute;
-        white-space: nowrap;
-        width: 1px;
     }
 
+    .snowmobile-toolbar .snowmobile-icon-control > .menuitem,
     .snowmobile-toolbar .snowmobile-visually-hidden {
         clip: rect(0, 0, 0, 0);
         clip-path: inset(50%);
@@ -355,7 +313,6 @@
     .snowmobile-menu a {
         align-items: center;
         background: none !important;
-        background-image: none !important;
         border-radius: 8px;
         box-sizing: border-box;
         color: #173b59 !important;
@@ -374,7 +331,6 @@
 
     .snowmobile-menu a * {
         background: none !important;
-        background-image: none !important;
         color: #173b59 !important;
         font-family: inherit !important;
         font-size: 15px !important;

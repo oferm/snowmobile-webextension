@@ -13,6 +13,11 @@
       "run_at": "document_start"
     },
     {
+      "matches": ["*://*.snowheads.com/*"],
+      "css": ["css/header.css"],
+      "js": ["js/header.js"]
+    },
+    {
       "matches": [
         "*://*.snowheads.com/",
         "*://*.snowheads.com/index.php*",

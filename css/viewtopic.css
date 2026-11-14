@@ -1,15 +1,5 @@
 /* CSS for viewtopic.php */
 /* regex: http:\/\/(www\.)?snowheads.com\/ski-forum\/(viewtopic.php(\?.*)?); */
-body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > div:nth-child(1) {
-    /* The top login box */
-    margin: inherit !important;
-}
-
-body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > div:nth-child(1) {
- 
-    margin: inherit !important;
-}
-
 #table3 .message_cell {
     max-width: 90vw;
 }
@@ -17,52 +7,6 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
 .forumline > tbody > tr > td {
     display: block;
     width: 100%;
-}
-
-@media (max-width: 600px) {
-    #menu_container {
-        max-width: 100vw !important;
-        right: 0 !important;
-    }
-
-    #menu_container > table {
-        height: 84px !important;
-        margin: 0 !important;
-        max-width: 100vw !important;
-    }
-
-    #menu_container > table > tbody > tr > td:last-child {
-        box-sizing: border-box;
-        padding: 4px 6px !important;
-    }
-
-    #menu_container > table > tbody > tr > td:last-child > div[style*="width:200px"] {
-        display: block !important;
-        left: auto !important;
-        width: 200px !important;
-    }
-
-    #menu_container > table > tbody > tr > td:last-child > div[style*="width:200px"] > a {
-        box-sizing: border-box;
-        display: block !important;
-        line-height: 1.2;
-        margin: 1px 0;
-        min-height: 26px;
-        overflow-wrap: anywhere;
-        padding: 2px 4px;
-        white-space: normal !important;
-    }
-
-    #menu_container > table > tbody > tr > td:last-child > div:first-child > a {
-        display: block;
-        min-height: 24px;
-    }
-
-    #menu_container .menuitem {
-        font-size: 12px !important;
-        line-height: 1.2;
-        padding: 3px 4px;
-    }
 }
 
 /* The post cells have a legacy height="3" attribute. With the block-cell
@@ -310,9 +254,19 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     }
 
     #pagebody .forumline .poster_info.snowmobile-enhanced .expand_poster_data {
+        align-items: center;
+        background: #e9eff6;
+        border-radius: 50%;
+        color: #173b59;
+        cursor: pointer;
+        display: flex !important;
         grid-column: 1;
         grid-row: 1;
+        height: 44px;
+        justify-content: center;
         margin: 0;
+        outline-offset: 2px;
+        width: 44px;
     }
 
     #pagebody .forumline .poster_info.snowmobile-enhanced .snowmobile-author {
@@ -333,15 +287,14 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
         white-space: normal !important;
     }
 
-    #pagebody .forumline .poster_info.snowmobile-enhanced .snowmobile-author-name a {
-        font-size: 15px;
-        font-weight: 600;
-        text-decoration: none;
-    }
-
+    #pagebody .forumline .poster_info.snowmobile-enhanced .snowmobile-author-name a,
     #pagebody .forumline .poster_info.snowmobile-enhanced .snowmobile-author-name .snowmobile-plain-author {
         font-size: 15px;
         font-weight: 600;
+    }
+
+    #pagebody .forumline .poster_info.snowmobile-enhanced .snowmobile-author-name a {
+        text-decoration: none;
     }
 
     #pagebody .forumline .poster_info.snowmobile-enhanced:not(:has(.expand_poster_data)) {
@@ -379,37 +332,11 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     }
 
     #pagebody .forumline .poster_info.snowmobile-enhanced .snowmobile-author-details {
-        align-items: center;
-        color: #575757;
-        display: flex;
-        font-size: 13px;
-        flex-wrap: wrap;
-        gap: 7px;
-        line-height: 1.4;
-        margin-top: 3px;
-    }
-
-    #pagebody .forumline .poster_info.snowmobile-enhanced .snowmobile-author-details {
         display: none !important;
     }
 
-    #pagebody .forumline .poster_info.snowmobile-enhanced .post_date_portrait,
-    #pagebody .forumline .poster_info.snowmobile-enhanced .post_date_landscape {
+    #pagebody .forumline .poster_info.snowmobile-enhanced .post_date_portrait {
         display: none !important;
-    }
-
-    #pagebody .forumline .poster_info.snowmobile-enhanced .expand_poster_data {
-        align-items: center;
-        background: #e9eff6;
-        border-radius: 50%;
-        color: #173b59;
-        cursor: pointer;
-        display: flex !important;
-        height: 44px;
-        justify-content: center;
-        margin: 0;
-        outline-offset: 2px;
-        width: 44px;
     }
 
     #pagebody .forumline .poster_info.snowmobile-enhanced .expand_poster_data.snowmobile-avatar {
@@ -462,7 +389,7 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
         text-decoration: none;
     }
 
-    #pagebody .forumline .snowmobile-labeled-action img {
+    #pagebody .forumline #post_row.post_row table#table3 tbody tr td .snowmobile-labeled-action img {
         display: none !important;
     }
 
@@ -470,14 +397,6 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_quote_landscape {
         margin: 0 !important;
         transform: none !important;
-    }
-
-    #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_quote_landscape {
-        display: inline-flex !important;
-    }
-
-    #pagebody .forumline #post_row.post_row table#table3 tbody tr td .snowmobile-labeled-action img {
-        display: none !important;
     }
 
     #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_link_landscape img,
@@ -522,6 +441,7 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
         padding: 0 10px;
         position: relative;
         white-space: nowrap;
+        width: auto;
     }
 
     #pagebody .forumline #post_row.post_row table#table3 .snowmobile-post-menu .expand_post_data::after {
@@ -583,63 +503,17 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
 }
 
 @media (max-width: 600px) {
-    /* Keep the branded header and account links inside the phone viewport. */
-    body > table:first-of-type {
-        margin-left: -8px !important;
-        max-width: 100vw !important;
-        table-layout: fixed !important;
-        width: 100vw !important;
-    }
-
-    body > table:first-of-type > tbody > tr:first-child > td {
-        box-sizing: border-box;
-        max-width: 100%;
-        overflow: hidden;
-        vertical-align: middle;
-    }
-
-    body > table:first-of-type > tbody > tr:first-child > td:first-child {
-        width: 70% !important;
-    }
-
-    body > table:first-of-type > tbody > tr:first-child > td:nth-child(2) {
-        text-align: right;
-        white-space: normal;
-        width: 30% !important;
-    }
-
-    body > table:first-of-type > tbody > tr:first-child > td:nth-child(2) a {
-        align-items: center;
-        display: inline-flex;
-        font-size: 12px;
-        line-height: 1.2;
-        margin-left: 3px;
-        min-height: 30px;
-        padding: 2px;
-        white-space: normal;
-    }
-
-    body > table:first-of-type > tbody > tr:first-child > td:first-child img {
-        height: auto !important;
-        max-width: 100% !important;
-    }
-
     #page_head_Xport img {
         max-width: 100% !important;
         height: auto !important;
     }
 
-    /* Keep the post table centred; its cells should fill the same 12px gutters. */
-    #pagebody .forumline {
-        margin-left: auto !important;
-        margin-right: auto !important;
-        width: calc(100vw - 24px) !important;
-        max-width: calc(100vw - 24px) !important;
-        table-layout: fixed !important;
-    }
-
     #navzone {
         box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 0 12px 8px;
         width: 100% !important;
     }
 
@@ -647,20 +521,9 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
         box-sizing: border-box;
     }
 
-    #pagebody .forumline #table3 .message_cell {
-        box-sizing: border-box !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-
     .postbody,
-    .postbody * {
-        overflow-wrap: anywhere !important;
-        word-break: break-word !important;
-    }
-
-    /* Long quoted URLs otherwise get clipped by the existing .quote overflow rule. */
     .quote,
+    .postbody *,
     .quote * {
         overflow-wrap: anywhere !important;
         word-break: break-word !important;
@@ -685,13 +548,6 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
         line-height: 1.2;
         margin: 4px 12px 8px !important;
         padding: 0 !important;
-    }
-
-    #navzone {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        padding: 0 12px 8px;
     }
 
     #topic_header {
@@ -793,7 +649,6 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
 
     #pagebody .forumline .message_cell .postbody {
         color: #263442;
-        font-size: 16px;
         line-height: 1.55;
     }
 
@@ -821,21 +676,6 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     #pagebody .forumline #post_row.post_row table#table3 tbody tr td .post_quote_landscape > a {
         background: #f2f4f7;
         border: 1px solid #e3e8ed;
-        border-radius: 14px;
-        box-sizing: border-box;
-        height: 28px;
-        min-width: 28px;
-        padding: 0 10px;
-        width: auto;
-    }
-
-    #pagebody .forumline #post_row.post_row table#table3 .snowmobile-post-menu .expand_post_data {
-        background: #f2f4f7;
-        border: 1px solid #e3e8ed;
-        border-radius: 14px;
-        height: 28px;
-        min-width: 28px;
-        width: auto;
     }
 
     #qr_form {
@@ -897,9 +737,9 @@ body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(
     }
 }
 
-@media (min-width: 601px) and (max-width: 700px) {
+@media (max-width: 700px) {
     /* The legacy post table exceeds the viewport by a few pixels just above
-       the card-layout breakpoint; keep logged-in post content within gutters. */
+       the card-layout breakpoint; keep post content within consistent gutters. */
     #pagebody .forumline {
         margin-left: auto !important;
         margin-right: auto !important;

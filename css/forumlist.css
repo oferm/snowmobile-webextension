@@ -12,11 +12,6 @@ body > div:nth-last-of-type(3) table table tr td {
     border-radius: 0 !important;
 }
 
-body > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > div:nth-child(1) {
-    /* The top login box */
-    margin: inherit !important;
-}
-
 .ycattitle {
     display: flex;
     justify-content: center;
@@ -29,52 +24,6 @@ table .forum_block {
     flex-direction: column;
     gap: 4px;
     padding: 10px 12px;
-}
-
-@media (max-width: 600px) {
-    #menu_container {
-        max-width: 100vw !important;
-        right: 0 !important;
-    }
-
-    #menu_container > table {
-        height: 84px !important;
-        margin: 0 !important;
-        max-width: 100vw !important;
-    }
-
-    #menu_container > table > tbody > tr > td:last-child {
-        box-sizing: border-box;
-        padding: 4px 6px !important;
-    }
-
-    #menu_container > table > tbody > tr > td:last-child > div[style*="width:200px"] {
-        display: block !important;
-        left: auto !important;
-        width: 200px !important;
-    }
-
-    #menu_container > table > tbody > tr > td:last-child > div[style*="width:200px"] > a {
-        box-sizing: border-box;
-        display: block !important;
-        line-height: 1.2;
-        margin: 1px 0;
-        min-height: 26px;
-        overflow-wrap: anywhere;
-        padding: 2px 4px;
-        white-space: normal !important;
-    }
-
-    #menu_container > table > tbody > tr > td:last-child > div:first-child > a {
-        display: block;
-        min-height: 24px;
-    }
-
-    #menu_container .menuitem {
-        font-size: 12px !important;
-        line-height: 1.2;
-        padding: 3px 4px;
-    }
 }
 
 table .forum_block:hover {
@@ -128,54 +77,6 @@ table .forum_block .fdesc {
 
 table .forum_block h2 marquee {
     display: none;
-}
-
-@media (max-width: 600px) {
-    body > table:first-of-type {
-        margin-left: -8px !important;
-        max-width: 100vw !important;
-        table-layout: fixed !important;
-        width: 100vw !important;
-    }
-
-    body > table:first-of-type > tbody > tr:first-child > td {
-        box-sizing: border-box;
-        max-width: 100%;
-        overflow: hidden;
-        vertical-align: middle;
-    }
-
-    body > table:first-of-type > tbody > tr:first-child > td:first-child {
-        width: 70% !important;
-    }
-
-    body > table:first-of-type > tbody > tr:first-child > td:nth-child(2) {
-        text-align: right;
-        white-space: normal;
-        width: 30% !important;
-    }
-
-    body > table:first-of-type > tbody > tr:first-child > td:nth-child(2) a {
-        align-items: center;
-        display: inline-flex;
-        font-size: 12px;
-        line-height: 1.2;
-        margin-left: 3px;
-        min-height: 30px;
-        padding: 2px;
-        white-space: normal;
-    }
-
-    body > table:first-of-type > tbody > tr:first-child > td:first-child img {
-        height: auto !important;
-        max-width: 100% !important;
-    }
-
-    table .forum_block {
-        background: #F5F5FF;
-        border-bottom: 3px solid #fff;
-        min-height: 64px;
-    }
 }
 
 /* Present the legacy forum table as a scannable list on narrow screens. */
@@ -254,14 +155,11 @@ table .forum_block h2 marquee {
         background: #fff !important;
         border: 0 !important;
         border-radius: 0;
-        box-sizing: border-box;
-        gap: 4px;
         min-height: 0;
         padding: 8px 12px 6px;
     }
 
     table .forum_block h1 {
-        line-height: 1.3;
         min-height: 44px;
     }
 
@@ -280,14 +178,12 @@ table .forum_block h2 marquee {
 
     table .forum_block h1 img {
         height: 15px !important;
-        margin-right: 8px;
         opacity: .72;
         width: 15px;
     }
 
     table .forum_block .fdesc {
         color: #59636f !important;
-        font-size: 14px;
         line-height: 1.4;
         -webkit-line-clamp: 3;
     }
@@ -308,7 +204,6 @@ table .forum_block h2 marquee {
     body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(3) {
         border-radius: 0 0 0 10px;
         align-content: center;
-        align-items: center;
         column-gap: 4px;
         display: grid !important;
         grid-template-columns: 42px minmax(0, 1fr);
@@ -492,12 +387,6 @@ table .forum_block h2 marquee {
         text-align: left;
     }
 
-    #pagebody > table > tbody > tr > td:last-child > form[action="login.php"] > table.forumline > tbody > tr > td.catHead .cattitle {
-        color: #263442 !important;
-        font-size: 16px;
-        font-weight: 650;
-    }
-
     #pagebody > table > tbody > tr > td:last-child > form[action="login.php"] > table.forumline > tbody > tr > td.row1 {
         background: #fff !important;
         box-sizing: border-box;
@@ -591,11 +480,16 @@ table .forum_block h2 marquee {
         text-align: left !important;
     }
 
+    #pagebody > table > tbody > tr > td:last-child > form[action="login.php"] > table.forumline > tbody > tr > td.catHead .cattitle,
     #pagebody table.forumline > tbody > tr:first-child > td.catHead .cattitle,
     #pagebody table.forumline > tbody > tr:first-child > td.catHead .cattitle a {
         color: #263442 !important;
         font-size: 16px;
         font-weight: 650;
+    }
+
+    #pagebody table.forumline > tbody > tr:first-child > td.catHead .cattitle,
+    #pagebody table.forumline > tbody > tr:first-child > td.catHead .cattitle a {
         text-decoration: none;
     }
 

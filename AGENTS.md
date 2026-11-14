@@ -17,3 +17,7 @@
 - Playwright tools inject the built userscript (`dist/snowmobile.user.js`),
   the same `<style>` injection the phone uses. Run `yarn check:layout` before
   publishing; real Safari reports land in `dist/reports/` via `yarn dev:safari`.
+- Commit messages: use a single-line imperative summary, sentence-cased (capital
+  first letter), under ~50 characters, with no Conventional Commits prefixes
+  (`feat:`, `fix:`, etc.) and no trailing period (e.g. `Trim redundant and dead
+  CSS rules`).
