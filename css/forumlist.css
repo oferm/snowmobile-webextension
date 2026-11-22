@@ -580,3 +580,100 @@ table .forum_block h2 marquee {
         flex: 0 0 100%;
     }
 }
+
+@media (max-width: 700px) {
+    html[data-snowmobile-theme="dark"] body {
+        background: var(--sm-page) !important;
+        color: var(--sm-text) !important;
+    }
+
+    html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block),
+    html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td,
+    html[data-snowmobile-theme="dark"] table .forum_block,
+    html[data-snowmobile-theme="dark"] table .forum_block:hover {
+        background: var(--sm-surface) !important;
+        border-color: var(--sm-border) !important;
+        color: var(--sm-text) !important;
+    }
+
+    html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block):nth-of-type(even),
+    html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block):nth-of-type(even) > td,
+    html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block):nth-of-type(even) > td:nth-child(2) .forum_block,
+    html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block):nth-of-type(even) > td:nth-child(2) .forum_block:hover {
+        background: var(--sm-surface-alt) !important;
+    }
+
+    html[data-snowmobile-theme="dark"] table .forum_block .forumlink,
+    html[data-snowmobile-theme="dark"] table .forum_block h1 a,
+    html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(4) .gensmall > a[href*="profile.php"] {
+        color: var(--sm-link) !important;
+    }
+
+    html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(4) .gensmall > a:has(> img[alt="View latest post"]) img {
+        display: none;
+    }
+
+    html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(4) .gensmall > a:has(> img[alt="View latest post"]) {
+        background: var(--sm-control);
+        border: 1px solid var(--sm-border);
+        position: relative;
+    }
+
+    html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(4) .gensmall > a:has(> img[alt="View latest post"])::before {
+        color: var(--sm-link);
+        content: "↘";
+        font-size: 20px;
+        line-height: 1;
+        position: static;
+    }
+
+    html[data-snowmobile-theme="dark"] table .forum_block .fdesc,
+    html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(3),
+    html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(4),
+    html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) .gensmall {
+        color: var(--sm-muted) !important;
+    }
+
+    html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(3),
+    html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td:nth-child(4) {
+        background: var(--sm-surface-soft) !important;
+        border-color: var(--sm-border) !important;
+    }
+
+    html[data-snowmobile-theme="dark"] table .forum_block:has(h1 img[src*="folder_new"], h1 img[title^="New posts" i]) {
+        background: #1c2d38 !important;
+    }
+
+    html[data-snowmobile-theme="dark"] table .forum_block:has(h1 img[src*="folder_new"], h1 img[title^="New posts" i]) h1 img {
+        background: #29495b;
+        box-shadow: 0 0 0 3px #203b4b;
+    }
+
+    html[data-snowmobile-theme="dark"] table .forum_block:has(h1 img[src*="folder_new"], h1 img[title^="New posts" i]) h1::after {
+        background: #29495b;
+        color: #9bdafa;
+    }
+
+    html[data-snowmobile-theme="dark"] #pagebody > table > tbody > tr > td:last-child > span.gensmall,
+    html[data-snowmobile-theme="dark"] #pagebody > table > tbody > tr > td:last-child > form[action="login.php"] > table.forumline,
+    html[data-snowmobile-theme="dark"] #pagebody table.forumline,
+    html[data-snowmobile-theme="dark"] body > div:has(> span.copyright) {
+        background: var(--sm-surface) !important;
+        color: var(--sm-text) !important;
+    }
+
+    html[data-snowmobile-theme="dark"] #pagebody > table > tbody > tr > td:last-child > form[action="login.php"] > table.forumline > tbody > tr > td.catHead,
+    html[data-snowmobile-theme="dark"] #pagebody table.forumline > tbody > tr:first-child > td.catHead,
+    html[data-snowmobile-theme="dark"] #pagebody table.forumline > tbody > tr:nth-child(2) > td.row1,
+    html[data-snowmobile-theme="dark"] #pagebody table.forumline > tbody > tr:nth-child(3) > td.row1 {
+        background: var(--sm-surface) !important;
+        border-color: var(--sm-border) !important;
+        color: var(--sm-text) !important;
+    }
+
+    html[data-snowmobile-theme="dark"] #pagebody table.forumline > tbody > tr:first-child > td.catHead .cattitle,
+    html[data-snowmobile-theme="dark"] #pagebody table.forumline > tbody > tr:first-child > td.catHead .cattitle a,
+    html[data-snowmobile-theme="dark"] #pagebody table.forumline .gensmall a {
+        color: var(--sm-link) !important;
+    }
+}

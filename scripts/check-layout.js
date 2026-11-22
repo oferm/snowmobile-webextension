@@ -17,9 +17,11 @@ const opt = (name) => {
 const routeArg = opt("route") || opt("routes");
 const urlArg = opt("url");
 const widthArg = opt("width") || opt("widths");
+const theme = opt("theme");
 const cached = hasFlag("cached") || hasFlag("refresh");
 const refresh = hasFlag("refresh");
 const jsonOut = hasFlag("json");
+const toggleTest = hasFlag("toggle-test");
 const waitMs = Number(opt("wait") ?? 250);
 const cacheDir = process.env.SNOWMOBILE_CACHE_DIR || "/tmp/opencode/snowmobile-cache";
 
@@ -35,8 +37,23 @@ const targets = (() => {
 
 const widths = widthArg ? widthArg.split(",").map((n) => Number(n.trim())) : [390, 620];
 
-function inPage() {
+function inPage(expectedTheme) {
   const fails = [];
+  if (expectedTheme && document.documentElement.dataset.snowmobileTheme !== expectedTheme) {
+    fails.push(
+      `theme is ${document.documentElement.dataset.snowmobileTheme || "unset"}, expected ${expectedTheme}`,
+    );
+  }
+  if (expectedTheme === "dark") {
+    const visibleTopicLinks = [...document.querySelectorAll("a.topictitle")]
+      .filter((link) => link.getBoundingClientRect().height > 0);
+    const darkTitleColors = [...new Set(
+      visibleTopicLinks.map((link) => getComputedStyle(link).color),
+    )];
+    if (darkTitleColors.some((color) => color !== "rgb(117, 199, 238)")) {
+      fails.push(`dark topic link colors are ${darkTitleColors.join(", ")}`);
+    }
+  }
   const pathOf = (el) => {
     let s = el.tagName.toLowerCase();
     if (el.id) s += `#${el.id}`;
@@ -76,7 +93,8 @@ function inPage() {
         getComputedStyle(tr.querySelector("td.row1, td.row2")).backgroundColor,
       );
       if (postBackgrounds.some((background, index) => index > 0 && background === postBackgrounds[index - 1])) {
-        fails.push(`post card backgrounds do not alternate: ${postBackgrounds.join(", ")}`);
+        const rowClasses = rows.map((tr) => tr.className).join(" | ");
+        fails.push(`post card backgrounds do not alternate: ${postBackgrounds.join(", ")} (${rowClasses})`);
       }
       for (const tr of rows) {
         const postCell = tr.querySelector("td.row1, td.row2");
@@ -131,6 +149,13 @@ async function settlePage(page) {
   const results = [];
   for (const target of targets) {
     const page = await context.newPage();
+    if (theme) {
+      if (!["light", "dark"].includes(theme)) throw new Error(`Unknown theme "${theme}" (use light or dark)`);
+      await page.emulateMedia({ colorScheme: theme });
+      await page.addInitScript((selectedTheme) => {
+        localStorage.setItem("snowmobile:theme", selectedTheme);
+      }, theme);
+    }
     const harPath = cached ? harPathFor(target) : null;
     const recording = Boolean(harPath && (refresh || !fs.existsSync(harPath)));
     if (harPath) {
@@ -152,6 +177,22 @@ async function settlePage(page) {
       }
       await page.evaluate(source);
       await settlePage(page);
+      if (toggleTest) {
+        await page.locator(".snowmobile-menu-toggle").click();
+        const toggle = page.locator(".snowmobile-theme-toggle");
+        const initialTheme = await page.evaluate(() => document.documentElement.dataset.snowmobileTheme);
+        await toggle.click();
+        const switched = await page.evaluate(() => ({
+          theme: document.documentElement.dataset.snowmobileTheme,
+          stored: localStorage.getItem("snowmobile:theme"),
+          checked: document.querySelector(".snowmobile-theme-toggle")?.getAttribute("aria-checked"),
+        }));
+        const expected = initialTheme === "dark" ? "light" : "dark";
+        if (switched.theme !== expected || switched.stored !== expected || switched.checked !== String(expected === "dark")) {
+          throw new Error(`theme toggle state ${JSON.stringify(switched)}, expected ${expected}`);
+        }
+        await toggle.click();
+      }
       loaded = true;
     } catch (e) {
       for (const width of widths) {
@@ -168,7 +209,7 @@ async function settlePage(page) {
           await page.setViewportSize({ width, height: width < 500 ? 844 : 900 });
           await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
         }
-        const r = await page.evaluate(inPage);
+        const r = await page.evaluate(inPage, theme);
         results.push({ route: target.name, width, label, status: r.fails.length ? "FAIL" : "PASS", detail: r.fails });
       }
     }

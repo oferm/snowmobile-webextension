@@ -3,6 +3,8 @@
 Custom CSS that makes the Snowheads.com forum easier to use on mobile devices.
 The `css/` files are the source of truth. The project builds them into a userscript
 for iPhone; `manifest.json` is only a quick local development loader for desktop.
+The shared menu includes a dark-mode toggle; by default, the theme follows the
+device preference, and a manual choice is saved for future visits.
 
 ## Test and develop locally
 

@@ -36,6 +36,8 @@ const deviceName = process.env.DEVICE || "iPhone 16e";
 function parseArgs(argv) {
   const options = {
     route: "viewtopic",
+    theme: null,
+    menuOpen: false,
     all: false,
     url: null,
     baseline: null,
@@ -57,6 +59,8 @@ function parseArgs(argv) {
     switch (arg) {
       case "--route":
       case "--routes": options.route = next(); break;
+      case "--theme": options.theme = next().toLowerCase(); break;
+      case "--menu-open": options.menuOpen = true; break;
       case "--all": options.all = true; break;
       case "--url": options.url = next(); break;
       case "--baseline": options.baseline = next(); break;
@@ -89,6 +93,8 @@ Routes: ${Object.keys(ROUTES).join(", ")}
 
 Options:
   --route <names>    Comma-separated routes (default: viewtopic)
+  --theme <name>     Emulate light or dark preference and saved choice
+  --menu-open        Capture with the shared menu expanded
   --all              Capture all routes
   --url <url>        Explicit URL (overrides --route)
   --engine <name>    chromium (extension, default) or webkit (userscript)
@@ -183,6 +189,15 @@ async function captureAll(targets, options) {
   try {
     for (const target of targets) {
       const page = await context.newPage();
+      if (options.theme) {
+        if (!["light", "dark"].includes(options.theme)) {
+          throw new Error(`Unknown theme "${options.theme}" (use light or dark)`);
+        }
+        await page.emulateMedia({ colorScheme: options.theme });
+        await page.addInitScript((selectedTheme) => {
+          localStorage.setItem("snowmobile:theme", selectedTheme);
+        }, options.theme);
+      }
       const harPath = options.cached ? harPathFor(target) : null;
       const recording = Boolean(harPath && (options.refresh || !fs.existsSync(harPath)));
       if (harPath) {
@@ -210,6 +225,7 @@ async function captureAll(targets, options) {
       }
       await page.evaluate(() => document.fonts?.ready).catch(() => {});
       if (options.wait > 0) await page.waitForTimeout(options.wait);
+      if (options.menuOpen) await page.locator(".snowmobile-menu-toggle").click();
 
       const metrics = await page.evaluate(() => {
         const iw = window.innerWidth;

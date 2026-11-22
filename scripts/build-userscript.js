@@ -38,7 +38,9 @@ function minifyCss(source) {
 }
 
 function buildSource() {
-const earlyScript = fs.readFileSync(path.join(root, "js", "perf.js"), "utf8");
+const earlyScript = ["theme.js", "perf.js"]
+  .map((file) => fs.readFileSync(path.join(root, "js", file), "utf8"))
+  .join("\n");
 const css = Object.fromEntries(
   Object.entries(stylesheets).map(([name, filename]) => [
     name,

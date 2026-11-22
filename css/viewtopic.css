@@ -777,3 +777,148 @@
         display: none !important;
     }
 }
+
+html[data-snowmobile-theme="dark"] body,
+html[data-snowmobile-theme="dark"] #pagebody {
+    background: var(--sm-page) !important;
+    color: var(--sm-text) !important;
+}
+
+html[data-snowmobile-theme="dark"] #pagebody h1,
+html[data-snowmobile-theme="dark"] #topic_header,
+html[data-snowmobile-theme="dark"] #topic_header h3 {
+    color: var(--sm-text) !important;
+}
+
+html[data-snowmobile-theme="dark"] #navzone .nav a {
+    background: var(--sm-surface) !important;
+    border-color: var(--sm-border) !important;
+    color: var(--sm-link) !important;
+}
+
+html[data-snowmobile-theme="dark"] #pagebody .forumline > tbody > tr:has(.post_row),
+html[data-snowmobile-theme="dark"] #pagebody .forumline > tbody > tr:has(.post_row) > td,
+html[data-snowmobile-theme="dark"] #pagebody .forumline #post_row.post_row table#table3,
+html[data-snowmobile-theme="dark"] #pagebody .forumline .post_row,
+html[data-snowmobile-theme="dark"] #pagebody .forumline .message_cell {
+    background: var(--sm-surface) !important;
+    border-color: var(--sm-border) !important;
+    color: var(--sm-text) !important;
+}
+
+html[data-snowmobile-theme="dark"] #pagebody .forumline > tbody > tr:has(.post_row).snowmobile-post-alt,
+html[data-snowmobile-theme="dark"] #pagebody .forumline > tbody > tr:has(.post_row).snowmobile-post-alt > td,
+html[data-snowmobile-theme="dark"] #pagebody .forumline > tbody > tr:has(.post_row).snowmobile-post-alt .poster_info.snowmobile-enhanced,
+html[data-snowmobile-theme="dark"] #pagebody .forumline > tbody > tr:has(.post_row).snowmobile-post-alt .post_row,
+html[data-snowmobile-theme="dark"] #pagebody .forumline > tbody > tr:has(.post_row).snowmobile-post-alt #table3,
+html[data-snowmobile-theme="dark"] #pagebody .forumline > tbody > tr:has(.post_row).snowmobile-post-alt .message_cell,
+html[data-snowmobile-theme="dark"] #pagebody .forumline > tbody > tr:has(.post_row).snowmobile-post-alt #post_row.post_row table#table3 tbody tr td:has(.post_link_landscape) {
+    background: var(--sm-surface-alt) !important;
+}
+
+html[data-snowmobile-theme="dark"] #pagebody .forumline .message_cell .postbody,
+html[data-snowmobile-theme="dark"] #pagebody .forumline .snowmobile-author-name,
+html[data-snowmobile-theme="dark"] #pagebody .forumline .snowmobile-author-details {
+    color: var(--sm-text) !important;
+}
+
+html[data-snowmobile-theme="dark"] #pagebody .forumline .poster_info.snowmobile-enhanced {
+    background: var(--sm-surface) !important;
+    border-color: var(--sm-border) !important;
+}
+
+html[data-snowmobile-theme="dark"] #pagebody .forumline #post_row.post_row table#table3 tbody tr td:has(.post_link_landscape) {
+    background: var(--sm-surface) !important;
+    border-color: var(--sm-border) !important;
+}
+
+html[data-snowmobile-theme="dark"] #pagebody .forumline > tbody > tr:has(.post_row).snowmobile-post-alt #post_row.post_row table#table3 tbody tr td:has(.post_link_landscape) {
+    background: var(--sm-surface-alt) !important;
+}
+
+html[data-snowmobile-theme="dark"] #pagebody .forumline .snowmobile-relative-time,
+html[data-snowmobile-theme="dark"] #pagebody .forumline .message_cell .gensmallite {
+    color: var(--sm-muted) !important;
+}
+
+html[data-snowmobile-theme="dark"] #pagebody .forumline .expand_poster_data.snowmobile-avatar {
+    background: #263b4b;
+    color: var(--sm-link);
+}
+
+html[data-snowmobile-theme="dark"] #pagebody .forumline .snowmobile-member-badge {
+    background: #35332e;
+    color: #ded7c5;
+}
+
+html[data-snowmobile-theme="dark"] #pagebody .forumline .snowmobile-member-badge.is-snowhead {
+    background: #24392a;
+    color: #a8d4ae;
+}
+
+html[data-snowmobile-theme="dark"] #pagebody .forumline .snowmobile-member-badge.is-super-snowhead {
+    background: #49311e;
+    color: #f1bd8b;
+}
+
+html[data-snowmobile-theme="dark"] #pagebody .forumline .post_link_landscape,
+html[data-snowmobile-theme="dark"] #pagebody .forumline .post_quote_landscape > a,
+html[data-snowmobile-theme="dark"] #pagebody .forumline .expand_post_data,
+html[data-snowmobile-theme="dark"] #pagebody .forumline .snowmobile-labeled-action,
+html[data-snowmobile-theme="dark"] #pagebody .forumline .snowmobile-post-menu .expand_post_data {
+    background: var(--sm-control) !important;
+    border-color: var(--sm-border) !important;
+    color: var(--sm-link) !important;
+}
+
+html[data-snowmobile-theme="dark"] #pagebody .forumline .quote,
+html[data-snowmobile-theme="dark"] #pagebody .forumline .postbody .quote {
+    background: #202b36 !important;
+    border-left-color: #688096 !important;
+    color: #d3dde5 !important;
+}
+
+html[data-snowmobile-theme="dark"] #pagebody .forumline .postbody .quote > b:first-child,
+html[data-snowmobile-theme="dark"] #pagebody .forumline .postbody .quote > strong:first-child {
+    color: #edf3f7 !important;
+}
+
+html[data-snowmobile-theme="dark"] #pagebody .forumline .postbody .quote .quote,
+html[data-snowmobile-theme="dark"] #pagebody .forumline .postbody pre,
+html[data-snowmobile-theme="dark"] #pagebody .forumline .postbody .code {
+    background: #121a21 !important;
+    border-color: #3b4b59 !important;
+    color: #d3dde5 !important;
+}
+
+html[data-snowmobile-theme="dark"] #pagebody .forumline .postbody a {
+    color: var(--sm-link) !important;
+}
+
+html[data-snowmobile-theme="dark"] #qr_form {
+    background: var(--sm-surface) !important;
+    border-color: var(--sm-border) !important;
+    color: var(--sm-text) !important;
+}
+
+html[data-snowmobile-theme="dark"] #qr_form #quick_reply_text {
+    background: #111920 !important;
+    border-color: var(--sm-border) !important;
+    color: var(--sm-text) !important;
+}
+
+html[data-snowmobile-theme="dark"] #qr_form input[type="button"],
+html[data-snowmobile-theme="dark"] #qr_form input[type="submit"],
+html[data-snowmobile-theme="dark"] body a.snowmobile-topic-action {
+    background: #176d99 !important;
+    border-color: #176d99 !important;
+    color: #fff !important;
+}
+
+html[data-snowmobile-theme="dark"] #qr_form input.snowmobile-secondary-submit,
+html[data-snowmobile-theme="dark"] #qr_form input.snowmobile-quote-selected,
+html[data-snowmobile-theme="dark"] #qr_form .snowmobile-smilies-toggle {
+    background: var(--sm-control) !important;
+    border-color: var(--sm-border) !important;
+    color: var(--sm-link) !important;
+}

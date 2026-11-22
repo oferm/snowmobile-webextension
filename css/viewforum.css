@@ -553,3 +553,93 @@ body > div:nth-last-of-type(3) a[href*="mark=topics"] {
     text-decoration: none;
     white-space: normal !important;
 }
+
+html[data-snowmobile-theme="dark"] body {
+    background: var(--sm-page) !important;
+    color: var(--sm-text) !important;
+}
+
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline tr.snowmobile-topic-row,
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline tr.snowmobile-topic-row > td {
+    background: var(--sm-surface) !important;
+    border-color: var(--sm-border) !important;
+    color: var(--sm-text) !important;
+}
+
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline tr.snowmobile-topic-row.snowmobile-topic-alt,
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline tr.snowmobile-topic-row.snowmobile-topic-alt > td {
+    background: var(--sm-surface-alt) !important;
+}
+
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline .snowmobile-topic-row .topictitle > a,
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline .snowmobile-topic-unread .snowmobile-topic-heading > a.topictitle {
+    color: var(--sm-link) !important;
+}
+
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline .snowmobile-topic-row .snowmobile-topic-heading > a.topictitle,
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline .snowmobile-topic-unread .snowmobile-topic-heading > a.topictitle {
+    color: var(--sm-link) !important;
+}
+
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline a.topictitle {
+    color: var(--sm-link) !important;
+}
+
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline .snowmobile-topic-row .snowmobile-topic-meta,
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline .snowmobile-topic-row .snowmobile-topic-author,
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .snowmobile-page-strip {
+    color: var(--sm-muted) !important;
+}
+
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline .snowmobile-topic-row .snowmobile-latest-post,
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline .snowmobile-topic-row .page_links a,
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline .snowmobile-topic-page-strip > .snowmobile-page-link > span,
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .snowmobile-page-strip > .snowmobile-page-link::before,
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline .snowmobile-topic-page-strip > .snowmobile-page-link > span {
+    background: var(--sm-control) !important;
+    border-color: var(--sm-border) !important;
+    color: var(--sm-link) !important;
+}
+
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline .snowmobile-topic-row .snowmobile-topic-page-strip .page_num,
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline .snowmobile-topic-row .snowmobile-topic-page-strip > .snowmobile-page-link > span {
+    color: var(--sm-link) !important;
+}
+
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline .snowmobile-topic-row .topic_type_alert {
+    background: #49391f;
+    color: #f4d28d;
+}
+
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline .snowmobile-topic-row .topic_type_sticky {
+    background: #2d3852;
+    color: #c1cafa;
+}
+
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline tr.snowmobile-topic-unread,
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline tr.snowmobile-topic-alt.snowmobile-topic-unread,
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline tr.snowmobile-topic-alt.snowmobile-topic-unread > td {
+    background: #1c2d38 !important;
+}
+
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .nav a[href*="start="],
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .snowmobile-page-strip > .snowmobile-page-link::before,
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) a[href*="mark=topics"] {
+    background: var(--sm-surface) !important;
+    border-color: var(--sm-border) !important;
+    color: var(--sm-link) !important;
+}
+
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .snowmobile-page-strip > .snowmobile-page-link > span {
+    color: var(--sm-link) !important;
+}
+
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) a[href*="mark=topics"] {
+    background: var(--sm-control) !important;
+}
+
+html[data-snowmobile-theme="dark"] body > div:nth-last-of-type(3) .forumline tr:first-child .menubutton {
+    background: #176d99 !important;
+    border-color: #176d99 !important;
+    color: #fff !important;
+}

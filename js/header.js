@@ -58,6 +58,20 @@
     menu.setAttribute("aria-label", "Site menu");
     menu.hidden = true;
 
+    const themeToggle = document.createElement("button");
+    themeToggle.className = "snowmobile-theme-toggle";
+    themeToggle.type = "button";
+    themeToggle.setAttribute("role", "switch");
+    const themeLabel = document.createElement("span");
+    themeLabel.className = "snowmobile-theme-label";
+    themeLabel.textContent = "Dark mode";
+    const themeTrack = document.createElement("span");
+    themeTrack.className = "snowmobile-theme-track";
+    themeTrack.setAttribute("aria-hidden", "true");
+    themeToggle.append(themeLabel, themeTrack);
+    menu.append(themeToggle);
+    themeToggle.addEventListener("click", () => window.SnowmobileTheme?.toggle());
+
     const addMenuSection = (label, links) => {
       if (!links.length) return;
       const heading = document.createElement("div");
@@ -148,6 +162,7 @@
 
     if (corner) {
       corner.append(toolbar);
+      window.SnowmobileTheme?.get();
       enhanceQuickNavigation();
       return;
     }
@@ -162,6 +177,7 @@
     } else {
       document.body.prepend(bar);
     }
+    window.SnowmobileTheme?.get();
     enhanceQuickNavigation();
   }
 

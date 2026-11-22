@@ -1,6 +1,9 @@
 (() => {
   "use strict";
 
+  // The shared theme bootstrap runs before page paint in the extension and
+  // production userscript. Keep the route-specific image optimization below.
+
   // Keep off-screen post images from competing with the page's initial render.
   // Start observing at document-start so parser-created images are marked as
   // soon as their post row enters the document.

@@ -16,11 +16,15 @@ test("built userscript parses cleanly and includes route styles and scripts", ()
   assert.match(source, /if \(route\?\.script === "viewforum"\)/);
   assert.match(source, /if \(route\?\.script === "start"\)/);
   assert.match(source, /function getRelativeDate\(posterInfo\)/);
+  const themeBoot = source.indexOf("window.SnowmobileTheme = api");
+  const styleInjection = source.indexOf("const addStyles = () =>");
+  assert.ok(themeBoot >= 0 && themeBoot < styleInjection);
   assert.ok(source.includes(JSON.stringify(minifyCss(fs.readFileSync(shared.stylesheet, "utf8")))));
 });
 
 test("every JS source file parses cleanly", () => {
   const files = [
+    path.join(root, "js", "theme.js"),
     path.join(root, "js", "perf.js"),
     shared.script,
     ...Object.values(scripts),
@@ -38,6 +42,10 @@ test("manifest.json content scripts match userscript-config routes", () => {
 
   assert.ok(declared.has(path.relative(root, shared.stylesheet)));
   assert.ok(declared.has(path.relative(root, shared.script)));
+  assert.ok(declared.has("js/theme.js"));
+  const earlyTheme = manifest.content_scripts.find((entry) => entry.js?.includes("js/theme.js"));
+  assert.equal(earlyTheme.run_at, "document_start");
+  assert.ok(earlyTheme.js.indexOf("js/theme.js") < earlyTheme.js.indexOf("js/perf.js"));
   for (const route of routes) {
     assert.ok(declared.has(path.relative(root, stylesheets[route.style])));
     if (route.script) {

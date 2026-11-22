@@ -381,3 +381,76 @@ body {
     max-width: 100%;
     overflow-wrap: anywhere;
 }
+
+html[data-snowmobile-theme="dark"] body,
+html[data-snowmobile-theme="dark"] .snowmobile-home-root {
+    background: var(--sm-page) !important;
+    color: var(--sm-text) !important;
+}
+
+html[data-snowmobile-theme="dark"] .snowmobile-home-root .forumline,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .forumline td,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .forumline .row1,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .forumline .row2,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-recent-posts td.row1,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-market-posts td.row1 {
+    background-color: var(--sm-surface) !important;
+    color: var(--sm-text) !important;
+}
+
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-recent-posts td.row2,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-market-posts td.row2 {
+    background-color: var(--sm-surface-alt) !important;
+    color: var(--sm-text) !important;
+}
+
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .forumline > tbody > tr > th {
+    background: var(--sm-surface-soft) !important;
+    border-color: var(--sm-border) !important;
+    color: var(--sm-text) !important;
+}
+
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .thHead .cattitle,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .forumline th a.cattitle,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-recent-posts td a,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-market-posts td a {
+    color: var(--sm-link) !important;
+}
+
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-recent-posts td.row1 > div > div:first-child b a,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-recent-posts td.row2 > div > div:first-child b a,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-market-posts td.row1 > div > div:first-child b a,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-market-posts td.row2 > div > div:first-child b a {
+    color: var(--sm-link) !important;
+}
+
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-recent-posts td,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-market-posts td {
+    border-color: var(--sm-border) !important;
+}
+
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-recent-meta,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-recent-meta a,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-recent-meta time,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-market-posts .gensmall,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-online .gensmall {
+    color: var(--sm-muted) !important;
+}
+
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-recent-meta .snowmobile-recent-last-read,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-recent-meta .snowmobile-latest-post {
+    background: var(--sm-control);
+    border-color: var(--sm-border);
+    color: var(--sm-link) !important;
+}
+
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-recent-meta .snowmobile-recent-last-read::before,
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-recent-meta .snowmobile-recent-last-read.has-unread::before {
+    background: var(--sm-control);
+    border-color: var(--sm-border);
+}
+
+html[data-snowmobile-theme="dark"] .snowmobile-home-layout .snowmobile-recent-meta .snowmobile-recent-last-read.has-unread > span::before {
+    color: var(--sm-link);
+    background-color: var(--sm-link);
+}

@@ -27,7 +27,8 @@ function getStyleForPathname(pathname) {
   const sharedCss = fs.readFileSync(shared.stylesheet, "utf8");
   const sharedScript = fs.readFileSync(shared.script, "utf8");
   const css = sharedCss + (route ? fs.readFileSync(stylesheets[route.style], "utf8") : "");
-  const script = sharedScript + (route?.script ? fs.readFileSync(scripts[route.script], "utf8") : "");
+  const themeScript = fs.readFileSync(path.join(__dirname, "..", "js", "theme.js"), "utf8");
+  const script = themeScript + sharedScript + (route?.script ? fs.readFileSync(scripts[route.script], "utf8") : "");
   const revision = crypto.createHash("sha256").update(css).update("\0").update(script).digest("hex");
   return { route: route?.style ?? null, css, script, revision };
 }
