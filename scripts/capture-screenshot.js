@@ -1,34 +1,52 @@
+const crypto = require("node:crypto");
 const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
 const { chromium, webkit, devices } = require("playwright");
+const { sampleUrls } = require("./userscript-config");
 const { buildUserscriptSource } = require("./userscript-inject");
 
-// Playwright's WebKit build is an Ubuntu binary and its host validation only
-// knows Ubuntu package names, so it reports missing deps on Fedora even after
-// scripts/install-webkit-deps.js has supplied the libraries. The browser itself
-// launches fine, so skip the (distro-specific) validation.
-if ((process.env.ENGINE || "webkit") === "webkit") {
+if ((process.env.ENGINE || "webkit").toLowerCase() === "webkit") {
   process.env.PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "1";
 }
 
-const url =
-  process.argv[2] ||
-  "https://snowheads.com/ski-forum/viewtopic.php?t=177296#5602301";
+const args = process.argv.slice(2);
+const hasFlag = (name) => args.includes(`--${name}`);
+const opt = (name) => {
+  const i = args.indexOf(`--${name}`);
+  return i >= 0 ? args[i + 1] : undefined;
+};
+const positional = [];
+for (let i = 0; i < args.length; i += 1) {
+  if (args[i].startsWith("--")) {
+    if (["--route", "--wait"].includes(args[i])) i += 1;
+  } else {
+    positional.push(args[i]);
+  }
+}
+
+const routeName = opt("route");
+const url = positional[0] || (routeName ? sampleUrls[routeName] : null) || sampleUrls.viewtopic;
+if (!url) {
+  console.error(`Unknown route "${routeName}" (available: ${Object.keys(sampleUrls).join(", ")})`);
+  process.exit(1);
+}
+
 const engine = (process.env.ENGINE || "webkit").toLowerCase();
 const deviceName = process.env.DEVICE || "iPhone 16e";
 const headless = process.env.HEADLESS !== "false";
+const fullPage = !(hasFlag("viewport") || hasFlag("no-full"));
+const cached = hasFlag("cached") || hasFlag("refresh");
+const refresh = hasFlag("refresh");
+const waitMs = Number(opt("wait") ?? 300);
+const cacheDir = process.env.SNOWMOBILE_CACHE_DIR || "/tmp/opencode/snowmobile-cache";
 
 const device = devices[deviceName];
 if (!device) {
   console.error(`Unknown DEVICE "${deviceName}".`);
-  process.exitCode = 1;
-  return;
+  process.exit(1);
 }
 
-// Emulate an actual phone instead of a desktop window squeezed to phone width:
-// the device profile adds the mobile layout viewport (where `width=device-width`
-// resolves correctly against the fixed-width page), DPR, touch and an iOS UA.
 const contextOptions = {
   ...device,
   headless,
@@ -38,7 +56,6 @@ const contextOptions = {
       : undefined,
 };
 
-// Optional manual viewport override, kept for quick comparisons.
 if (process.env.VIEWPORT_WIDTH || process.env.VIEWPORT_HEIGHT) {
   contextOptions.viewport = {
     width: Number(process.env.VIEWPORT_WIDTH || device.viewport.width),
@@ -52,7 +69,6 @@ const output =
   path.join("/tmp", "opencode", "snowmobile-screenshots", `${label}.png`);
 
 fs.mkdirSync(path.dirname(output), { recursive: true });
-
 const userscriptSource = buildUserscriptSource();
 
 (async () => {
@@ -69,11 +85,29 @@ const userscriptSource = buildUserscriptSource();
   if (process.env.SNOWHEADS_COOKIES) {
     await context.addCookies(JSON.parse(fs.readFileSync(process.env.SNOWHEADS_COOKIES, "utf8")));
   }
+
   const page = context.pages()[0] || (await context.newPage());
-  await page.goto(url, { waitUntil: "domcontentloaded" });
+  if (cached) {
+    const hash = crypto.createHash("sha256").update(url).digest("hex").slice(0, 10);
+    const harPath = routeName
+      ? path.join(cacheDir, `${routeName}.har`)
+      : path.join(cacheDir, `custom-${hash}.har`);
+    const recording = refresh || !fs.existsSync(harPath);
+    fs.mkdirSync(path.dirname(harPath), { recursive: true });
+    await page.routeFromHAR(
+      harPath,
+      recording ? { update: true, updateMode: "minimal" } : { update: false, notFound: "fallback" },
+    );
+  }
+
+  await page.goto(url, { waitUntil: cached ? "load" : "domcontentloaded" });
   await page.evaluate(userscriptSource);
-  await page.waitForTimeout(1000);
-  await page.screenshot({ path: output, fullPage: true });
+  await page
+    .waitForFunction(() => Boolean(document.querySelector(".snowmobile-toolbar")), { timeout: 2500 })
+    .catch(() => {});
+  await page.evaluate(() => document.fonts?.ready).catch(() => {});
+  if (waitMs > 0) await page.waitForTimeout(waitMs);
+  await page.screenshot({ path: output, fullPage });
 
   const metrics = await page.evaluate(() => ({
     innerWidth: window.innerWidth,

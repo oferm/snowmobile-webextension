@@ -18,6 +18,13 @@ const shared = {
   script: path.join(__dirname, "..", "js", "header.js"),
 };
 
+const sampleUrls = {
+  start: "https://snowheads.com/",
+  forumlist: "https://snowheads.com/ski-forum/",
+  viewforum: "https://snowheads.com/ski-forum/viewforum.php?f=2",
+  viewtopic: "https://snowheads.com/ski-forum/viewtopic.php?t=177296",
+};
+
 const routes = [
   { style: "start", exact: ["/", "/index.php", "/mx/index.php"], script: "start" },
   {
@@ -63,6 +70,7 @@ module.exports = {
   getStylesheetForPathname,
   getStylesheetForUrl,
   routes,
+  sampleUrls,
   scripts,
   shared,
   stylesheets,
