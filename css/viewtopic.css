@@ -690,7 +690,7 @@
         background: #eef3f7 !important;
     }
 
-    #pagebody .forumline tr.snowmobile-post-alt #table3 tbody tr td:has(.post_link_landscape) {
+    #pagebody .forumline tr.snowmobile-post-alt #post_row.post_row table#table3 tbody tr td:has(.post_link_landscape) {
         background: #eef3f7 !important;
     }
 

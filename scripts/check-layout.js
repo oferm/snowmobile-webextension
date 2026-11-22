@@ -78,6 +78,14 @@ function inPage() {
       if (postBackgrounds.some((background, index) => index > 0 && background === postBackgrounds[index - 1])) {
         fails.push(`post card backgrounds do not alternate: ${postBackgrounds.join(", ")}`);
       }
+      for (const tr of rows) {
+        const postCell = tr.querySelector("td.row1, td.row2");
+        const actionCell = tr.querySelector(".post_link_landscape")?.closest("td");
+        if (postCell && actionCell && getComputedStyle(actionCell).backgroundColor !== getComputedStyle(postCell).backgroundColor) {
+          fails.push("post action footer background differs from its card");
+          break;
+        }
+      }
     }
   }
   const bad = [];
