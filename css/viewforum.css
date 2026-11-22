@@ -74,6 +74,14 @@ body > div:nth-last-of-type(3) .forumline tr.snowmobile-topic-row > td {
     width: 100% !important;
 }
 
+body > div:nth-last-of-type(3) .forumline tr.snowmobile-topic-row.snowmobile-topic-alt {
+    background: #eef3f7;
+}
+
+body > div:nth-last-of-type(3) .forumline tr.snowmobile-topic-row.snowmobile-topic-alt > td {
+    background: #eef3f7 !important;
+}
+
 body > div:nth-last-of-type(3) .forumline tr.snowmobile-topic-row > td:first-child,
 body > div:nth-last-of-type(3) .forumline tr.snowmobile-topic-row > td:nth-child(n + 3) {
     display: none !important;
@@ -508,6 +516,11 @@ body > div:nth-last-of-type(3) .snowmobile-page-strip > .snowmobile-page-ellipsi
 body > div:nth-last-of-type(3) .forumline tr.snowmobile-topic-row.snowmobile-topic-unread {
     background: #FBFDFF;
     border-left: 4px solid #176D99 !important;
+}
+
+body > div:nth-last-of-type(3) .forumline tr.snowmobile-topic-row.snowmobile-topic-alt.snowmobile-topic-unread,
+body > div:nth-last-of-type(3) .forumline tr.snowmobile-topic-row.snowmobile-topic-alt.snowmobile-topic-unread > td {
+    background: #F0F8FC !important;
 }
 
 body > div:nth-last-of-type(3) .forumline .snowmobile-topic-unread .snowmobile-topic-heading > a.topictitle {

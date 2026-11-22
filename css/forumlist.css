@@ -131,6 +131,16 @@ table .forum_block h2 marquee {
         width: 100%;
     }
 
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block):nth-of-type(even) {
+        background: #eef3f7;
+    }
+
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block):nth-of-type(even) > td,
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block):nth-of-type(even) > td:nth-child(2) .forum_block,
+    body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block):nth-of-type(even) > td:nth-child(2) .forum_block:hover {
+        background: #eef3f7 !important;
+    }
+
     body > div:nth-last-of-type(3) table table tr:has(> td > .forum_block) > td {
         background: #fff !important;
         border: 0 !important;

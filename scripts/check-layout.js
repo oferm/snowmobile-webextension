@@ -65,23 +65,19 @@ function inPage() {
       (tr.querySelector(".message_cell") && tr.querySelector("td.row1, td.row2")),
   );
   if (rows.length) {
-    const bgs = {};
-    for (const tr of rows) {
-      for (const td of tr.querySelectorAll("td.row1, td.row2")) {
-        const k = td.classList.contains("row1") ? "row1" : "row2";
-        (bgs[k] ||= new Set()).add(getComputedStyle(td).backgroundColor);
-      }
-    }
     const tdEdges = rows.map((tr) => {
       const td = tr.querySelector("td.row1, td.row2");
       const r = td.getBoundingClientRect();
       return `${Math.round(r.left)}-${Math.round(r.right)}`;
     });
     if (new Set(tdEdges).size > 1) fails.push(`post row edges differ: ${[...new Set(tdEdges)].join(", ")}`);
-    if (bgs.row1 && bgs.row2) {
-      const a = [...bgs.row1].join("|");
-      const b = [...bgs.row2].join("|");
-      if (a !== b) fails.push(`row1/row2 backgrounds differ: ${a} vs ${b}`);
+    if (window.innerWidth <= 600) {
+      const postBackgrounds = rows.map((tr) =>
+        getComputedStyle(tr.querySelector("td.row1, td.row2")).backgroundColor,
+      );
+      if (postBackgrounds.some((background, index) => index > 0 && background === postBackgrounds[index - 1])) {
+        fails.push(`post card backgrounds do not alternate: ${postBackgrounds.join(", ")}`);
+      }
     }
   }
   const bad = [];

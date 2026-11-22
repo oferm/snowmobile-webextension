@@ -225,8 +225,10 @@
   function enhancePosts() {
     const postRows = [...document.querySelectorAll("#pagebody .forumline .post_row")];
 
-    postRows.forEach((postRow) => {
-      const posterInfo = postRow.closest("tr")?.querySelector(".poster_info");
+    postRows.forEach((postRow, index) => {
+      const postRowElement = postRow.closest("tr");
+      postRowElement?.classList.toggle("snowmobile-post-alt", index % 2 === 1);
+      const posterInfo = postRowElement?.querySelector(".poster_info");
       if (!posterInfo || posterInfo.classList.contains("snowmobile-enhanced")) return;
 
       const postInfo = postRow.querySelector(".post_info");

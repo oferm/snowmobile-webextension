@@ -81,6 +81,10 @@ body {
     background-color: #fff !important;
 }
 
+.snowmobile-home-layout .snowmobile-recent-posts td.row2 {
+    background-color: #eef3f7 !important;
+}
+
 .snowmobile-home-layout .forumline .genmed {
     border: none !important;
 }

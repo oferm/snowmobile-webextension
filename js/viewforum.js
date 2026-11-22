@@ -137,6 +137,7 @@
   }
 
   function enhanceTopics() {
+    let topicIndex = 0;
     document.querySelectorAll("body > div:nth-last-of-type(3) .forumline tr").forEach((row) => {
       const cells = row.querySelectorAll(":scope > td");
       if (cells.length < 3 || row.classList.contains("snowmobile-topic-row")) return;
@@ -161,6 +162,8 @@
       const latestPostLink = lastPostBlock?.querySelector('a[href*="viewtopic.php?p="]');
       if (!title || !authorName) return;
       const unread = isUnreadTopic(row, title, latestPostLink);
+      if (topicIndex % 2 === 1) row.classList.add("snowmobile-topic-alt");
+      topicIndex += 1;
 
       if (titleWrap) {
         titleWrap.classList.add("snowmobile-topic-heading");
